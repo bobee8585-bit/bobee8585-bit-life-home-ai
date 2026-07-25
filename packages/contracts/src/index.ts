@@ -151,6 +151,63 @@ export interface VisitReservation {
   deposit?: ReservationDeposit | null;
 }
 
+export enum VisitTravelMode {
+  DRIVE = 'DRIVE',
+  TRANSIT = 'TRANSIT',
+  WALK = 'WALK',
+}
+
+export interface VisitRoutePlan {
+  planType: 'PRE_BOOKING_ESTIMATE';
+  algorithm: 'EXACT_SHORTEST_PATH';
+  travelMode: VisitTravelMode;
+  origin: {
+    latitude: number;
+    longitude: number;
+    departureAt: string;
+  };
+  estimateBasis: {
+    distanceMethod: 'HAVERSINE_WITH_ROAD_FACTOR';
+    averageSpeedKph: number;
+    roadFactor: number;
+    realTimeTrafficIncluded: false;
+  };
+  stops: Array<{
+    order: number;
+    property: {
+      id: string;
+      listingNumber: string;
+      title: string;
+      city: string;
+      addressLine1: string;
+      latitude: number;
+      longitude: number;
+    };
+    leg: {
+      straightLineDistanceKm: number;
+      estimatedDistanceKm: number;
+      estimatedTravelMinutes: number;
+      departAt: string;
+      arrivalAt: string;
+    };
+    suggestedVisitWindow: VisitReservationWindow;
+  }>;
+  summary: {
+    propertyCount: number;
+    totalEstimatedDistanceKm: number;
+    totalEstimatedTravelMinutes: number;
+    totalVisitMinutes: number;
+    totalBufferMinutes: number;
+    completesAt: string;
+    deadlineAt: string | null;
+    fitsDeadline: boolean | null;
+  };
+  reservationPolicy: {
+    autoConfirmed: false;
+    brokerApprovalRequired: true;
+  };
+}
+
 export interface PropertyMedia {
   id: string;
   type: 'IMAGE' | 'VIDEO';

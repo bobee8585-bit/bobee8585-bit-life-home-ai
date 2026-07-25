@@ -13,12 +13,17 @@ import { Permissions } from '../auth/permissions.decorator';
 import { MenuAccess } from '../feature-policy/menu-access.decorator';
 import { CreateVisitReservationDto } from './dto/create-visit-reservation.dto';
 import { ListVisitReservationsDto } from './dto/list-visit-reservations.dto';
+import { OptimizeVisitRouteDto } from './dto/optimize-visit-route.dto';
 import { ReservationReasonDto } from './dto/reservation-response.dto';
+import { VisitRoutePlannerService } from './visit-route-planner.service';
 import { VisitReservationsService } from './visit-reservations.service';
 
 @Controller()
 export class VisitReservationsController {
-  constructor(private readonly reservations: VisitReservationsService) {}
+  constructor(
+    private readonly reservations: VisitReservationsService,
+    private readonly routePlanner: VisitRoutePlannerService,
+  ) {}
 
   @Permissions('RESERVATION.CREATE')
   @MenuAccess('PROPERTY_RESERVATIONS', 'write')
@@ -39,6 +44,16 @@ export class VisitReservationsController {
     @Req() request: AuthenticatedRequest,
   ) {
     return this.reservations.mine(request.auth.sub, query);
+  }
+
+  @Permissions('RESERVATION.CREATE')
+  @MenuAccess('PROPERTY_RESERVATIONS', 'write')
+  @Post('visit-route-plans/optimize')
+  optimizeRoute(
+    @Body() dto: OptimizeVisitRouteDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.routePlanner.optimize(request.auth.sub, dto);
   }
 
   @Permissions('RESERVATION.RESPOND')

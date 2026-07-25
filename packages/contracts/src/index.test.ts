@@ -7,6 +7,7 @@ import {
   VisitReservationStatus,
   ReservationDepositStatus,
   NotificationDeliveryStatus,
+  VisitTravelMode,
 } from './index';
 
 const sampleRate: ExchangeRate = {
@@ -89,6 +90,16 @@ describe('NotificationDeliveryStatus', () => {
       'PROCESSING',
       'SENT',
       'FAILED',
+    ]);
+  });
+});
+
+describe('VisitTravelMode', () => {
+  it('supports the route planning transport modes', () => {
+    expect(Object.values(VisitTravelMode)).toEqual([
+      'DRIVE',
+      'TRANSIT',
+      'WALK',
     ]);
   });
 });

@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.11.0
+# LIFE HOME AI 0.12.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -73,6 +73,7 @@ GET  /v1/exchange-rates/:base/:quote
 GET  /v1/currency/convert?amount=1000000&from=KRW&to=USD
 POST /v1/properties/:propertyId/visit-reservations
 GET  /v1/visit-reservations/mine
+POST /v1/visit-route-plans/optimize
 POST /v1/visit-reservations/:reservationId/cancel
 POST /v1/visit-reservations/:reservationId/alternative/accept
 POST /v1/visit-reservations/:reservationId/alternative/decline
@@ -161,6 +162,18 @@ KRW, USD, EUR, CNY, JPY, GBP, CAD, AUD, SGD, HKD입니다.
 `ALTERNATIVE_PROPOSED → CONFIRMED/ALTERNATIVE_DECLINED`로 전이됩니다.
 회원 취소는 `CANCELLED`로 기록됩니다. 모든 전환은 예약 이력·감사 로그에
 남고 상대방 알림은 `notification_outbox`에 원자적으로 적재됩니다.
+
+여러 매물을 방문하기 전에는 `POST /v1/visit-route-plans/optimize`로 공개
+매물 2~5개와 출발 좌표·시각을 전달해 방문 순서와 제안 일정을 계산할 수
+있습니다. 최대 5개 매물의 전체 순열을 비교해 가장 짧은 동선을 선택하고,
+자동차·대중교통·도보별 예상 이동시간, 매물별 방문 구간, 완료 희망 시각
+충족 여부를 반환합니다. 휴대폰 본인인증이 필요하며 본인 매물이나 좌표가
+없는 매물은 포함할 수 없습니다.
+
+동선 결과는 Haversine 직선거리, 도로 보정계수와 교통수단별 평균속도를
+사용한 예약 전 추정치입니다. 실시간 교통·도로 통제·대중교통 배차는 포함하지
+않으며, 실제 예약은 제안된 시간마다 별도로 요청하고 담당 중개사의 승인을
+받아야 확정됩니다.
 
 알림 작업자는 아웃박스를 주기적으로 선점하여 FCM 푸시를 우선 전송하고,
 활성 푸시 토큰이 없거나 모든 토큰이 영구 무효이면 인증된 국내 휴대폰으로
