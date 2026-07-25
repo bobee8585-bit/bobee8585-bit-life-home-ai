@@ -5,7 +5,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
-import { PropertyStatus } from '../generated/prisma/client';
+import {
+  OwnershipVerificationStatus,
+  PropertyListingType,
+  PropertyStatus,
+} from '../generated/prisma/client';
 import {
   type OptimizeVisitRouteDto,
   VisitTravelMode,
@@ -59,6 +63,15 @@ export class VisitRoutePlannerService {
       where: {
         id: { in: dto.propertyIds },
         status: PropertyStatus.ACTIVE,
+        OR: [
+          { listingType: PropertyListingType.BROKERAGE },
+          {
+            listingType: PropertyListingType.OWNER_DIRECT,
+            ownershipVerification: {
+              status: OwnershipVerificationStatus.VERIFIED,
+            },
+          },
+        ],
       },
       select: {
         id: true,
@@ -274,7 +287,8 @@ export class VisitRoutePlannerService {
       },
       reservationPolicy: {
         autoConfirmed: false,
-        brokerApprovalRequired: true,
+        registrantApprovalRequired: true,
+        approver: 'PROPERTY_REGISTRANT',
       },
     };
   }

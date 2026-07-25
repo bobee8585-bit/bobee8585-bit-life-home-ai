@@ -66,6 +66,8 @@ describe('VisitRoutePlannerService', () => {
     expect(result.summary.totalBufferMinutes).toBe(30);
     expect(result.estimateBasis.realTimeTrafficIncluded).toBe(false);
     expect(result.reservationPolicy.autoConfirmed).toBe(false);
+    expect(result.reservationPolicy.registrantApprovalRequired).toBe(true);
+    expect(result.reservationPolicy.approver).toBe('PROPERTY_REGISTRANT');
   });
 
   it('reports whether the optimized route fits a requested deadline', async () => {

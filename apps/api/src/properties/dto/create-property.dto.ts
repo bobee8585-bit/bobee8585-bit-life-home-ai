@@ -4,6 +4,7 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  Equals,
   IsInt,
   IsNumberString,
   IsOptional,
@@ -16,10 +17,27 @@ import {
   ValidateNested,
 } from 'class-validator';
 import {
+  OwnershipClaimType,
+  PropertyListingType,
   PropertyMediaType,
   PropertyTransactionType,
   PropertyType,
 } from '../../generated/prisma/client';
+
+export class CreateOwnerVerificationDto {
+  @IsEnum(OwnershipClaimType)
+  claimType!: OwnershipClaimType;
+
+  @IsString()
+  @Length(16, 500)
+  evidenceReference!: string;
+
+  @Equals(true)
+  ownershipDeclarationAccepted!: true;
+
+  @Equals(true)
+  noBrokerageDeclarationAccepted!: true;
+}
 
 export class CreatePropertyMediaDto {
   @IsEnum(PropertyMediaType)
@@ -44,6 +62,15 @@ export class CreatePropertyMediaDto {
 }
 
 export class CreatePropertyDto {
+  @IsOptional()
+  @IsEnum(PropertyListingType)
+  listingType?: PropertyListingType;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => CreateOwnerVerificationDto)
+  ownershipVerification?: CreateOwnerVerificationDto;
+
   @IsString()
   @Length(5, 100)
   title!: string;

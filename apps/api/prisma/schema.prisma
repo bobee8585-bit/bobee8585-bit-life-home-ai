@@ -98,6 +98,22 @@ enum PropertyTransactionType {
   MONTHLY_RENT
 }
 
+enum PropertyListingType {
+  BROKERAGE
+  OWNER_DIRECT
+}
+
+enum OwnershipClaimType {
+  REGISTERED_OWNER
+  AUTHORIZED_REPRESENTATIVE
+}
+
+enum OwnershipVerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
 enum PropertyMediaType {
   IMAGE
   VIDEO
@@ -202,39 +218,41 @@ enum PaymentWebhookEventStatus {
 }
 
 model User {
-  id                     String                    @id @db.Uuid
-  memberNumber           String                    @unique @map("member_number")
-  email                  String?                   @unique
-  phoneCountryCode       String?                   @map("phone_country_code")
-  phoneNumberEncrypted   String?                   @map("phone_number_encrypted")
-  phoneHash              String?                   @unique @map("phone_hash")
-  passwordHash           String?                   @map("password_hash")
-  status                 UserStatus                @default(PENDING)
-  emailVerifiedAt        DateTime?                 @map("email_verified_at") @db.Timestamptz(6)
-  phoneVerifiedAt        DateTime?                 @map("phone_verified_at") @db.Timestamptz(6)
-  lastLoginAt            DateTime?                 @map("last_login_at") @db.Timestamptz(6)
-  failedLoginCount       Int                       @default(0) @map("failed_login_count")
-  lockedUntil            DateTime?                 @map("locked_until") @db.Timestamptz(6)
-  deletedAt              DateTime?                 @map("deleted_at") @db.Timestamptz(6)
-  createdAt              DateTime                  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt              DateTime                  @updatedAt @map("updated_at") @db.Timestamptz(6)
-  profile                UserProfile?
-  roles                  UserRole[]
-  sessions               UserSession[]
-  verificationChallenges VerificationChallenge[]
-  brokerProfile          BrokerProfile?
-  properties             Property[]                @relation("PropertyBroker")
-  reviewedProperties     Property[]                @relation("PropertyReviewer")
-  mediaUploads           PropertyMediaUpload[]
-  propertyReports        PropertyReport[]          @relation("PropertyReporter")
-  assignedReports        PropertyReport[]          @relation("PropertyReportAssignee")
-  reportHistories        PropertyReportHistory[]   @relation("PropertyReportHistoryActor")
-  requestedVisits        VisitReservation[]        @relation("VisitReservationRequester")
-  managedVisits          VisitReservation[]        @relation("VisitReservationBroker")
-  visitHistories         VisitReservationHistory[]
-  notificationOutbox     NotificationOutbox[]
-  notificationEndpoints  NotificationEndpoint[]
-  reservationDeposits    ReservationDeposit[]
+  id                      String                          @id @db.Uuid
+  memberNumber            String                          @unique @map("member_number")
+  email                   String?                         @unique
+  phoneCountryCode        String?                         @map("phone_country_code")
+  phoneNumberEncrypted    String?                         @map("phone_number_encrypted")
+  phoneHash               String?                         @unique @map("phone_hash")
+  passwordHash            String?                         @map("password_hash")
+  status                  UserStatus                      @default(PENDING)
+  emailVerifiedAt         DateTime?                       @map("email_verified_at") @db.Timestamptz(6)
+  phoneVerifiedAt         DateTime?                       @map("phone_verified_at") @db.Timestamptz(6)
+  lastLoginAt             DateTime?                       @map("last_login_at") @db.Timestamptz(6)
+  failedLoginCount        Int                             @default(0) @map("failed_login_count")
+  lockedUntil             DateTime?                       @map("locked_until") @db.Timestamptz(6)
+  deletedAt               DateTime?                       @map("deleted_at") @db.Timestamptz(6)
+  createdAt               DateTime                        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime                        @updatedAt @map("updated_at") @db.Timestamptz(6)
+  profile                 UserProfile?
+  roles                   UserRole[]
+  sessions                UserSession[]
+  verificationChallenges  VerificationChallenge[]
+  brokerProfile           BrokerProfile?
+  properties              Property[]                      @relation("PropertyRegistrant")
+  reviewedProperties      Property[]                      @relation("PropertyReviewer")
+  ownershipClaims         PropertyOwnershipVerification[] @relation("OwnershipClaimant")
+  reviewedOwnershipClaims PropertyOwnershipVerification[] @relation("OwnershipReviewer")
+  mediaUploads            PropertyMediaUpload[]
+  propertyReports         PropertyReport[]                @relation("PropertyReporter")
+  assignedReports         PropertyReport[]                @relation("PropertyReportAssignee")
+  reportHistories         PropertyReportHistory[]         @relation("PropertyReportHistoryActor")
+  requestedVisits         VisitReservation[]              @relation("VisitReservationRequester")
+  managedVisits           VisitReservation[]              @relation("VisitReservationBroker")
+  visitHistories          VisitReservationHistory[]
+  notificationOutbox      NotificationOutbox[]
+  notificationEndpoints   NotificationEndpoint[]
+  reservationDeposits     ReservationDeposit[]
 
   @@map("users")
 }
@@ -498,53 +516,80 @@ model BrokerProfile {
 }
 
 model Property {
-  id                String                  @id @db.Uuid
-  listingNumber     String                  @unique @map("listing_number")
-  brokerUserId      String                  @map("broker_user_id") @db.Uuid
-  brokerageOfficeId String                  @map("brokerage_office_id") @db.Uuid
-  title             String
-  description       String
-  propertyType      PropertyType            @map("property_type")
-  transactionType   PropertyTransactionType @map("transaction_type")
-  price             Decimal                 @db.Decimal(18, 2)
-  deposit           Decimal?                @db.Decimal(18, 2)
-  monthlyRent       Decimal?                @map("monthly_rent") @db.Decimal(18, 2)
-  currency          String                  @default("KRW")
-  exclusiveArea     Decimal                 @map("exclusive_area") @db.Decimal(10, 2)
-  supplyArea        Decimal?                @map("supply_area") @db.Decimal(10, 2)
-  rooms             Int
-  bathrooms         Int
-  floor             Int?
-  totalFloors       Int?                    @map("total_floors")
-  countryCode       String                  @default("KR") @map("country_code")
-  region1           String
-  region2           String?
-  city              String
-  addressLine1      String                  @map("address_line1")
-  addressLine2      String?                 @map("address_line2")
-  latitude          Decimal?                @db.Decimal(10, 7)
-  longitude         Decimal?                @db.Decimal(10, 7)
-  status            PropertyStatus          @default(DRAFT)
-  rejectionReason   String?                 @map("rejection_reason")
-  submittedAt       DateTime?               @map("submitted_at") @db.Timestamptz(6)
-  reviewedBy        String?                 @map("reviewed_by") @db.Uuid
-  reviewedAt        DateTime?               @map("reviewed_at") @db.Timestamptz(6)
-  activatedAt       DateTime?               @map("activated_at") @db.Timestamptz(6)
-  createdAt         DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt         DateTime                @updatedAt @map("updated_at") @db.Timestamptz(6)
-  broker            User                    @relation("PropertyBroker", fields: [brokerUserId], references: [id], onDelete: Restrict)
-  brokerageOffice   BrokerageOffice         @relation(fields: [brokerageOfficeId], references: [id], onDelete: Restrict)
-  reviewer          User?                   @relation("PropertyReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
-  media             PropertyMedia[]
-  mediaUploads      PropertyMediaUpload[]
-  reports           PropertyReport[]
-  visitReservations VisitReservation[]
+  id                    String                         @id @db.Uuid
+  listingNumber         String                         @unique @map("listing_number")
+  brokerUserId          String                         @map("broker_user_id") @db.Uuid
+  brokerageOfficeId     String?                        @map("brokerage_office_id") @db.Uuid
+  listingType           PropertyListingType            @default(BROKERAGE) @map("listing_type")
+  title                 String
+  description           String
+  propertyType          PropertyType                   @map("property_type")
+  transactionType       PropertyTransactionType        @map("transaction_type")
+  price                 Decimal                        @db.Decimal(18, 2)
+  deposit               Decimal?                       @db.Decimal(18, 2)
+  monthlyRent           Decimal?                       @map("monthly_rent") @db.Decimal(18, 2)
+  currency              String                         @default("KRW")
+  exclusiveArea         Decimal                        @map("exclusive_area") @db.Decimal(10, 2)
+  supplyArea            Decimal?                       @map("supply_area") @db.Decimal(10, 2)
+  rooms                 Int
+  bathrooms             Int
+  floor                 Int?
+  totalFloors           Int?                           @map("total_floors")
+  countryCode           String                         @default("KR") @map("country_code")
+  region1               String
+  region2               String?
+  city                  String
+  addressLine1          String                         @map("address_line1")
+  addressLine2          String?                        @map("address_line2")
+  latitude              Decimal?                       @db.Decimal(10, 7)
+  longitude             Decimal?                       @db.Decimal(10, 7)
+  status                PropertyStatus                 @default(DRAFT)
+  rejectionReason       String?                        @map("rejection_reason")
+  submittedAt           DateTime?                      @map("submitted_at") @db.Timestamptz(6)
+  reviewedBy            String?                        @map("reviewed_by") @db.Uuid
+  reviewedAt            DateTime?                      @map("reviewed_at") @db.Timestamptz(6)
+  activatedAt           DateTime?                      @map("activated_at") @db.Timestamptz(6)
+  createdAt             DateTime                       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime                       @updatedAt @map("updated_at") @db.Timestamptz(6)
+  registrant            User                           @relation("PropertyRegistrant", fields: [brokerUserId], references: [id], onDelete: Restrict)
+  brokerageOffice       BrokerageOffice?               @relation(fields: [brokerageOfficeId], references: [id], onDelete: Restrict)
+  reviewer              User?                          @relation("PropertyReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+  ownershipVerification PropertyOwnershipVerification?
+  media                 PropertyMedia[]
+  mediaUploads          PropertyMediaUpload[]
+  reports               PropertyReport[]
+  visitReservations     VisitReservation[]
 
   @@index([status, createdAt])
   @@index([city, propertyType, transactionType, status])
   @@index([brokerUserId, status, updatedAt])
   @@index([brokerageOfficeId, status])
   @@map("properties")
+}
+
+model PropertyOwnershipVerification {
+  id                         String                      @id @db.Uuid
+  propertyId                 String                      @unique @map("property_id") @db.Uuid
+  claimantUserId             String                      @map("claimant_user_id") @db.Uuid
+  claimType                  OwnershipClaimType          @map("claim_type")
+  evidenceReferenceEncrypted String                      @map("evidence_reference_encrypted")
+  evidenceReferenceHash      String                      @map("evidence_reference_hash")
+  status                     OwnershipVerificationStatus @default(PENDING)
+  ownershipDeclarationAt     DateTime                    @map("ownership_declaration_at") @db.Timestamptz(6)
+  noBrokerageDeclarationAt   DateTime                    @map("no_brokerage_declaration_at") @db.Timestamptz(6)
+  rejectionReason            String?                     @map("rejection_reason")
+  reviewedBy                 String?                     @map("reviewed_by") @db.Uuid
+  reviewedAt                 DateTime?                   @map("reviewed_at") @db.Timestamptz(6)
+  createdAt                  DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                  DateTime                    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  property                   Property                    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  claimant                   User                        @relation("OwnershipClaimant", fields: [claimantUserId], references: [id], onDelete: Restrict)
+  reviewer                   User?                       @relation("OwnershipReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([claimantUserId, status, createdAt])
+  @@index([evidenceReferenceHash])
+  @@map("property_ownership_verifications")
 }
 
 model PropertyMedia {

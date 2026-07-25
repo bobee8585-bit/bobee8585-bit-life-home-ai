@@ -41,6 +41,22 @@ export enum PropertyTransactionType {
   MONTHLY_RENT = 'MONTHLY_RENT',
 }
 
+export enum PropertyListingType {
+  BROKERAGE = 'BROKERAGE',
+  OWNER_DIRECT = 'OWNER_DIRECT',
+}
+
+export enum OwnershipClaimType {
+  REGISTERED_OWNER = 'REGISTERED_OWNER',
+  AUTHORIZED_REPRESENTATIVE = 'AUTHORIZED_REPRESENTATIVE',
+}
+
+export enum OwnershipVerificationStatus {
+  PENDING = 'PENDING',
+  VERIFIED = 'VERIFIED',
+  REJECTED = 'REJECTED',
+}
+
 export enum MediaUploadStatus {
   REQUESTED = 'REQUESTED',
   PROCESSING = 'PROCESSING',
@@ -204,7 +220,8 @@ export interface VisitRoutePlan {
   };
   reservationPolicy: {
     autoConfirmed: false;
-    brokerApprovalRequired: true;
+    registrantApprovalRequired: true;
+    approver: 'PROPERTY_REGISTRANT';
   };
 }
 
@@ -231,7 +248,12 @@ export interface PropertySummary {
   rooms: number;
   bathrooms: number;
   city: string;
-  brokerageOfficeName: string;
+  listing: {
+    type: PropertyListingType;
+    badge: 'DIRECT_OWNER' | 'LICENSED_BROKER';
+    brokerageFee: 'NONE' | 'APPLICABLE';
+  };
+  brokerageOfficeName: string | null;
   media: PropertyMedia[];
 }
 

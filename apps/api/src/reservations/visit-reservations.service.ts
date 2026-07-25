@@ -9,6 +9,8 @@ import { createId } from '../common/id';
 import { PrismaService } from '../database/prisma.service';
 import {
   Prisma,
+  OwnershipVerificationStatus,
+  PropertyListingType,
   PropertyStatus,
   ReservationRefundReason,
   VisitReservationAction,
@@ -77,7 +79,19 @@ export class VisitReservationsService {
         select: { phoneVerifiedAt: true },
       }),
       this.prisma.property.findFirst({
-        where: { id: propertyId, status: PropertyStatus.ACTIVE },
+        where: {
+          id: propertyId,
+          status: PropertyStatus.ACTIVE,
+          OR: [
+            { listingType: PropertyListingType.BROKERAGE },
+            {
+              listingType: PropertyListingType.OWNER_DIRECT,
+              ownershipVerification: {
+                status: OwnershipVerificationStatus.VERIFIED,
+              },
+            },
+          ],
+        },
         select: {
           id: true,
           brokerUserId: true,

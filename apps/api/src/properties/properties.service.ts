@@ -6,10 +6,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { createId } from '../common/id';
+import { SensitiveDataService } from '../common/sensitive-data.service';
 import { PrismaService } from '../database/prisma.service';
 import {
   BrokerageStatus,
   BrokerStatus,
+  OwnershipVerificationStatus,
+  PropertyListingType,
   PropertyMediaType,
   PropertyStatus,
   PropertyTransactionType,
@@ -21,6 +24,15 @@ import { CurrencyService } from '../currency/currency.service';
 
 const propertyInclude = {
   brokerageOffice: { select: { id: true, name: true } },
+  ownershipVerification: {
+    select: {
+      claimType: true,
+      status: true,
+      rejectionReason: true,
+      reviewedAt: true,
+      evidenceReferenceEncrypted: true,
+    },
+  },
   media: { orderBy: { sortOrder: 'asc' as const } },
 } as const;
 
@@ -29,10 +41,11 @@ export class PropertiesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly currency: CurrencyService,
+    private readonly sensitiveData: SensitiveDataService,
   ) {}
 
   async create(userId: string, dto: CreatePropertyDto) {
-    const broker = await this.activeBroker(userId);
+    const listing = await this.resolveListingContext(userId, dto);
     this.validateTransaction(dto);
     this.validateMedia(dto.media);
     const id = createId();
@@ -43,7 +56,8 @@ export class PropertiesService {
           id,
           listingNumber,
           brokerUserId: userId,
-          brokerageOfficeId: broker.brokerageOfficeId,
+          brokerageOfficeId: listing.brokerageOfficeId,
+          listingType: listing.listingType,
           title: dto.title.trim(),
           description: dto.description.trim(),
           propertyType: dto.propertyType,
@@ -76,6 +90,17 @@ export class PropertiesService {
               isPublic: media.isPublic,
             })),
           },
+          ...(listing.ownershipVerification
+            ? {
+                ownershipVerification: {
+                  create: {
+                    id: createId(),
+                    claimantUserId: userId,
+                    ...listing.ownershipVerification,
+                  },
+                },
+              }
+            : {}),
         },
         include: propertyInclude,
       });
@@ -89,6 +114,7 @@ export class PropertiesService {
           afterData: {
             listingNumber,
             status: PropertyStatus.DRAFT,
+            listingType: listing.listingType,
           },
         },
       });
@@ -107,7 +133,6 @@ export class PropertiesService {
   }
 
   async update(userId: string, propertyId: string, dto: CreatePropertyDto) {
-    await this.activeBroker(userId);
     this.validateTransaction(dto);
     this.validateMedia(dto.media);
     const existing = await this.prisma.property.findFirst({
@@ -116,13 +141,36 @@ export class PropertiesService {
         brokerUserId: userId,
         status: { in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED] },
       },
-      select: { id: true, status: true },
+      select: {
+        id: true,
+        status: true,
+        listingType: true,
+        ownershipVerification: { select: { id: true } },
+      },
     });
     if (!existing) {
       throw new ConflictException(
         '초안 또는 반려 상태의 본인 매물만 수정할 수 있습니다.',
       );
     }
+    if (dto.listingType && dto.listingType !== existing.listingType) {
+      throw new ConflictException('등록 후 매물 등록 유형을 변경할 수 없습니다.');
+    }
+    if (existing.listingType === PropertyListingType.BROKERAGE) {
+      if (dto.ownershipVerification) {
+        throw new BadRequestException(
+          '중개사 매물에는 직거래 소유 증빙을 제출할 수 없습니다.',
+        );
+      }
+      await this.activeBroker(userId);
+    } else {
+      await this.assertPhoneVerified(userId);
+    }
+    const ownershipUpdate =
+      existing.listingType === PropertyListingType.OWNER_DIRECT &&
+      dto.ownershipVerification
+        ? this.ownershipVerificationData(dto)
+        : null;
     const property = await this.prisma.$transaction(async (transaction) => {
       const updated = await transaction.property.update({
         where: { id: propertyId },
@@ -162,6 +210,27 @@ export class PropertiesService {
               isPublic: media.isPublic,
             })),
           },
+          ...(ownershipUpdate
+            ? {
+                ownershipVerification: existing.ownershipVerification
+                  ? {
+                      update: {
+                        ...ownershipUpdate,
+                        status: OwnershipVerificationStatus.PENDING,
+                        rejectionReason: null,
+                        reviewedBy: null,
+                        reviewedAt: null,
+                      },
+                    }
+                  : {
+                      create: {
+                        id: createId(),
+                        claimantUserId: userId,
+                        ...ownershipUpdate,
+                      },
+                    },
+              }
+            : {}),
         },
         include: propertyInclude,
       });
@@ -182,10 +251,9 @@ export class PropertiesService {
   }
 
   async submit(userId: string, propertyId: string) {
-    await this.activeBroker(userId);
     const property = await this.prisma.property.findFirst({
       where: { id: propertyId, brokerUserId: userId },
-      include: { media: true },
+      include: { media: true, ownershipVerification: true },
     });
     if (!property) {
       throw new NotFoundException('매물을 찾을 수 없습니다.');
@@ -195,6 +263,19 @@ export class PropertiesService {
       property.status !== PropertyStatus.REJECTED
     ) {
       throw new ConflictException('현재 상태에서는 검수를 요청할 수 없습니다.');
+    }
+    if (property.listingType === PropertyListingType.BROKERAGE) {
+      await this.activeBroker(userId);
+    } else {
+      await this.assertPhoneVerified(userId);
+      if (
+        property.ownershipVerification?.status !==
+        OwnershipVerificationStatus.PENDING
+      ) {
+        throw new BadRequestException(
+          '소유·위임 증빙을 새로 제출한 뒤 검수를 요청해야 합니다.',
+        );
+      }
     }
     if (
       !property.media.some(
@@ -242,6 +323,15 @@ export class PropertiesService {
   async search(query: SearchPropertiesDto) {
     const where = {
       status: PropertyStatus.ACTIVE,
+      OR: [
+        { listingType: PropertyListingType.BROKERAGE },
+        {
+          listingType: PropertyListingType.OWNER_DIRECT,
+          ownershipVerification: {
+            status: OwnershipVerificationStatus.VERIFIED,
+          },
+        },
+      ],
       ...(query.city
         ? { city: { contains: query.city.trim(), mode: 'insensitive' as const } }
         : {}),
@@ -283,7 +373,19 @@ export class PropertiesService {
 
   async detail(propertyId: string, displayCurrency = 'KRW') {
     const property = await this.prisma.property.findFirst({
-      where: { id: propertyId, status: PropertyStatus.ACTIVE },
+      where: {
+        id: propertyId,
+        status: PropertyStatus.ACTIVE,
+        OR: [
+          { listingType: PropertyListingType.BROKERAGE },
+          {
+            listingType: PropertyListingType.OWNER_DIRECT,
+            ownershipVerification: {
+              status: OwnershipVerificationStatus.VERIFIED,
+            },
+          },
+        ],
+      },
       include: propertyInclude,
     });
     if (!property) {
@@ -305,7 +407,20 @@ export class PropertiesService {
       this.prisma.property.count({ where }),
     ]);
     return {
-      items: rows.map((row) => this.view(row, true)),
+      items: await Promise.all(
+        rows.map(async (row) => ({
+          ...this.view(row, true),
+          ...(row.ownershipVerification
+            ? {
+                ownershipEvidenceReference:
+                  this.sensitiveData.decrypt(
+                    row.ownershipVerification
+                      .evidenceReferenceEncrypted,
+                  ),
+              }
+            : {}),
+        })),
+      ),
       page: query.page,
       limit: query.limit,
       total,
@@ -358,6 +473,34 @@ export class PropertiesService {
           '검수 대기 중인 매물이 아니거나 이미 처리되었습니다.',
         );
       }
+      const property = await transaction.property.findUniqueOrThrow({
+        where: { id: propertyId },
+        select: { listingType: true },
+      });
+      if (property.listingType === PropertyListingType.OWNER_DIRECT) {
+        const ownershipChanged =
+          await transaction.propertyOwnershipVerification.updateMany({
+            where: {
+              propertyId,
+              status: OwnershipVerificationStatus.PENDING,
+            },
+            data: {
+              status:
+                nextStatus === PropertyStatus.ACTIVE
+                  ? OwnershipVerificationStatus.VERIFIED
+                  : OwnershipVerificationStatus.REJECTED,
+              rejectionReason:
+                nextStatus === PropertyStatus.REJECTED ? reason : null,
+              reviewedBy: reviewerId,
+              reviewedAt,
+            },
+          });
+        if (ownershipChanged.count !== 1) {
+          throw new ConflictException(
+            '직거래 매물의 소유·위임 증빙이 검수 가능한 상태가 아닙니다.',
+          );
+        }
+      }
       await transaction.auditLog.create({
         data: {
           id: createId(),
@@ -396,6 +539,78 @@ export class PropertiesService {
       );
     }
     return broker;
+  }
+
+  private async resolveListingContext(
+    userId: string,
+    dto: CreatePropertyDto,
+  ) {
+    const listingType =
+      dto.listingType ??
+      (dto.ownershipVerification
+        ? PropertyListingType.OWNER_DIRECT
+        : PropertyListingType.BROKERAGE);
+    if (listingType === PropertyListingType.BROKERAGE) {
+      if (dto.ownershipVerification) {
+        throw new BadRequestException(
+          '중개사 매물에는 직거래 소유 증빙을 제출할 수 없습니다.',
+        );
+      }
+      const broker = await this.activeBroker(userId);
+      return {
+        listingType,
+        brokerageOfficeId: broker.brokerageOfficeId,
+        ownershipVerification: null,
+      };
+    }
+    await this.assertPhoneVerified(userId);
+    if (!dto.ownershipVerification) {
+      throw new BadRequestException(
+        '직거래 매물은 소유자 또는 적법한 위임자 증빙이 필요합니다.',
+      );
+    }
+    return {
+      listingType,
+      brokerageOfficeId: null,
+      ownershipVerification: this.ownershipVerificationData(dto),
+    };
+  }
+
+  private async assertPhoneVerified(userId: string): Promise<void> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { phoneVerifiedAt: true },
+    });
+    if (!user?.phoneVerifiedAt) {
+      throw new ForbiddenException(
+        '직거래 매물 등록 전 휴대폰 본인인증이 필요합니다.',
+      );
+    }
+  }
+
+  private ownershipVerificationData(dto: CreatePropertyDto) {
+    const verification = dto.ownershipVerification;
+    if (!verification) {
+      throw new BadRequestException('소유·위임 증빙이 필요합니다.');
+    }
+    if (
+      verification.ownershipDeclarationAccepted !== true ||
+      verification.noBrokerageDeclarationAccepted !== true
+    ) {
+      throw new BadRequestException(
+        '소유·위임 권한과 중개행위 금지 확인에 동의해야 합니다.',
+      );
+    }
+    const evidenceReference = verification.evidenceReference.trim();
+    const declaredAt = new Date();
+    return {
+      claimType: verification.claimType,
+      evidenceReferenceEncrypted:
+        this.sensitiveData.encrypt(evidenceReference),
+      evidenceReferenceHash: this.sensitiveData.hash(evidenceReference),
+      ownershipDeclarationAt: declaredAt,
+      noBrokerageDeclarationAt: declaredAt,
+    };
   }
 
   private validateTransaction(dto: CreatePropertyDto): void {
@@ -456,6 +671,7 @@ export class PropertiesService {
       id: string;
       listingNumber: string;
       brokerUserId: string;
+      listingType: PropertyListingType;
       title: string;
       description: string;
       propertyType: string;
@@ -484,7 +700,14 @@ export class PropertiesService {
       activatedAt: Date | null;
       createdAt: Date;
       updatedAt: Date;
-      brokerageOffice: { id: string; name: string };
+      brokerageOffice: { id: string; name: string } | null;
+      ownershipVerification: {
+        claimType: string;
+        status: OwnershipVerificationStatus;
+        rejectionReason: string | null;
+        reviewedAt: Date | null;
+        evidenceReferenceEncrypted: string;
+      } | null;
       media: Array<{
         id: string;
         type: PropertyMediaType;
@@ -502,7 +725,20 @@ export class PropertiesService {
     return {
       id: property.id,
       listingNumber: property.listingNumber,
-      ...(includePrivate ? { brokerUserId: property.brokerUserId } : {}),
+      ...(includePrivate
+        ? { registrantUserId: property.brokerUserId }
+        : {}),
+      listing: {
+        type: property.listingType,
+        badge:
+          property.listingType === PropertyListingType.OWNER_DIRECT
+            ? 'DIRECT_OWNER'
+            : 'LICENSED_BROKER',
+        brokerageFee:
+          property.listingType === PropertyListingType.OWNER_DIRECT
+            ? 'NONE'
+            : 'APPLICABLE',
+      },
       title: property.title,
       description: property.description,
       propertyType: property.propertyType,
@@ -528,6 +764,19 @@ export class PropertiesService {
         longitude: property.longitude?.toString() ?? null,
       },
       brokerageOffice: property.brokerageOffice,
+      ...(includePrivate && property.ownershipVerification
+        ? {
+            ownershipVerification: {
+              claimType: property.ownershipVerification.claimType,
+              status: property.ownershipVerification.status,
+              rejectionReason:
+                property.ownershipVerification.rejectionReason,
+              reviewedAt:
+                property.ownershipVerification.reviewedAt?.toISOString() ??
+                null,
+            },
+          }
+        : {}),
       status: property.status,
       ...(includePrivate
         ? {

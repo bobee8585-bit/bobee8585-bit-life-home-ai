@@ -9,9 +9,10 @@ import { PropertyMediaController } from './property-media.controller';
 import { PropertyReportsController } from './property-reports.controller';
 import { PropertyReportsService } from './property-reports.service';
 import { CurrencyModule } from '../currency/currency.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [DatabaseModule, CurrencyModule],
+  imports: [DatabaseModule, CurrencyModule, AuthModule],
   controllers: [
     PropertiesController,
     AdminPropertiesController,

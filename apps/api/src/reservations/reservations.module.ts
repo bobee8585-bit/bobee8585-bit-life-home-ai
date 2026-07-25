@@ -4,12 +4,14 @@ import { VisitReservationsController } from './visit-reservations.controller';
 import { VisitReservationsService } from './visit-reservations.service';
 import { VisitRoutePlannerService } from './visit-route-planner.service';
 import { PaymentsModule } from '../payments/payments.module';
+import { PropertyManagerVisitReservationsController } from './property-manager-visit-reservations.controller';
 
 @Module({
   imports: [PaymentsModule],
   controllers: [
     VisitReservationsController,
     BrokerVisitReservationsController,
+    PropertyManagerVisitReservationsController,
   ],
   providers: [VisitReservationsService, VisitRoutePlannerService],
 })

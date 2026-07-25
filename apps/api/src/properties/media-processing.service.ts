@@ -13,6 +13,8 @@ import { createId } from '../common/id';
 import { PrismaService } from '../database/prisma.service';
 import {
   MediaUploadStatus,
+  OwnershipVerificationStatus,
+  PropertyListingType,
   PropertyMediaType,
   PropertyStatus,
 } from '../generated/prisma/client';
@@ -167,7 +169,18 @@ export class MediaProcessingService {
       where: {
         id: uploadId,
         status: MediaUploadStatus.READY,
-        property: { status: PropertyStatus.ACTIVE },
+        property: {
+          status: PropertyStatus.ACTIVE,
+          OR: [
+            { listingType: PropertyListingType.BROKERAGE },
+            {
+              listingType: PropertyListingType.OWNER_DIRECT,
+              ownershipVerification: {
+                status: OwnershipVerificationStatus.VERIFIED,
+              },
+            },
+          ],
+        },
         propertyMedia: { isPublic: true },
       },
       select: {

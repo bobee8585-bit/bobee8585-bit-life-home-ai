@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.12.0
+# LIFE HOME AI 0.13.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -81,6 +81,10 @@ GET  /v1/broker/visit-reservations
 POST /v1/broker/visit-reservations/:reservationId/approve
 POST /v1/broker/visit-reservations/:reservationId/reject
 POST /v1/broker/visit-reservations/:reservationId/alternative
+GET  /v1/property-manager/visit-reservations
+POST /v1/property-manager/visit-reservations/:reservationId/approve
+POST /v1/property-manager/visit-reservations/:reservationId/reject
+POST /v1/property-manager/visit-reservations/:reservationId/alternative
 GET  /v1/visit-reservations/:reservationId/deposit
 POST /v1/visit-reservations/:reservationId/deposit/prepare
 POST /v1/visit-reservations/:reservationId/deposit/confirm
@@ -121,8 +125,15 @@ Access Token은 API 호출에 사용하고 Refresh Token은 매번 교체됩니�
 적용됩니다.
 
 중개사 승인이 완료되면 `BROKER`와 `BROKER_MANAGER` 역할이 부여됩니다. 승인된
-중개사만 매물을 초안으로 작성하거나 수정할 수 있고, 검수 요청 후 관리자가
-승인해야 공개 검색에 노출됩니다.
+중개사는 중개사무소 매물을 등록할 수 있습니다. 일반회원도 휴대폰 본인인증 후
+`OWNER_DIRECT` 유형으로 본인 소유 또는 적법한 위임을 받은 매물을 등록할 수
+있습니다. 두 유형 모두 검수 요청 후 관리자가 승인해야 공개 검색에 노출됩니다.
+
+직거래 등록은 `ownershipVerification`에 소유자·위임자 구분과 격리 저장소의
+증빙 참조값을 제출하고, 소유·위임 권한 및 중개행위 금지 확인에 동의해야 합니다.
+증빙 참조값은 암호화 저장되며 관리자 검수에서만 복호화됩니다. 공개 응답은
+`DIRECT_OWNER`, `brokerageFee=NONE`을 표시하고 중개사무소 정보는 `null`입니다.
+직거래 등록자는 중개업자로 표시되거나 중개수수료를 받을 수 없습니다.
 
 매물 상태는 `DRAFT → PENDING_REVIEW → ACTIVE` 또는 `REJECTED` 순서로
 전이됩니다. 반려 매물은 수정하면 다시 `DRAFT`가 되며 재검수를 요청할 수
@@ -154,9 +165,10 @@ KRW, USD, EUR, CNY, JPY, GBP, CAD, AUD, SGD, HKD입니다.
 
 방문 예약은 휴대폰 본인인증을 마친 회원만 활성 매물에 요청할 수 있습니다.
 방문은 최소 2시간 전, 30분 이상 3시간 이하, 90일 이내로 요청해야 합니다.
-요청 상태에서는 절대 자동 확정되지 않으며 매물 담당 중개사가 승인해야
-`CONFIRMED`가 됩니다. 중개사는 거절하거나 대안 시간을 제안할 수 있고,
-회원이 대안을 직접 수락해야 확정됩니다.
+요청 상태에서는 절대 자동 확정되지 않으며 매물 등록자가 승인해야
+`CONFIRMED`가 됩니다. 중개사 매물은 담당 중개사, 직거래 매물은 등록한
+소유자·위임자가 거절하거나 대안 시간을 제안할 수 있고, 방문 회원이 대안을
+직접 수락해야 확정됩니다.
 
 상태는 `REQUESTED → CONFIRMED`, `REJECTED` 또는
 `ALTERNATIVE_PROPOSED → CONFIRMED/ALTERNATIVE_DECLINED`로 전이됩니다.
@@ -172,7 +184,7 @@ KRW, USD, EUR, CNY, JPY, GBP, CAD, AUD, SGD, HKD입니다.
 
 동선 결과는 Haversine 직선거리, 도로 보정계수와 교통수단별 평균속도를
 사용한 예약 전 추정치입니다. 실시간 교통·도로 통제·대중교통 배차는 포함하지
-않으며, 실제 예약은 제안된 시간마다 별도로 요청하고 담당 중개사의 승인을
+않으며, 실제 예약은 제안된 시간마다 별도로 요청하고 각 매물 등록자의 승인을
 받아야 확정됩니다.
 
 알림 작업자는 아웃박스를 주기적으로 선점하여 FCM 푸시를 우선 전송하고,

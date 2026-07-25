@@ -7,6 +7,7 @@ import {
   VisitReservationStatus,
   ReservationDepositStatus,
   NotificationDeliveryStatus,
+  PropertyListingType,
   VisitTravelMode,
 } from './index';
 
@@ -50,6 +51,15 @@ describe('PropertyStatus', () => {
     expect(Object.values(PropertyStatus)).toContain('PENDING_REVIEW');
     expect(Object.values(PropertyStatus)).toContain('ACTIVE');
     expect(Object.values(PropertyStatus)).toContain('REJECTED');
+  });
+});
+
+describe('PropertyListingType', () => {
+  it('distinguishes licensed brokerage from owner-direct listings', () => {
+    expect(Object.values(PropertyListingType)).toEqual([
+      'BROKERAGE',
+      'OWNER_DIRECT',
+    ]);
   });
 });
 

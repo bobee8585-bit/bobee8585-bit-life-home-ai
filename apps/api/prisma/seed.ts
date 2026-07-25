@@ -44,6 +44,7 @@ const permissions = [
   ['RESERVATION.CREATE', '방문 예약 요청'],
   ['RESERVATION.RESPOND', '방문 예약 대안 응답·취소'],
   ['RESERVATION.MANAGE', '예약 관리'],
+  ['RESERVATION.MANAGE_OWN_LISTING', '본인 직거래 매물 방문 예약 관리'],
   ['CONTRACT.READ', '계약 조회'],
   ['CONTRACT.MANAGE', '계약 관리'],
   ['PAYMENT.REFUND', '결제 환불'],
@@ -94,11 +95,25 @@ async function seedRolesAndPermissions(): Promise<void> {
   const roleAssignments: Record<string, string[]> = {
     GENERAL_USER: [
       'PROPERTY.READ',
+      'PROPERTY.CREATE',
+      'PROPERTY.UPDATE',
+      'PROPERTY.SUBMIT',
       'PROPERTY.REPORT',
       'BROKER.REGISTRATION.CREATE',
       'BROKERAGE.CREATE',
       'RESERVATION.CREATE',
       'RESERVATION.RESPOND',
+      'RESERVATION.MANAGE_OWN_LISTING',
+    ],
+    PROPERTY_OWNER: [
+      'PROPERTY.READ',
+      'PROPERTY.CREATE',
+      'PROPERTY.UPDATE',
+      'PROPERTY.SUBMIT',
+      'PROPERTY.REPORT',
+      'RESERVATION.CREATE',
+      'RESERVATION.RESPOND',
+      'RESERVATION.MANAGE_OWN_LISTING',
     ],
     BROKER: [
       'PROPERTY.READ',
@@ -332,6 +347,16 @@ async function seedModulesAndMenus(): Promise<void> {
       apiScope: 'RESERVATION.MANAGE',
       defaultState: MenuState.ACTIVE,
       sortOrder: 110,
+    },
+    {
+      serviceModuleId: realEstate.id,
+      code: 'PROPERTY_OWNER_RESERVATION_MANAGE',
+      name: '직거래 매물 방문 예약 관리',
+      platform: Platform.API,
+      route: '/v1/property-manager/visit-reservations',
+      apiScope: 'RESERVATION.MANAGE_OWN_LISTING',
+      defaultState: MenuState.ACTIVE,
+      sortOrder: 120,
     },
   ] as const;
 
