@@ -617,7 +617,10 @@ model PropertyMediaUpload {
   originalFileName    String            @map("original_file_name")
   originalMimeType    String            @map("original_mime_type")
   originalSizeBytes   BigInt            @map("original_size_bytes")
+  requestedIsPublic   Boolean           @default(true) @map("requested_is_public")
+  requestedSortOrder  Int               @default(0) @map("requested_sort_order")
   status              MediaUploadStatus @default(REQUESTED)
+  originalStorageKey  String?           @map("original_storage_key")
   storageKey          String?           @map("storage_key")
   thumbnailStorageKey String?           @map("thumbnail_storage_key")
   outputMimeType      String?           @map("output_mime_type")
@@ -625,7 +628,11 @@ model PropertyMediaUpload {
   width               Int?
   height              Int?
   durationSeconds     Int?              @map("duration_seconds")
+  attempts            Int               @default(0)
   errorCode           String?           @map("error_code")
+  queuedAt            DateTime?         @map("queued_at") @db.Timestamptz(6)
+  processingStartedAt DateTime?         @map("processing_started_at") @db.Timestamptz(6)
+  completedAt         DateTime?         @map("completed_at") @db.Timestamptz(6)
   expiresAt           DateTime          @map("expires_at") @db.Timestamptz(6)
   createdAt           DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt           DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)

@@ -2,8 +2,10 @@ import {
   BadRequestException,
   ConflictException,
   ForbiddenException,
+  HttpException,
   Injectable,
   NotFoundException,
+  ServiceUnavailableException,
 } from '@nestjs/common';
 import { execFile } from 'node:child_process';
 import { unlink } from 'node:fs/promises';
@@ -14,93 +16,285 @@ import { PrismaService } from '../database/prisma.service';
 import {
   MediaUploadStatus,
   OwnershipVerificationStatus,
+  Prisma,
   PropertyListingType,
   PropertyMediaType,
   PropertyStatus,
 } from '../generated/prisma/client';
 import type { UploadPropertyMediaDto } from './dto/upload-property-media.dto';
-import { LocalMediaStorageService } from './local-media-storage.service';
+import {
+  MediaObjectStorageService,
+  type StoredMediaObject,
+} from './media-object-storage.service';
+import { MediaProcessingQueueService } from './media-processing-queue.service';
+import {
+  MediaWorkspaceService,
+  type MediaWorkspace,
+} from './media-workspace.service';
 
 const run = promisify(execFile);
 const MAX_IMAGE_BYTES = 20 * 1024 * 1024;
 const MAX_VIDEO_BYTES = 500 * 1024 * 1024;
 const MAX_VIDEO_SECONDS = 180;
 
+interface ProcessedMedia {
+  outputPath: string;
+  outputKey: string;
+  thumbnailPath: string;
+  thumbnailKey: string;
+  mimeType: string;
+  outputSizeBytes: bigint;
+  width: number | null;
+  height: number | null;
+  durationSeconds: number | null;
+}
+
+export interface MediaFileResponse extends StoredMediaObject {
+  contentType: string;
+}
+
 @Injectable()
 export class MediaProcessingService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly storage: LocalMediaStorageService,
+    private readonly storage: MediaObjectStorageService,
+    private readonly workspace: MediaWorkspaceService,
+    private readonly queue: MediaProcessingQueueService,
   ) {}
 
-  async process(
+  async requestUpload(
     userId: string,
     propertyId: string,
     file: Express.Multer.File,
     dto: UploadPropertyMediaDto,
   ) {
-    const property = await this.prisma.property.findFirst({
-      where: {
-        id: propertyId,
-        brokerUserId: userId,
-        status: { in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED] },
-      },
-      select: { id: true },
-    });
-    if (!property) {
-      await this.removeStaging(file.path);
-      throw new ForbiddenException(
-        '초안 또는 반려 상태의 본인 매물에만 미디어를 추가할 수 있습니다.',
-      );
-    }
-
-    let mediaType: PropertyMediaType;
     try {
-      mediaType = this.mediaType(file.mimetype);
+      const property = await this.prisma.property.findFirst({
+        where: {
+          id: propertyId,
+          brokerUserId: userId,
+          status: { in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED] },
+        },
+        select: { id: true },
+      });
+      if (!property) {
+        throw new ForbiddenException(
+          '초안 또는 반려 상태의 본인 매물에만 미디어를 추가할 수 있습니다.',
+        );
+      }
+
+      const mediaType = this.mediaType(file.mimetype);
       this.validateInputSize(mediaType, file.size);
       await this.assertMediaLimit(propertyId, mediaType, dto.isPublic);
-    } catch (error: unknown) {
+
+      const uploadId = createId();
+      const originalStorageKey = `originals/${uploadId}/source`;
+      await this.storage.putFile(
+        originalStorageKey,
+        file.path,
+        file.mimetype,
+      );
+      const now = new Date();
+      try {
+        await this.prisma.$transaction(async (transaction) => {
+          await transaction.$queryRaw(
+            Prisma.sql`SELECT "id" FROM "properties"
+              WHERE "id" = ${propertyId}::uuid FOR UPDATE`,
+          );
+          const lockedProperty = await transaction.property.findFirst({
+            where: {
+              id: propertyId,
+              brokerUserId: userId,
+              status: {
+                in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED],
+              },
+            },
+            select: { id: true },
+          });
+          if (!lockedProperty) {
+            throw new ConflictException(
+              '매물 상태가 변경되어 미디어를 추가할 수 없습니다.',
+            );
+          }
+          await this.assertMediaLimit(
+            propertyId,
+            mediaType,
+            dto.isPublic,
+            transaction,
+          );
+          await transaction.propertyMediaUpload.create({
+            data: {
+              id: uploadId,
+              propertyId,
+              userId,
+              mediaType,
+              originalFileName: file.originalname,
+              originalMimeType: file.mimetype,
+              originalSizeBytes: BigInt(file.size),
+              requestedIsPublic: dto.isPublic,
+              requestedSortOrder: dto.sortOrder,
+              status: MediaUploadStatus.REQUESTED,
+              originalStorageKey,
+              queuedAt: now,
+              expiresAt: new Date(
+                now.getTime() + 24 * 60 * 60 * 1_000,
+              ),
+            },
+          });
+        });
+      } catch (error: unknown) {
+        await this.storage.remove(originalStorageKey).catch(() => undefined);
+        throw error;
+      }
+
+      try {
+        await this.queue.enqueue(uploadId);
+      } catch {
+        await Promise.all([
+          this.storage.remove(originalStorageKey).catch(() => undefined),
+          this.prisma.propertyMediaUpload.update({
+            where: { id: uploadId },
+            data: {
+              status: MediaUploadStatus.FAILED,
+              errorCode: 'QUEUE_UNAVAILABLE',
+              completedAt: new Date(),
+              originalStorageKey: null,
+            },
+          }),
+        ]);
+        throw new ServiceUnavailableException(
+          '미디어 작업 큐에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.',
+        );
+      }
+
+      return {
+        uploadId,
+        propertyId,
+        mediaType,
+        status: MediaUploadStatus.REQUESTED,
+        storageProvider: this.storage.storageProvider(),
+        queuedAt: now.toISOString(),
+        statusUrl: `/v1/media-uploads/${uploadId}`,
+      };
+    } finally {
       await this.removeStaging(file.path);
-      throw error;
+    }
+  }
+
+  async uploadStatus(userId: string, uploadId: string) {
+    const upload = await this.prisma.propertyMediaUpload.findFirst({
+      where: { id: uploadId, userId },
+      select: {
+        id: true,
+        propertyId: true,
+        propertyMediaId: true,
+        mediaType: true,
+        status: true,
+        attempts: true,
+        errorCode: true,
+        originalSizeBytes: true,
+        outputSizeBytes: true,
+        width: true,
+        height: true,
+        durationSeconds: true,
+        queuedAt: true,
+        processingStartedAt: true,
+        completedAt: true,
+      },
+    });
+    if (!upload) {
+      throw new NotFoundException('미디어 업로드를 찾을 수 없습니다.');
+    }
+    return {
+      uploadId: upload.id,
+      propertyId: upload.propertyId,
+      propertyMediaId: upload.propertyMediaId,
+      mediaType: upload.mediaType,
+      status: upload.status,
+      attempts: upload.attempts,
+      errorCode: upload.errorCode,
+      originalSizeBytes: upload.originalSizeBytes.toString(),
+      outputSizeBytes: upload.outputSizeBytes?.toString() ?? null,
+      width: upload.width,
+      height: upload.height,
+      durationSeconds: upload.durationSeconds,
+      queuedAt: upload.queuedAt?.toISOString() ?? null,
+      processingStartedAt:
+        upload.processingStartedAt?.toISOString() ?? null,
+      completedAt: upload.completedAt?.toISOString() ?? null,
+    };
+  }
+
+  async processQueuedUpload(
+    uploadId: string,
+    attempt: number,
+    maxAttempts: number,
+  ): Promise<void> {
+    const upload = await this.prisma.propertyMediaUpload.findUnique({
+      where: { id: uploadId },
+    });
+    if (!upload || upload.status === MediaUploadStatus.READY) {
+      return;
+    }
+    if (
+      upload.status === MediaUploadStatus.FAILED ||
+      !upload.originalStorageKey
+    ) {
+      throw new NotFoundException('처리할 미디어 원본을 찾을 수 없습니다.');
     }
 
-    const uploadId = createId();
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    try {
-      await this.prisma.propertyMediaUpload.create({
-        data: {
-          id: uploadId,
-          propertyId,
-          userId,
-          mediaType,
-          originalFileName: file.originalname,
-          originalMimeType: file.mimetype,
-          originalSizeBytes: BigInt(file.size),
-          status: MediaUploadStatus.PROCESSING,
-          expiresAt,
-        },
-      });
-    } catch (error: unknown) {
-      await this.removeStaging(file.path);
-      throw error;
-    }
+    await this.prisma.propertyMediaUpload.update({
+      where: { id: uploadId },
+      data: {
+        status: MediaUploadStatus.PROCESSING,
+        attempts: attempt,
+        processingStartedAt: new Date(),
+        errorCode: null,
+      },
+    });
 
+    let processed: ProcessedMedia | undefined;
     try {
-      const processed =
-        mediaType === PropertyMediaType.IMAGE
-          ? await this.processImage(uploadId, file.path)
-          : await this.processVideo(uploadId, file.path);
+      const work = await this.workspace.prepare(
+        uploadId,
+        upload.mediaType === PropertyMediaType.IMAGE ? 'webp' : 'mp4',
+      );
+      await this.storage.getFile(upload.originalStorageKey, work.inputPath);
+      processed =
+        upload.mediaType === PropertyMediaType.IMAGE
+          ? await this.processImage(work)
+          : await this.processVideo(work);
+      await Promise.all([
+        this.storage.putFile(
+          processed.outputKey,
+          processed.outputPath,
+          processed.mimeType,
+        ),
+        this.storage.putFile(
+          processed.thumbnailKey,
+          processed.thumbnailPath,
+          'image/jpeg',
+        ),
+      ]);
+
       const propertyMediaId = createId();
-      const media = await this.prisma.$transaction(async (transaction) => {
-        const created = await transaction.propertyMedia.create({
+      await this.prisma.$transaction(async (transaction) => {
+        const current = await transaction.propertyMediaUpload.findUnique({
+          where: { id: uploadId },
+          select: { status: true, propertyMediaId: true },
+        });
+        if (!current || current.status === MediaUploadStatus.READY) {
+          return;
+        }
+        await transaction.propertyMedia.create({
           data: {
             id: propertyMediaId,
-            propertyId,
-            type: mediaType,
+            propertyId: upload.propertyId,
+            type: upload.mediaType,
             url: `/v1/media/${uploadId}/content`,
             thumbnailUrl: `/v1/media/${uploadId}/thumbnail`,
-            sortOrder: dto.sortOrder,
-            isPublic: dto.isPublic,
+            sortOrder: upload.requestedSortOrder,
+            isPublic: upload.requestedIsPublic,
           },
         });
         await transaction.propertyMediaUpload.update({
@@ -108,63 +302,71 @@ export class MediaProcessingService {
           data: {
             propertyMediaId,
             status: MediaUploadStatus.READY,
-            storageKey: processed.outputKey,
-            thumbnailStorageKey: processed.thumbnailKey,
-            outputMimeType: processed.mimeType,
-            outputSizeBytes: processed.outputSizeBytes,
-            width: processed.width,
-            height: processed.height,
-            durationSeconds: processed.durationSeconds,
+            originalStorageKey: null,
+            storageKey: processed!.outputKey,
+            thumbnailStorageKey: processed!.thumbnailKey,
+            outputMimeType: processed!.mimeType,
+            outputSizeBytes: processed!.outputSizeBytes,
+            width: processed!.width,
+            height: processed!.height,
+            durationSeconds: processed!.durationSeconds,
             errorCode: null,
+            completedAt: new Date(),
           },
         });
         await transaction.auditLog.create({
           data: {
             id: createId(),
-            actorId: userId,
+            actorId: upload.userId,
             action: 'PROPERTY_MEDIA.PROCESS',
             targetType: 'PropertyMedia',
             targetId: propertyMediaId,
             afterData: {
-              propertyId,
-              mediaType,
-              outputSizeBytes: processed.outputSizeBytes.toString(),
+              propertyId: upload.propertyId,
+              mediaType: upload.mediaType,
+              outputSizeBytes: processed!.outputSizeBytes.toString(),
+              storageProvider: this.storage.storageProvider(),
+              attempt,
             },
           },
         });
-        return created;
       });
-      return {
-        ...media,
-        processing: {
-          uploadId,
-          status: MediaUploadStatus.READY,
-          width: processed.width,
-          height: processed.height,
-          durationSeconds: processed.durationSeconds,
-          originalSizeBytes: file.size.toString(),
-          outputSizeBytes: processed.outputSizeBytes.toString(),
-        },
-      };
+      await this.storage
+        .remove(upload.originalStorageKey)
+        .catch(() => undefined);
     } catch (error: unknown) {
-      await this.storage.removeUpload(uploadId);
-      await this.prisma.propertyMediaUpload.update({
-        where: { id: uploadId },
+      const terminal = this.permanent(error) || attempt >= maxAttempts;
+      if (processed) {
+        await this.storage
+          .removeMany([processed.outputKey, processed.thumbnailKey])
+          .catch(() => undefined);
+      }
+      await this.prisma.propertyMediaUpload.updateMany({
+        where: { id: uploadId, status: { not: MediaUploadStatus.READY } },
         data: {
-          status: MediaUploadStatus.FAILED,
+          status: terminal
+            ? MediaUploadStatus.FAILED
+            : MediaUploadStatus.REQUESTED,
           errorCode: this.errorCode(error),
+          completedAt: terminal ? new Date() : null,
+          ...(terminal ? { originalStorageKey: null } : {}),
         },
       });
+      if (terminal) {
+        await this.storage
+          .remove(upload.originalStorageKey)
+          .catch(() => undefined);
+      }
       throw error;
     } finally {
-      await this.removeStaging(file.path);
+      await this.workspace.cleanup(uploadId);
     }
   }
 
   async publicFile(
     uploadId: string,
     variant: 'content' | 'thumbnail',
-  ): Promise<string> {
+  ): Promise<MediaFileResponse> {
     const upload = await this.prisma.propertyMediaUpload.findFirst({
       where: {
         id: uploadId,
@@ -186,6 +388,7 @@ export class MediaProcessingService {
       select: {
         storageKey: true,
         thumbnailStorageKey: true,
+        outputMimeType: true,
       },
     });
     const key =
@@ -195,20 +398,27 @@ export class MediaProcessingService {
     if (!key) {
       throw new NotFoundException('공개 미디어를 찾을 수 없습니다.');
     }
-    return this.storage.resolveKey(key);
+    return {
+      ...(await this.storage.open(key)),
+      contentType:
+        variant === 'thumbnail'
+          ? 'image/jpeg'
+          : (upload?.outputMimeType ?? 'application/octet-stream'),
+    };
   }
 
   async previewFile(
     userId: string,
     uploadId: string,
     variant: 'content' | 'thumbnail',
-  ): Promise<string> {
+  ): Promise<MediaFileResponse> {
     const upload = await this.prisma.propertyMediaUpload.findFirst({
       where: { id: uploadId, status: MediaUploadStatus.READY },
       select: {
         userId: true,
         storageKey: true,
         thumbnailStorageKey: true,
+        outputMimeType: true,
       },
     });
     if (!upload) {
@@ -242,12 +452,17 @@ export class MediaProcessingService {
     if (!key) {
       throw new NotFoundException('미디어 파일을 찾을 수 없습니다.');
     }
-    return this.storage.resolveKey(key);
+    return {
+      ...(await this.storage.open(key)),
+      contentType:
+        variant === 'thumbnail'
+          ? 'image/jpeg'
+          : (upload.outputMimeType ?? 'application/octet-stream'),
+    };
   }
 
-  async processImage(uploadId: string, inputPath: string) {
-    const paths = await this.storage.prepare(uploadId, 'webp');
-    const info = await sharp(inputPath)
+  async processImage(work: MediaWorkspace): Promise<ProcessedMedia> {
+    const info = await sharp(work.inputPath)
       .rotate()
       .resize({
         width: 2048,
@@ -256,14 +471,13 @@ export class MediaProcessingService {
         withoutEnlargement: true,
       })
       .webp({ quality: 78, effort: 4 })
-      .toFile(paths.outputPath);
-    await sharp(paths.outputPath)
+      .toFile(work.outputPath);
+    await sharp(work.outputPath)
       .resize({ width: 640, height: 480, fit: 'cover' })
       .jpeg({ quality: 75, progressive: true })
-      .toFile(paths.thumbnailPath);
+      .toFile(work.thumbnailPath);
     return {
-      outputKey: paths.outputKey,
-      thumbnailKey: paths.thumbnailKey,
+      ...work,
       mimeType: 'image/webp',
       outputSizeBytes: BigInt(info.size),
       width: info.width,
@@ -272,16 +486,15 @@ export class MediaProcessingService {
     };
   }
 
-  async processVideo(uploadId: string, inputPath: string) {
-    const metadata = await this.videoMetadata(inputPath);
+  async processVideo(work: MediaWorkspace): Promise<ProcessedMedia> {
+    const metadata = await this.videoMetadata(work.inputPath);
     if (metadata.durationSeconds > MAX_VIDEO_SECONDS) {
       throw new BadRequestException('매물 동영상은 최대 3분입니다.');
     }
-    const paths = await this.storage.prepare(uploadId, 'mp4');
     await run('ffmpeg', [
       '-y',
       '-i',
-      inputPath,
+      work.inputPath,
       '-vf',
       "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2",
       '-c:v',
@@ -296,29 +509,27 @@ export class MediaProcessingService {
       '96k',
       '-movflags',
       '+faststart',
-      paths.outputPath,
+      work.outputPath,
     ]);
-    const outputMetadata = await this.videoMetadata(paths.outputPath);
+    const outputMetadata = await this.videoMetadata(work.outputPath);
     await run('ffmpeg', [
       '-y',
       '-ss',
       '00:00:01.000',
       '-i',
-      paths.outputPath,
+      work.outputPath,
       '-frames:v',
       '1',
       '-vf',
       'scale=640:-2',
       '-q:v',
       '4',
-      paths.thumbnailPath,
+      work.thumbnailPath,
     ]);
-    const outputSizeBytes = await this.storage.size(paths.outputPath);
     return {
-      outputKey: paths.outputKey,
-      thumbnailKey: paths.thumbnailKey,
+      ...work,
       mimeType: 'video/mp4',
-      outputSizeBytes,
+      outputSizeBytes: await this.workspace.size(work.outputPath),
       width: outputMetadata.width,
       height: outputMetadata.height,
       durationSeconds: Math.ceil(outputMetadata.durationSeconds),
@@ -358,25 +569,43 @@ export class MediaProcessingService {
     propertyId: string,
     type: PropertyMediaType,
     isPublic: boolean,
+    database:
+      | PrismaService
+      | Prisma.TransactionClient = this.prisma,
   ): Promise<void> {
-    const media = await this.prisma.propertyMedia.findMany({
-      where: { propertyId, type },
-      select: { isPublic: true },
-    });
+    const [ready, pending] = await Promise.all([
+      database.propertyMedia.findMany({
+        where: { propertyId, type },
+        select: { isPublic: true },
+      }),
+      database.propertyMediaUpload.findMany({
+        where: {
+          propertyId,
+          mediaType: type,
+          status: {
+            in: [MediaUploadStatus.REQUESTED, MediaUploadStatus.PROCESSING],
+          },
+        },
+        select: { requestedIsPublic: true },
+      }),
+    ]);
     const totalLimit = type === PropertyMediaType.IMAGE ? 20 : 3;
     const publicLimit = type === PropertyMediaType.IMAGE ? 10 : 1;
-    if (media.length >= totalLimit) {
+    if (ready.length + pending.length >= totalLimit) {
       throw new ConflictException(
         type === PropertyMediaType.IMAGE
-          ? '이미지는 최대 20개입니다.'
-          : '동영상은 최대 3개입니다.',
+          ? '이미지는 처리 대기 항목을 포함해 최대 20개입니다.'
+          : '동영상은 처리 대기 항목을 포함해 최대 3개입니다.',
       );
     }
-    if (isPublic && media.filter((item) => item.isPublic).length >= publicLimit) {
+    const publicCount =
+      ready.filter((item) => item.isPublic).length +
+      pending.filter((item) => item.requestedIsPublic).length;
+    if (isPublic && publicCount >= publicLimit) {
       throw new ConflictException(
         type === PropertyMediaType.IMAGE
-          ? '공개 이미지는 최대 10개입니다.'
-          : '공개 동영상은 최대 1개입니다.',
+          ? '공개 이미지는 처리 대기 항목을 포함해 최대 10개입니다.'
+          : '공개 동영상은 처리 대기 항목을 포함해 최대 1개입니다.',
       );
     }
   }
@@ -411,9 +640,16 @@ export class MediaProcessingService {
     }
   }
 
+  private permanent(error: unknown): boolean {
+    return error instanceof HttpException && error.getStatus() < 500;
+  }
+
   private errorCode(error: unknown): string {
     if (error instanceof BadRequestException) {
       return 'INVALID_MEDIA';
+    }
+    if (error instanceof NotFoundException) {
+      return 'SOURCE_MISSING';
     }
     return 'PROCESSING_FAILED';
   }

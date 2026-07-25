@@ -64,6 +64,24 @@ export enum MediaUploadStatus {
   FAILED = 'FAILED',
 }
 
+export interface MediaUpload {
+  uploadId: string;
+  propertyId: string;
+  propertyMediaId: string | null;
+  mediaType: 'IMAGE' | 'VIDEO';
+  status: MediaUploadStatus;
+  attempts: number;
+  errorCode: string | null;
+  originalSizeBytes: string;
+  outputSizeBytes: string | null;
+  width: number | null;
+  height: number | null;
+  durationSeconds: number | null;
+  queuedAt: string | null;
+  processingStartedAt: string | null;
+  completedAt: string | null;
+}
+
 export enum PropertyReportReason {
   FALSE_INFORMATION = 'FALSE_INFORMATION',
   DUPLICATE = 'DUPLICATE',
@@ -306,6 +324,14 @@ export interface AppConfig {
     pushProvider: 'LOG' | 'FCM' | 'DISABLED';
     smsProvider: 'LOG' | 'NAVER_SENS' | 'DISABLED';
     pushRegistrationEnabled: boolean;
+  };
+  media?: {
+    uploadMode: 'ASYNC';
+    statusPollingSeconds: number;
+    imageLimit: number;
+    publicImageLimit: number;
+    videoLimit: number;
+    publicVideoLimit: number;
   };
   version: number;
 }

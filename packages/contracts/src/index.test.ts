@@ -7,6 +7,7 @@ import {
   VisitReservationStatus,
   ReservationDepositStatus,
   NotificationDeliveryStatus,
+  MediaUploadStatus,
   PropertyListingType,
   VisitTravelMode,
 } from './index';
@@ -99,6 +100,17 @@ describe('NotificationDeliveryStatus', () => {
       'PENDING',
       'PROCESSING',
       'SENT',
+      'FAILED',
+    ]);
+  });
+});
+
+describe('MediaUploadStatus', () => {
+  it('keeps asynchronous media processing states explicit', () => {
+    expect(Object.values(MediaUploadStatus)).toEqual([
+      'REQUESTED',
+      'PROCESSING',
+      'READY',
       'FAILED',
     ]);
   });

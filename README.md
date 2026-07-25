@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.13.0
+# LIFE HOME AI 0.14.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -22,9 +22,10 @@ npm run prisma:seed
 npm run dev:api
 ```
 
-다른 터미널에서 웹을 실행합니다.
+다른 터미널에서 미디어 작업자와 웹을 실행합니다.
 
 ```bash
+npm run dev:media-worker
 npm run dev:web
 ```
 
@@ -57,6 +58,7 @@ POST /v1/properties
 PATCH /v1/properties/:id
 POST /v1/properties/:id/submit
 POST /v1/properties/:id/media
+GET  /v1/media-uploads/:uploadId
 GET  /v1/media/:uploadId/content
 GET  /v1/media/:uploadId/thumbnail
 GET  /v1/media/:uploadId/content/preview
@@ -140,12 +142,25 @@ Access Token은 API 호출에 사용하고 Refresh Token은 매번 교체됩니�
 있습니다. 이미지 20개·공개 10개, 동영상 3개·공개 1개 제한은 API에서
 검증합니다.
 
-매물 미디어는 `multipart/form-data`의 `file` 필드로 직접 업로드합니다.
-이미지는 최대 20MB이며 최대 2,048px WebP와 640×480 JPEG 썸네일로
-변환됩니다. 동영상은 최대 500MB·3분이며 H.264/AAC MP4로 압축하고 JPEG
-썸네일을 생성합니다. 로컬 기본 저장 위치는 `/tmp/lifehome-media`이고
-운영 환경에서는 `MEDIA_STORAGE_ROOT`를 영속 볼륨으로 지정해야 합니다.
-동영상 처리에는 `ffmpeg`와 `ffprobe`가 필요합니다.
+매물 미디어는 `multipart/form-data`의 `file` 필드로 업로드하면 HTTP 202와
+`uploadId`를 반환합니다. API는 원본을 비공개 객체 저장소에 보관하고 Redis
+큐에 작업을 등록할 뿐 압축을 기다리지 않습니다. 앱은
+`GET /v1/media-uploads/:uploadId`로 `REQUESTED → PROCESSING → READY` 또는
+`FAILED` 상태, 시도 횟수와 결과 크기를 확인합니다.
+
+별도 `media-worker` 프로세스가 이미지는 최대 2,048px WebP와 640×480 JPEG
+썸네일로, 동영상은 최대 3분 H.264/AAC MP4와 JPEG 썸네일로 변환합니다.
+실패 작업은 Redis에서 지수형 지연으로 기본 4회 재시도하고, 잘못된 파일처럼
+재시도해도 해결되지 않는 오류는 즉시 종료합니다. 이미지 20개·공개 10개,
+동영상 3개·공개 1개 제한에는 처리 대기 항목도 포함되며 매물 단위 잠금으로
+동시 요청의 초과 등록을 막습니다.
+
+로컬 개발은 `MEDIA_STORAGE_MODE=local`을 사용할 수 있지만 운영 환경에서는
+자동으로 거부됩니다. 운영은 `MEDIA_STORAGE_MODE=s3`와 비공개 S3 호환
+버킷을 사용하며 모든 업로드에 서버 측 AES-256 암호화를 요청합니다. 명시적
+Access Key를 넣지 않으면 실행 환경의 IAM 역할을 사용합니다. 원본·결과 객체는
+공개 URL로 노출하지 않고 권한 검사를 통과한 API가 스트리밍합니다. 동영상
+작업자에는 `ffmpeg`와 `ffprobe`가 필요합니다.
 
 일반 회원은 활성 매물을 허위 정보·중복·거래 불가·사기 의심 등의 사유로
 신고할 수 있습니다. 관리자는 신고를 검토 중·처리 완료·기각으로 전환하고,

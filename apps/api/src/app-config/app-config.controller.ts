@@ -43,7 +43,15 @@ export class AppConfigController {
         smsProvider: this.smsProvider(),
         pushRegistrationEnabled: true,
       },
-      version: 9,
+      media: {
+        uploadMode: 'ASYNC',
+        statusPollingSeconds: 2,
+        imageLimit: 20,
+        publicImageLimit: 10,
+        videoLimit: 3,
+        publicVideoLimit: 1,
+      },
+      version: 10,
     };
   }
 

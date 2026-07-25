@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Param,
   ParseUUIDPipe,
   Post,
@@ -15,6 +16,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import type { Response } from 'express';
 import { mkdirSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
+import { pipeline } from 'node:stream/promises';
 import { diskStorage } from 'multer';
 import type { AuthenticatedRequest } from '../auth/auth.types';
 import { Permissions } from '../auth/permissions.decorator';
@@ -55,6 +57,7 @@ export class PropertyMediaController {
     }),
   )
   @Post('properties/:propertyId/media')
+  @HttpCode(202)
   upload(
     @Param('propertyId', ParseUUIDPipe) propertyId: string,
     @UploadedFile() file: Express.Multer.File | undefined,
@@ -64,7 +67,20 @@ export class PropertyMediaController {
     if (!file) {
       throw new BadRequestException('업로드할 파일이 필요합니다.');
     }
-    return this.media.process(request.auth.sub, propertyId, file, dto);
+    return this.media.requestUpload(
+      request.auth.sub,
+      propertyId,
+      file,
+      dto,
+    );
+  }
+
+  @Get('media-uploads/:uploadId')
+  status(
+    @Param('uploadId', ParseUUIDPipe) uploadId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.media.uploadStatus(request.auth.sub, uploadId);
   }
 
   @Public()
@@ -74,11 +90,11 @@ export class PropertyMediaController {
     @Param('variant') variant: string,
     @Res() response: Response,
   ) {
-    const path = await this.media.publicFile(
+    const file = await this.media.publicFile(
       uploadId,
       this.variant(variant),
     );
-    return response.sendFile(path);
+    return this.stream(response, file, true);
   }
 
   @Get('media/:uploadId/:variant/preview')
@@ -88,12 +104,12 @@ export class PropertyMediaController {
     @Req() request: AuthenticatedRequest,
     @Res() response: Response,
   ) {
-    const path = await this.media.previewFile(
+    const file = await this.media.previewFile(
       request.auth.sub,
       uploadId,
       this.variant(variant),
     );
-    return response.sendFile(path);
+    return this.stream(response, file, false);
   }
 
   private variant(value: string): 'content' | 'thumbnail' {
@@ -101,5 +117,23 @@ export class PropertyMediaController {
       throw new BadRequestException('미디어 유형이 올바르지 않습니다.');
     }
     return value;
+  }
+
+  private async stream(
+    response: Response,
+    file: Awaited<ReturnType<MediaProcessingService['publicFile']>>,
+    publiclyCacheable: boolean,
+  ): Promise<void> {
+    response.setHeader('Content-Type', file.contentType);
+    response.setHeader(
+      'Cache-Control',
+      publiclyCacheable
+        ? 'public, max-age=300, must-revalidate'
+        : 'private, no-store',
+    );
+    if (file.contentLength !== undefined) {
+      response.setHeader('Content-Length', String(file.contentLength));
+    }
+    await pipeline(file.stream, response);
   }
 }
