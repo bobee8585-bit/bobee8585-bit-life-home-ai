@@ -37,4 +37,20 @@ describe('NotificationTemplateService', () => {
       },
     });
   });
+
+  it('renders chat notification metadata without copying message text', () => {
+    const result = service.render(
+      'CHAT_MESSAGE_RECEIVED',
+      'PropertyChatRoom',
+      '019c75df-0255-7000-8000-000000000601',
+      {
+        listingNumber: 'LH-2026-CHAT',
+        messageBody: '알림에 노출되면 안 되는 대화 내용',
+      },
+    );
+
+    expect(result.title).toBe('새 매물 채팅 메시지');
+    expect(result.body).toContain('LH-2026-CHAT');
+    expect(JSON.stringify(result)).not.toContain('노출되면 안 되는');
+  });
 });

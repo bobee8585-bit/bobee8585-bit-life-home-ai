@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.14.0
+# LIFE HOME AI 0.15.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -96,6 +96,11 @@ POST /v1/payment-webhooks/nhn-kcp
 POST /v1/notifications/push-endpoints
 GET  /v1/notifications/push-endpoints
 DELETE /v1/notifications/push-endpoints/:deviceId
+POST /v1/properties/:propertyId/chat-rooms
+GET  /v1/chat-rooms
+GET  /v1/chat-rooms/:chatRoomId/messages
+POST /v1/chat-rooms/:chatRoomId/messages
+POST /v1/chat-rooms/:chatRoomId/read
 ```
 
 회원가입 예시:
@@ -136,6 +141,20 @@ Access Token은 API 호출에 사용하고 Refresh Token은 매번 교체됩니�
 증빙 참조값은 암호화 저장되며 관리자 검수에서만 복호화됩니다. 공개 응답은
 `DIRECT_OWNER`, `brokerageFee=NONE`을 표시하고 중개사무소 정보는 `null`입니다.
 직거래 등록자는 중개업자로 표시되거나 중개수수료를 받을 수 없습니다.
+
+매물 채팅은 활성 매물의 일반회원과 해당 매물 등록자 사이에만 한 개씩
+생성됩니다. 중개사 매물은 담당 중개사, 직거래 매물은 소유자·위임 등록자가
+상대방이 되며 참가자가 아닌 회원은 채팅방 존재 여부나 메시지를 조회할 수
+없습니다. 본인 매물과는 채팅을 시작할 수 없습니다.
+
+메시지는 현재 최대 2,000자의 텍스트만 지원하며 REST 조회 방식으로 동기화합니다.
+각 전송은 클라이언트가 생성한 `clientMessageId`를 요구하여 네트워크 재시도에도
+같은 메시지가 중복 저장되지 않습니다. 방별 증가 순번으로 메시지 순서를
+보장하고, 읽음 위치는 회원·등록자별로 항상 증가만 합니다. 매물이 비공개 또는
+거래 종료 상태가 되면 기존 대화 기록은 참가자에게 남지만 새 전송은 차단됩니다.
+메시지 본문은 푸시·SMS 알림과 감사 로그에 복사하지 않습니다.
+채팅 알림은 푸시 전용이며 푸시 토큰이 없더라도 SMS로 대체하지 않아 대화마다
+문자 비용이 발생하지 않게 합니다.
 
 매물 상태는 `DRAFT → PENDING_REVIEW → ACTIVE` 또는 `REJECTED` 순서로
 전이됩니다. 반려 매물은 수정하면 다시 `DRAFT`가 되며 재검수를 요청할 수

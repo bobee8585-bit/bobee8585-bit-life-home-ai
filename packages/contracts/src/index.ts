@@ -123,6 +123,7 @@ export enum NotificationDeliveryStatus {
   PENDING = 'PENDING',
   PROCESSING = 'PROCESSING',
   SENT = 'SENT',
+  SKIPPED = 'SKIPPED',
   FAILED = 'FAILED',
 }
 
@@ -139,6 +140,48 @@ export interface NotificationEndpoint {
   status: 'ACTIVE' | 'INVALID' | 'REVOKED';
   locale: string | null;
   lastSeenAt: string;
+}
+
+export enum ChatMessageType {
+  TEXT = 'TEXT',
+  SYSTEM = 'SYSTEM',
+}
+
+export type ChatParticipantRole = 'MEMBER' | 'REGISTRANT';
+
+export interface PropertyChatMessage {
+  id: string;
+  clientMessageId: string;
+  sequence: number;
+  type: ChatMessageType;
+  body: string;
+  senderRole: ChatParticipantRole;
+  readByRecipient: boolean;
+  sentAt: string;
+}
+
+export interface PropertyChatRoom {
+  id: string;
+  property: {
+    id: string;
+    listingNumber: string;
+    title: string;
+    status: PropertyStatus;
+    city: string;
+    listingType: PropertyListingType;
+  };
+  myRole: ChatParticipantRole;
+  counterpart: {
+    memberNumber: string;
+    displayName: string;
+  };
+  lastMessageSequence: number;
+  lastReadSequence: number;
+  unreadCount: number;
+  writable: boolean;
+  latestMessage: PropertyChatMessage | null;
+  lastMessageAt: string;
+  createdAt: string;
 }
 
 export enum ReservationDepositStatus {
@@ -332,6 +375,13 @@ export interface AppConfig {
     publicImageLimit: number;
     videoLimit: number;
     publicVideoLimit: number;
+  };
+  chat?: {
+    transport: 'REST_POLLING';
+    textOnly: true;
+    messageMaxLength: number;
+    clientMessageIdRequired: true;
+    propertyRegistrantOnly: true;
   };
   version: number;
 }

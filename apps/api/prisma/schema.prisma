@@ -167,6 +167,7 @@ enum NotificationDeliveryStatus {
   PENDING
   PROCESSING
   SENT
+  SKIPPED
   FAILED
 }
 
@@ -179,6 +180,11 @@ enum NotificationEndpointStatus {
   ACTIVE
   INVALID
   REVOKED
+}
+
+enum ChatMessageType {
+  TEXT
+  SYSTEM
 }
 
 enum ReservationDepositStatus {
@@ -253,6 +259,9 @@ model User {
   notificationOutbox      NotificationOutbox[]
   notificationEndpoints   NotificationEndpoint[]
   reservationDeposits     ReservationDeposit[]
+  memberChatRooms         PropertyChatRoom[]              @relation("PropertyChatMember")
+  registrantChatRooms     PropertyChatRoom[]              @relation("PropertyChatRegistrant")
+  sentChatMessages        ChatMessage[]                   @relation("ChatMessageSender")
 
   @@map("users")
 }
@@ -559,6 +568,7 @@ model Property {
   mediaUploads          PropertyMediaUpload[]
   reports               PropertyReport[]
   visitReservations     VisitReservation[]
+  chatRooms             PropertyChatRoom[]
 
   @@index([status, createdAt])
   @@index([city, propertyType, transactionType, status])
@@ -755,6 +765,48 @@ model VisitReservationHistory {
   @@map("visit_reservation_histories")
 }
 
+model PropertyChatRoom {
+  id                         String        @id @db.Uuid
+  propertyId                 String        @map("property_id") @db.Uuid
+  memberUserId               String        @map("member_user_id") @db.Uuid
+  registrantUserId           String        @map("registrant_user_id") @db.Uuid
+  lastMessageSequence        Int           @default(0) @map("last_message_sequence")
+  memberLastReadSequence     Int           @default(0) @map("member_last_read_sequence")
+  registrantLastReadSequence Int           @default(0) @map("registrant_last_read_sequence")
+  lastMessageAt              DateTime      @default(now()) @map("last_message_at") @db.Timestamptz(6)
+  createdAt                  DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                  DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  property                   Property      @relation(fields: [propertyId], references: [id], onDelete: Restrict)
+  member                     User          @relation("PropertyChatMember", fields: [memberUserId], references: [id], onDelete: Restrict)
+  registrant                 User          @relation("PropertyChatRegistrant", fields: [registrantUserId], references: [id], onDelete: Restrict)
+  messages                   ChatMessage[]
+
+  @@unique([propertyId, memberUserId])
+  @@index([memberUserId, lastMessageAt])
+  @@index([registrantUserId, lastMessageAt])
+  @@index([propertyId, lastMessageAt])
+  @@map("property_chat_rooms")
+}
+
+model ChatMessage {
+  id              String           @id @db.Uuid
+  chatRoomId      String           @map("chat_room_id") @db.Uuid
+  senderUserId    String           @map("sender_user_id") @db.Uuid
+  clientMessageId String           @map("client_message_id") @db.VarChar(64)
+  sequence        Int
+  type            ChatMessageType  @default(TEXT)
+  body            String           @db.VarChar(2000)
+  createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  chatRoom        PropertyChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  sender          User             @relation("ChatMessageSender", fields: [senderUserId], references: [id], onDelete: Restrict)
+
+  @@unique([chatRoomId, sequence])
+  @@unique([chatRoomId, senderUserId, clientMessageId])
+  @@index([chatRoomId, createdAt])
+  @@index([senderUserId, createdAt])
+  @@map("chat_messages")
+}
+
 model NotificationOutbox {
   id                 String                     @id @db.Uuid
   recipientUserId    String                     @map("recipient_user_id") @db.Uuid
@@ -762,6 +814,7 @@ model NotificationOutbox {
   aggregateType      String                     @map("aggregate_type") @db.VarChar(80)
   aggregateId        String                     @map("aggregate_id") @db.Uuid
   payload            Json
+  smsFallbackAllowed Boolean                    @default(true) @map("sms_fallback_allowed")
   status             NotificationDeliveryStatus @default(PENDING)
   attempts           Int                        @default(0)
   nextAttemptAt      DateTime                   @default(now()) @map("next_attempt_at") @db.Timestamptz(6)

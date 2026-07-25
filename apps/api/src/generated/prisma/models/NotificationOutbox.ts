@@ -40,6 +40,7 @@ export type NotificationOutboxMinAggregateOutputType = {
   type: string | null
   aggregateType: string | null
   aggregateId: string | null
+  smsFallbackAllowed: boolean | null
   status: $Enums.NotificationDeliveryStatus | null
   attempts: number | null
   nextAttemptAt: Date | null
@@ -59,6 +60,7 @@ export type NotificationOutboxMaxAggregateOutputType = {
   type: string | null
   aggregateType: string | null
   aggregateId: string | null
+  smsFallbackAllowed: boolean | null
   status: $Enums.NotificationDeliveryStatus | null
   attempts: number | null
   nextAttemptAt: Date | null
@@ -79,6 +81,7 @@ export type NotificationOutboxCountAggregateOutputType = {
   aggregateType: number
   aggregateId: number
   payload: number
+  smsFallbackAllowed: number
   status: number
   attempts: number
   nextAttemptAt: number
@@ -109,6 +112,7 @@ export type NotificationOutboxMinAggregateInputType = {
   type?: true
   aggregateType?: true
   aggregateId?: true
+  smsFallbackAllowed?: true
   status?: true
   attempts?: true
   nextAttemptAt?: true
@@ -128,6 +132,7 @@ export type NotificationOutboxMaxAggregateInputType = {
   type?: true
   aggregateType?: true
   aggregateId?: true
+  smsFallbackAllowed?: true
   status?: true
   attempts?: true
   nextAttemptAt?: true
@@ -148,6 +153,7 @@ export type NotificationOutboxCountAggregateInputType = {
   aggregateType?: true
   aggregateId?: true
   payload?: true
+  smsFallbackAllowed?: true
   status?: true
   attempts?: true
   nextAttemptAt?: true
@@ -256,6 +262,7 @@ export type NotificationOutboxGroupByOutputType = {
   aggregateType: string
   aggregateId: string
   payload: runtime.JsonValue
+  smsFallbackAllowed: boolean
   status: $Enums.NotificationDeliveryStatus
   attempts: number
   nextAttemptAt: Date
@@ -300,6 +307,7 @@ export type NotificationOutboxWhereInput = {
   aggregateType?: Prisma.StringFilter<"NotificationOutbox"> | string
   aggregateId?: Prisma.UuidFilter<"NotificationOutbox"> | string
   payload?: Prisma.JsonFilter<"NotificationOutbox">
+  smsFallbackAllowed?: Prisma.BoolFilter<"NotificationOutbox"> | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFilter<"NotificationOutbox"> | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFilter<"NotificationOutbox"> | number
   nextAttemptAt?: Prisma.DateTimeFilter<"NotificationOutbox"> | Date | string
@@ -322,6 +330,7 @@ export type NotificationOutboxOrderByWithRelationInput = {
   aggregateType?: Prisma.SortOrder
   aggregateId?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  smsFallbackAllowed?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   nextAttemptAt?: Prisma.SortOrder
@@ -347,6 +356,7 @@ export type NotificationOutboxWhereUniqueInput = Prisma.AtLeast<{
   aggregateType?: Prisma.StringFilter<"NotificationOutbox"> | string
   aggregateId?: Prisma.UuidFilter<"NotificationOutbox"> | string
   payload?: Prisma.JsonFilter<"NotificationOutbox">
+  smsFallbackAllowed?: Prisma.BoolFilter<"NotificationOutbox"> | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFilter<"NotificationOutbox"> | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFilter<"NotificationOutbox"> | number
   nextAttemptAt?: Prisma.DateTimeFilter<"NotificationOutbox"> | Date | string
@@ -369,6 +379,7 @@ export type NotificationOutboxOrderByWithAggregationInput = {
   aggregateType?: Prisma.SortOrder
   aggregateId?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  smsFallbackAllowed?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   nextAttemptAt?: Prisma.SortOrder
@@ -398,6 +409,7 @@ export type NotificationOutboxScalarWhereWithAggregatesInput = {
   aggregateType?: Prisma.StringWithAggregatesFilter<"NotificationOutbox"> | string
   aggregateId?: Prisma.UuidWithAggregatesFilter<"NotificationOutbox"> | string
   payload?: Prisma.JsonWithAggregatesFilter<"NotificationOutbox">
+  smsFallbackAllowed?: Prisma.BoolWithAggregatesFilter<"NotificationOutbox"> | boolean
   status?: Prisma.EnumNotificationDeliveryStatusWithAggregatesFilter<"NotificationOutbox"> | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntWithAggregatesFilter<"NotificationOutbox"> | number
   nextAttemptAt?: Prisma.DateTimeWithAggregatesFilter<"NotificationOutbox"> | Date | string
@@ -418,6 +430,7 @@ export type NotificationOutboxCreateInput = {
   aggregateType: string
   aggregateId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: boolean
   status?: $Enums.NotificationDeliveryStatus
   attempts?: number
   nextAttemptAt?: Date | string
@@ -440,6 +453,7 @@ export type NotificationOutboxUncheckedCreateInput = {
   aggregateType: string
   aggregateId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: boolean
   status?: $Enums.NotificationDeliveryStatus
   attempts?: number
   nextAttemptAt?: Date | string
@@ -460,6 +474,7 @@ export type NotificationOutboxUpdateInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -482,6 +497,7 @@ export type NotificationOutboxUncheckedUpdateInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -503,6 +519,7 @@ export type NotificationOutboxCreateManyInput = {
   aggregateType: string
   aggregateId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: boolean
   status?: $Enums.NotificationDeliveryStatus
   attempts?: number
   nextAttemptAt?: Date | string
@@ -523,6 +540,7 @@ export type NotificationOutboxUpdateManyMutationInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -544,6 +562,7 @@ export type NotificationOutboxUncheckedUpdateManyInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -575,6 +594,7 @@ export type NotificationOutboxCountOrderByAggregateInput = {
   aggregateType?: Prisma.SortOrder
   aggregateId?: Prisma.SortOrder
   payload?: Prisma.SortOrder
+  smsFallbackAllowed?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   nextAttemptAt?: Prisma.SortOrder
@@ -599,6 +619,7 @@ export type NotificationOutboxMaxOrderByAggregateInput = {
   type?: Prisma.SortOrder
   aggregateType?: Prisma.SortOrder
   aggregateId?: Prisma.SortOrder
+  smsFallbackAllowed?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   nextAttemptAt?: Prisma.SortOrder
@@ -618,6 +639,7 @@ export type NotificationOutboxMinOrderByAggregateInput = {
   type?: Prisma.SortOrder
   aggregateType?: Prisma.SortOrder
   aggregateId?: Prisma.SortOrder
+  smsFallbackAllowed?: Prisma.SortOrder
   status?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   nextAttemptAt?: Prisma.SortOrder
@@ -691,6 +713,7 @@ export type NotificationOutboxCreateWithoutRecipientInput = {
   aggregateType: string
   aggregateId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: boolean
   status?: $Enums.NotificationDeliveryStatus
   attempts?: number
   nextAttemptAt?: Date | string
@@ -711,6 +734,7 @@ export type NotificationOutboxUncheckedCreateWithoutRecipientInput = {
   aggregateType: string
   aggregateId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: boolean
   status?: $Enums.NotificationDeliveryStatus
   attempts?: number
   nextAttemptAt?: Date | string
@@ -761,6 +785,7 @@ export type NotificationOutboxScalarWhereInput = {
   aggregateType?: Prisma.StringFilter<"NotificationOutbox"> | string
   aggregateId?: Prisma.UuidFilter<"NotificationOutbox"> | string
   payload?: Prisma.JsonFilter<"NotificationOutbox">
+  smsFallbackAllowed?: Prisma.BoolFilter<"NotificationOutbox"> | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFilter<"NotificationOutbox"> | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFilter<"NotificationOutbox"> | number
   nextAttemptAt?: Prisma.DateTimeFilter<"NotificationOutbox"> | Date | string
@@ -781,6 +806,7 @@ export type NotificationOutboxCreateManyRecipientInput = {
   aggregateType: string
   aggregateId: string
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: boolean
   status?: $Enums.NotificationDeliveryStatus
   attempts?: number
   nextAttemptAt?: Date | string
@@ -801,6 +827,7 @@ export type NotificationOutboxUpdateWithoutRecipientInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -821,6 +848,7 @@ export type NotificationOutboxUncheckedUpdateWithoutRecipientInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -841,6 +869,7 @@ export type NotificationOutboxUncheckedUpdateManyWithoutRecipientInput = {
   aggregateType?: Prisma.StringFieldUpdateOperationsInput | string
   aggregateId?: Prisma.StringFieldUpdateOperationsInput | string
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  smsFallbackAllowed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -864,6 +893,7 @@ export type NotificationOutboxSelect<ExtArgs extends runtime.Types.Extensions.In
   aggregateType?: boolean
   aggregateId?: boolean
   payload?: boolean
+  smsFallbackAllowed?: boolean
   status?: boolean
   attempts?: boolean
   nextAttemptAt?: boolean
@@ -886,6 +916,7 @@ export type NotificationOutboxSelectCreateManyAndReturn<ExtArgs extends runtime.
   aggregateType?: boolean
   aggregateId?: boolean
   payload?: boolean
+  smsFallbackAllowed?: boolean
   status?: boolean
   attempts?: boolean
   nextAttemptAt?: boolean
@@ -908,6 +939,7 @@ export type NotificationOutboxSelectUpdateManyAndReturn<ExtArgs extends runtime.
   aggregateType?: boolean
   aggregateId?: boolean
   payload?: boolean
+  smsFallbackAllowed?: boolean
   status?: boolean
   attempts?: boolean
   nextAttemptAt?: boolean
@@ -930,6 +962,7 @@ export type NotificationOutboxSelectScalar = {
   aggregateType?: boolean
   aggregateId?: boolean
   payload?: boolean
+  smsFallbackAllowed?: boolean
   status?: boolean
   attempts?: boolean
   nextAttemptAt?: boolean
@@ -944,7 +977,7 @@ export type NotificationOutboxSelectScalar = {
   updatedAt?: boolean
 }
 
-export type NotificationOutboxOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "recipientUserId" | "type" | "aggregateType" | "aggregateId" | "payload" | "status" | "attempts" | "nextAttemptAt" | "deliveryChannel" | "deliveryProvider" | "providerMessageIds" | "lockedAt" | "lockId" | "sentAt" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationOutbox"]>
+export type NotificationOutboxOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "recipientUserId" | "type" | "aggregateType" | "aggregateId" | "payload" | "smsFallbackAllowed" | "status" | "attempts" | "nextAttemptAt" | "deliveryChannel" | "deliveryProvider" | "providerMessageIds" | "lockedAt" | "lockId" | "sentAt" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationOutbox"]>
 export type NotificationOutboxInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   recipient?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -967,6 +1000,7 @@ export type $NotificationOutboxPayload<ExtArgs extends runtime.Types.Extensions.
     aggregateType: string
     aggregateId: string
     payload: runtime.JsonValue
+    smsFallbackAllowed: boolean
     status: $Enums.NotificationDeliveryStatus
     attempts: number
     nextAttemptAt: Date
@@ -1409,6 +1443,7 @@ export interface NotificationOutboxFieldRefs {
   readonly aggregateType: Prisma.FieldRef<"NotificationOutbox", 'String'>
   readonly aggregateId: Prisma.FieldRef<"NotificationOutbox", 'String'>
   readonly payload: Prisma.FieldRef<"NotificationOutbox", 'Json'>
+  readonly smsFallbackAllowed: Prisma.FieldRef<"NotificationOutbox", 'Boolean'>
   readonly status: Prisma.FieldRef<"NotificationOutbox", 'NotificationDeliveryStatus'>
   readonly attempts: Prisma.FieldRef<"NotificationOutbox", 'Int'>
   readonly nextAttemptAt: Prisma.FieldRef<"NotificationOutbox", 'DateTime'>

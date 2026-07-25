@@ -10,6 +10,7 @@ import {
   MediaUploadStatus,
   PropertyListingType,
   VisitTravelMode,
+  ChatMessageType,
 } from './index';
 
 const sampleRate: ExchangeRate = {
@@ -100,6 +101,7 @@ describe('NotificationDeliveryStatus', () => {
       'PENDING',
       'PROCESSING',
       'SENT',
+      'SKIPPED',
       'FAILED',
     ]);
   });
@@ -123,5 +125,11 @@ describe('VisitTravelMode', () => {
       'TRANSIT',
       'WALK',
     ]);
+  });
+});
+
+describe('ChatMessageType', () => {
+  it('starts with immutable text and system message records', () => {
+    expect(Object.values(ChatMessageType)).toEqual(['TEXT', 'SYSTEM']);
   });
 });

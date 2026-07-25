@@ -16,6 +16,7 @@ const outbox = (push = true) => ({
   type: 'VISIT_RESERVATION_APPROVED',
   aggregateType: 'VisitReservation',
   aggregateId: '019c75df-0255-7000-8000-000000000703',
+  smsFallbackAllowed: true,
   payload: {
     reservationNumber: 'VR-2026-TEST',
     startAt: '2026-07-26T01:00:00.000Z',
@@ -141,6 +142,31 @@ describe('NotificationOutboxWorker', () => {
           status: NotificationDeliveryStatus.SENT,
           deliveryChannel: 'SMS',
           deliveryProvider: 'NAVER_SENS',
+        }),
+      }),
+    );
+  });
+
+  it('does not spend SMS fallback on a push-only chat event', async () => {
+    const item = {
+      ...outbox(false),
+      type: 'CHAT_MESSAGE_RECEIVED',
+      aggregateType: 'PropertyChatRoom',
+      smsFallbackAllowed: false,
+      payload: { listingNumber: 'LH-2026-CHAT' },
+    };
+    const fixture = workerFixture(item);
+
+    await fixture.worker.drainOnce();
+
+    expect(fixture.provider.sendPush).not.toHaveBeenCalled();
+    expect(fixture.provider.sendSms).not.toHaveBeenCalled();
+    expect(fixture.updates.at(-1)).toEqual(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          status: NotificationDeliveryStatus.SKIPPED,
+          deliveryProvider: 'PUSH_ONLY_NO_TARGET',
+          lastError: null,
         }),
       }),
     );

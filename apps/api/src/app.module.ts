@@ -15,6 +15,7 @@ import { PropertiesModule } from './properties/properties.module';
 import { CurrencyModule } from './currency/currency.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     PropertiesModule,
     ReservationsModule,
     NotificationsModule,
+    ChatModule,
   ],
   controllers: [AppConfigController, HealthController],
   providers: [

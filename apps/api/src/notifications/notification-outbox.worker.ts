@@ -178,6 +178,10 @@ export class NotificationOutboxWorker
         return;
       }
 
+      if (!item.smsFallbackAllowed) {
+        await this.markSkipped(item.id, item.lockId);
+        return;
+      }
       const phone = this.phone(item.recipient);
       if (!phone) {
         throw new NotificationSendError(
@@ -293,6 +297,28 @@ export class NotificationOutboxWorker
         deliveryProvider: provider,
         providerMessageIds: messageIds,
         sentAt: new Date(),
+        lastError: null,
+        lockedAt: null,
+        lockId: null,
+      },
+    });
+  }
+
+  private async markSkipped(
+    id: string,
+    lockId: string | null,
+  ): Promise<void> {
+    await this.prisma.notificationOutbox.updateMany({
+      where: {
+        id,
+        lockId,
+        status: NotificationDeliveryStatus.PROCESSING,
+      },
+      data: {
+        status: NotificationDeliveryStatus.SKIPPED,
+        deliveryChannel: null,
+        deliveryProvider: 'PUSH_ONLY_NO_TARGET',
+        providerMessageIds: [],
         lastError: null,
         lockedAt: null,
         lockId: null,

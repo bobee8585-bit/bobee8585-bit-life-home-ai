@@ -51,7 +51,14 @@ export class AppConfigController {
         videoLimit: 3,
         publicVideoLimit: 1,
       },
-      version: 10,
+      chat: {
+        transport: 'REST_POLLING',
+        textOnly: true,
+        messageMaxLength: 2000,
+        clientMessageIdRequired: true,
+        propertyRegistrantOnly: true,
+      },
+      version: 11,
     };
   }
 

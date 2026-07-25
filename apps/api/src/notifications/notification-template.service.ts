@@ -77,6 +77,14 @@ export class NotificationTemplateService {
           ),
           data: commonData,
         };
+      case 'CHAT_MESSAGE_RECEIVED':
+        return {
+          title: '새 매물 채팅 메시지',
+          body: this.compact(
+            `${this.text(payload.listingNumber)} 매물 대화를 확인해주세요.`,
+          ),
+          data: commonData,
+        };
       default:
         return {
           title: 'LIFE HOME AI 알림',
