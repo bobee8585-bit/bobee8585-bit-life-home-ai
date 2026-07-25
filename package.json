@@ -1,0 +1,27 @@
+{
+  "name": "life-home-ai",
+  "version": "0.10.0",
+  "private": true,
+  "description": "LIFE HOME AI real-estate platform monorepo",
+  "packageManager": "npm@11.9.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "packages/contracts"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @lifehome/contracts && npm run build --workspace @lifehome/api && npm run build --workspace @lifehome/web",
+    "test": "npm run test --workspace @lifehome/contracts && npm run test --workspace @lifehome/api",
+    "typecheck": "npm run typecheck --workspace @lifehome/contracts && npm run build --workspace @lifehome/contracts && npm run typecheck --workspace @lifehome/api && npm run typecheck --workspace @lifehome/web",
+    "dev:api": "npm run dev --workspace @lifehome/api",
+    "dev:web": "npm run dev --workspace @lifehome/web",
+    "prisma:validate": "npm run prisma:validate --workspace @lifehome/api",
+    "prisma:generate": "npm run prisma:generate --workspace @lifehome/api",
+    "prisma:typecheck": "npm run prisma:typecheck --workspace @lifehome/api",
+    "prisma:migrate:deploy": "npm run prisma:migrate:deploy --workspace @lifehome/api",
+    "prisma:seed": "npm run prisma:seed --workspace @lifehome/api"
+  }
+}

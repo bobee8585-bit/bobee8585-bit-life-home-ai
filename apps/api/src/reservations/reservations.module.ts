@@ -1,0 +1,15 @@
+import { Module } from '@nestjs/common';
+import { BrokerVisitReservationsController } from './broker-visit-reservations.controller';
+import { VisitReservationsController } from './visit-reservations.controller';
+import { VisitReservationsService } from './visit-reservations.service';
+import { PaymentsModule } from '../payments/payments.module';
+
+@Module({
+  imports: [PaymentsModule],
+  controllers: [
+    VisitReservationsController,
+    BrokerVisitReservationsController,
+  ],
+  providers: [VisitReservationsService],
+})
+export class ReservationsModule {}
