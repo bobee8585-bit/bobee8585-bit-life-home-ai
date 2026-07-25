@@ -422,6 +422,7 @@ export const ModelName = {
   VisitReservation: 'VisitReservation',
   VisitReservationHistory: 'VisitReservationHistory',
   NotificationOutbox: 'NotificationOutbox',
+  NotificationEndpoint: 'NotificationEndpoint',
   ReservationDeposit: 'ReservationDeposit',
   PaymentTransaction: 'PaymentTransaction',
   PaymentWebhookEvent: 'PaymentWebhookEvent'
@@ -440,7 +441,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "notificationOutbox" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
+    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2294,6 +2295,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NotificationEndpoint: {
+      payload: Prisma.$NotificationEndpointPayload<ExtArgs>
+      fields: Prisma.NotificationEndpointFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NotificationEndpointFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NotificationEndpointFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>
+        }
+        findFirst: {
+          args: Prisma.NotificationEndpointFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NotificationEndpointFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>
+        }
+        findMany: {
+          args: Prisma.NotificationEndpointFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>[]
+        }
+        create: {
+          args: Prisma.NotificationEndpointCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>
+        }
+        createMany: {
+          args: Prisma.NotificationEndpointCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NotificationEndpointCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>[]
+        }
+        delete: {
+          args: Prisma.NotificationEndpointDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>
+        }
+        update: {
+          args: Prisma.NotificationEndpointUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>
+        }
+        deleteMany: {
+          args: Prisma.NotificationEndpointDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NotificationEndpointUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NotificationEndpointUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>[]
+        }
+        upsert: {
+          args: Prisma.NotificationEndpointUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationEndpointPayload>
+        }
+        aggregate: {
+          args: Prisma.NotificationEndpointAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNotificationEndpoint>
+        }
+        groupBy: {
+          args: Prisma.NotificationEndpointGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationEndpointGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NotificationEndpointCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationEndpointCountAggregateOutputType> | number
+        }
+      }
+    }
     ReservationDeposit: {
       payload: Prisma.$ReservationDepositPayload<ExtArgs>
       fields: Prisma.ReservationDepositFieldRefs
@@ -2989,6 +3064,11 @@ export const NotificationOutboxScalarFieldEnum = {
   status: 'status',
   attempts: 'attempts',
   nextAttemptAt: 'nextAttemptAt',
+  deliveryChannel: 'deliveryChannel',
+  deliveryProvider: 'deliveryProvider',
+  providerMessageIds: 'providerMessageIds',
+  lockedAt: 'lockedAt',
+  lockId: 'lockId',
   sentAt: 'sentAt',
   lastError: 'lastError',
   createdAt: 'createdAt',
@@ -2996,6 +3076,26 @@ export const NotificationOutboxScalarFieldEnum = {
 } as const
 
 export type NotificationOutboxScalarFieldEnum = (typeof NotificationOutboxScalarFieldEnum)[keyof typeof NotificationOutboxScalarFieldEnum]
+
+
+export const NotificationEndpointScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  channel: 'channel',
+  platform: 'platform',
+  provider: 'provider',
+  destinationEncrypted: 'destinationEncrypted',
+  destinationHash: 'destinationHash',
+  deviceIdHash: 'deviceIdHash',
+  locale: 'locale',
+  status: 'status',
+  lastSeenAt: 'lastSeenAt',
+  invalidatedAt: 'invalidatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationEndpointScalarFieldEnum = (typeof NotificationEndpointScalarFieldEnum)[keyof typeof NotificationEndpointScalarFieldEnum]
 
 
 export const ReservationDepositScalarFieldEnum = {
@@ -3465,6 +3565,34 @@ export type ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel> = Fiel
 
 
 /**
+ * Reference to a field of type 'NotificationChannel'
+ */
+export type EnumNotificationChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationChannel'>
+
+
+
+/**
+ * Reference to a field of type 'NotificationChannel[]'
+ */
+export type ListEnumNotificationChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationChannel[]'>
+
+
+
+/**
+ * Reference to a field of type 'NotificationEndpointStatus'
+ */
+export type EnumNotificationEndpointStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationEndpointStatus'>
+
+
+
+/**
+ * Reference to a field of type 'NotificationEndpointStatus[]'
+ */
+export type ListEnumNotificationEndpointStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationEndpointStatus[]'>
+
+
+
+/**
  * Reference to a field of type 'ReservationDepositStatus'
  */
 export type EnumReservationDepositStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReservationDepositStatus'>
@@ -3723,6 +3851,7 @@ export type GlobalOmitConfig = {
   visitReservation?: Prisma.VisitReservationOmit
   visitReservationHistory?: Prisma.VisitReservationHistoryOmit
   notificationOutbox?: Prisma.NotificationOutboxOmit
+  notificationEndpoint?: Prisma.NotificationEndpointOmit
   reservationDeposit?: Prisma.ReservationDepositOmit
   paymentTransaction?: Prisma.PaymentTransactionOmit
   paymentWebhookEvent?: Prisma.PaymentWebhookEventOmit
@@ -3788,4 +3917,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

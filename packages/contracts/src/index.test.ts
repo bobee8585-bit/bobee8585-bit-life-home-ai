@@ -6,6 +6,7 @@ import {
   PropertyStatus,
   VisitReservationStatus,
   ReservationDepositStatus,
+  NotificationDeliveryStatus,
 } from './index';
 
 const sampleRate: ExchangeRate = {
@@ -78,5 +79,16 @@ describe('ReservationDepositStatus', () => {
     expect(Object.values(ReservationDepositStatus)).toContain(
       'PARTIALLY_REFUNDED',
     );
+  });
+});
+
+describe('NotificationDeliveryStatus', () => {
+  it('distinguishes claimed work from pending and terminal states', () => {
+    expect(Object.values(NotificationDeliveryStatus)).toEqual([
+      'PENDING',
+      'PROCESSING',
+      'SENT',
+      'FAILED',
+    ]);
   });
 });

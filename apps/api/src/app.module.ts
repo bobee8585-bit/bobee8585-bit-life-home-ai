@@ -14,6 +14,7 @@ import { BrokersModule } from './brokers/brokers.module';
 import { PropertiesModule } from './properties/properties.module';
 import { CurrencyModule } from './currency/currency.module';
 import { ReservationsModule } from './reservations/reservations.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ReservationsModule } from './reservations/reservations.module';
     CurrencyModule,
     PropertiesModule,
     ReservationsModule,
+    NotificationsModule,
   ],
   controllers: [AppConfigController, HealthController],
   providers: [

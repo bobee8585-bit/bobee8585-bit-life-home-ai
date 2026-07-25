@@ -149,8 +149,20 @@ enum VisitReservationAction {
 
 enum NotificationDeliveryStatus {
   PENDING
+  PROCESSING
   SENT
   FAILED
+}
+
+enum NotificationChannel {
+  PUSH
+  SMS
+}
+
+enum NotificationEndpointStatus {
+  ACTIVE
+  INVALID
+  REVOKED
 }
 
 enum ReservationDepositStatus {
@@ -221,6 +233,7 @@ model User {
   managedVisits          VisitReservation[]        @relation("VisitReservationBroker")
   visitHistories         VisitReservationHistory[]
   notificationOutbox     NotificationOutbox[]
+  notificationEndpoints  NotificationEndpoint[]
   reservationDeposits    ReservationDeposit[]
 
   @@map("users")
@@ -691,25 +704,53 @@ model VisitReservationHistory {
 }
 
 model NotificationOutbox {
-  id              String                     @id @db.Uuid
-  recipientUserId String                     @map("recipient_user_id") @db.Uuid
-  type            String                     @db.VarChar(80)
-  aggregateType   String                     @map("aggregate_type") @db.VarChar(80)
-  aggregateId     String                     @map("aggregate_id") @db.Uuid
-  payload         Json
-  status          NotificationDeliveryStatus @default(PENDING)
-  attempts        Int                        @default(0)
-  nextAttemptAt   DateTime                   @default(now()) @map("next_attempt_at") @db.Timestamptz(6)
-  sentAt          DateTime?                  @map("sent_at") @db.Timestamptz(6)
-  lastError       String?                    @map("last_error")
-  createdAt       DateTime                   @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt       DateTime                   @updatedAt @map("updated_at") @db.Timestamptz(6)
-  recipient       User                       @relation(fields: [recipientUserId], references: [id], onDelete: Cascade)
+  id                 String                     @id @db.Uuid
+  recipientUserId    String                     @map("recipient_user_id") @db.Uuid
+  type               String                     @db.VarChar(80)
+  aggregateType      String                     @map("aggregate_type") @db.VarChar(80)
+  aggregateId        String                     @map("aggregate_id") @db.Uuid
+  payload            Json
+  status             NotificationDeliveryStatus @default(PENDING)
+  attempts           Int                        @default(0)
+  nextAttemptAt      DateTime                   @default(now()) @map("next_attempt_at") @db.Timestamptz(6)
+  deliveryChannel    NotificationChannel?       @map("delivery_channel")
+  deliveryProvider   String?                    @map("delivery_provider") @db.VarChar(40)
+  providerMessageIds Json?                      @map("provider_message_ids")
+  lockedAt           DateTime?                  @map("locked_at") @db.Timestamptz(6)
+  lockId             String?                    @map("lock_id") @db.Uuid
+  sentAt             DateTime?                  @map("sent_at") @db.Timestamptz(6)
+  lastError          String?                    @map("last_error") @db.VarChar(240)
+  createdAt          DateTime                   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime                   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  recipient          User                       @relation(fields: [recipientUserId], references: [id], onDelete: Cascade)
 
   @@index([status, nextAttemptAt])
+  @@index([status, lockedAt])
   @@index([recipientUserId, createdAt])
   @@index([aggregateType, aggregateId])
   @@map("notification_outbox")
+}
+
+model NotificationEndpoint {
+  id                   String                     @id @db.Uuid
+  userId               String                     @map("user_id") @db.Uuid
+  channel              NotificationChannel
+  platform             Platform?
+  provider             String                     @db.VarChar(40)
+  destinationEncrypted String                     @map("destination_encrypted")
+  destinationHash      String                     @unique @map("destination_hash") @db.VarChar(64)
+  deviceIdHash         String?                    @map("device_id_hash") @db.VarChar(64)
+  locale               String?                    @db.VarChar(20)
+  status               NotificationEndpointStatus @default(ACTIVE)
+  lastSeenAt           DateTime                   @default(now()) @map("last_seen_at") @db.Timestamptz(6)
+  invalidatedAt        DateTime?                  @map("invalidated_at") @db.Timestamptz(6)
+  createdAt            DateTime                   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime                   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user                 User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, channel, deviceIdHash])
+  @@index([userId, channel, status])
+  @@map("notification_endpoints")
 }
 
 model ReservationDeposit {

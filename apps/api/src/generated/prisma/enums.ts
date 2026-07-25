@@ -202,11 +202,29 @@ export type VisitReservationAction = (typeof VisitReservationAction)[keyof typeo
 
 export const NotificationDeliveryStatus = {
   PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
   SENT: 'SENT',
   FAILED: 'FAILED'
 } as const
 
 export type NotificationDeliveryStatus = (typeof NotificationDeliveryStatus)[keyof typeof NotificationDeliveryStatus]
+
+
+export const NotificationChannel = {
+  PUSH: 'PUSH',
+  SMS: 'SMS'
+} as const
+
+export type NotificationChannel = (typeof NotificationChannel)[keyof typeof NotificationChannel]
+
+
+export const NotificationEndpointStatus = {
+  ACTIVE: 'ACTIVE',
+  INVALID: 'INVALID',
+  REVOKED: 'REVOKED'
+} as const
+
+export type NotificationEndpointStatus = (typeof NotificationEndpointStatus)[keyof typeof NotificationEndpointStatus]
 
 
 export const ReservationDepositStatus = {

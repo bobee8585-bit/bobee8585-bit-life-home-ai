@@ -38,8 +38,31 @@ export class AppConfigController {
             : null,
         reservationDepositEnabled: true,
       },
-      version: 8,
+      notifications: {
+        pushProvider: this.pushProvider(),
+        smsProvider: this.smsProvider(),
+        pushRegistrationEnabled: true,
+      },
+      version: 9,
     };
+  }
+
+  private pushProvider(): 'LOG' | 'FCM' | 'DISABLED' {
+    const value = process.env.PUSH_PROVIDER_MODE?.trim().toUpperCase();
+    if (!value) {
+      return process.env.NODE_ENV === 'production' ? 'DISABLED' : 'LOG';
+    }
+    return value === 'FCM' || value === 'LOG' ? value : 'DISABLED';
+  }
+
+  private smsProvider(): 'LOG' | 'NAVER_SENS' | 'DISABLED' {
+    const value = process.env.SMS_PROVIDER_MODE?.trim().toUpperCase();
+    if (!value) {
+      return process.env.NODE_ENV === 'production' ? 'DISABLED' : 'LOG';
+    }
+    return value === 'NAVER_SENS' || value === 'LOG'
+      ? value
+      : 'DISABLED';
   }
 
   private paymentProvider(): PaymentProvider {

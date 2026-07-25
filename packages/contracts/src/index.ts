@@ -85,6 +85,28 @@ export enum VisitReservationAction {
   COMPLETED = 'COMPLETED',
 }
 
+export enum NotificationDeliveryStatus {
+  PENDING = 'PENDING',
+  PROCESSING = 'PROCESSING',
+  SENT = 'SENT',
+  FAILED = 'FAILED',
+}
+
+export enum NotificationChannel {
+  PUSH = 'PUSH',
+  SMS = 'SMS',
+}
+
+export interface NotificationEndpoint {
+  id: string;
+  channel: NotificationChannel;
+  platform: Platform | null;
+  provider: string;
+  status: 'ACTIVE' | 'INVALID' | 'REVOKED';
+  locale: string | null;
+  lastSeenAt: string;
+}
+
 export enum ReservationDepositStatus {
   READY = 'READY',
   PAID = 'PAID',
@@ -200,6 +222,11 @@ export interface AppConfig {
     clientKey: string | null;
     siteCode?: string | null;
     reservationDepositEnabled: boolean;
+  };
+  notifications?: {
+    pushProvider: 'LOG' | 'FCM' | 'DISABLED';
+    smsProvider: 'LOG' | 'NAVER_SENS' | 'DISABLED';
+    pushRegistrationEnabled: boolean;
   };
   version: number;
 }

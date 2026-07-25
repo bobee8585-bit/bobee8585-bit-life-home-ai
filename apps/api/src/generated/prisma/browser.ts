@@ -143,6 +143,11 @@ export type VisitReservationHistory = Prisma.VisitReservationHistoryModel
  */
 export type NotificationOutbox = Prisma.NotificationOutboxModel
 /**
+ * Model NotificationEndpoint
+ *
+ */
+export type NotificationEndpoint = Prisma.NotificationEndpointModel
+/**
  * Model ReservationDeposit
  * 
  */

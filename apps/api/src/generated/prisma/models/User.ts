@@ -319,6 +319,7 @@ export type UserWhereInput = {
   managedVisits?: Prisma.VisitReservationListRelationFilter
   visitHistories?: Prisma.VisitReservationHistoryListRelationFilter
   notificationOutbox?: Prisma.NotificationOutboxListRelationFilter
+  notificationEndpoints?: Prisma.NotificationEndpointListRelationFilter
   reservationDeposits?: Prisma.ReservationDepositListRelationFilter
 }
 
@@ -354,6 +355,7 @@ export type UserOrderByWithRelationInput = {
   managedVisits?: Prisma.VisitReservationOrderByRelationAggregateInput
   visitHistories?: Prisma.VisitReservationHistoryOrderByRelationAggregateInput
   notificationOutbox?: Prisma.NotificationOutboxOrderByRelationAggregateInput
+  notificationEndpoints?: Prisma.NotificationEndpointOrderByRelationAggregateInput
   reservationDeposits?: Prisma.ReservationDepositOrderByRelationAggregateInput
 }
 
@@ -392,6 +394,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   managedVisits?: Prisma.VisitReservationListRelationFilter
   visitHistories?: Prisma.VisitReservationHistoryListRelationFilter
   notificationOutbox?: Prisma.NotificationOutboxListRelationFilter
+  notificationEndpoints?: Prisma.NotificationEndpointListRelationFilter
   reservationDeposits?: Prisma.ReservationDepositListRelationFilter
 }, "id" | "memberNumber" | "email" | "phoneHash">
 
@@ -473,6 +476,7 @@ export type UserCreateInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -508,6 +512,7 @@ export type UserUncheckedCreateInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -543,6 +548,7 @@ export type UserUpdateInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -578,6 +584,7 @@ export type UserUncheckedUpdateInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -957,6 +964,20 @@ export type UserUpdateOneRequiredWithoutNotificationOutboxNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationOutboxInput, Prisma.UserUpdateWithoutNotificationOutboxInput>, Prisma.UserUncheckedUpdateWithoutNotificationOutboxInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationEndpointsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationEndpointsInput, Prisma.UserUncheckedCreateWithoutNotificationEndpointsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationEndpointsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationEndpointsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationEndpointsInput, Prisma.UserUncheckedCreateWithoutNotificationEndpointsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationEndpointsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationEndpointsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationEndpointsInput, Prisma.UserUpdateWithoutNotificationEndpointsInput>, Prisma.UserUncheckedUpdateWithoutNotificationEndpointsInput>
+}
+
 export type UserCreateNestedOneWithoutReservationDepositsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReservationDepositsInput, Prisma.UserUncheckedCreateWithoutReservationDepositsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReservationDepositsInput
@@ -1002,6 +1023,7 @@ export type UserCreateWithoutVerificationChallengesInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1036,6 +1058,7 @@ export type UserUncheckedCreateWithoutVerificationChallengesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1086,6 +1109,7 @@ export type UserUpdateWithoutVerificationChallengesInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -1120,6 +1144,7 @@ export type UserUncheckedUpdateWithoutVerificationChallengesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -1154,6 +1179,7 @@ export type UserCreateWithoutSessionsInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1188,6 +1214,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1238,6 +1265,7 @@ export type UserUpdateWithoutSessionsInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -1272,6 +1300,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -1306,6 +1335,7 @@ export type UserCreateWithoutProfileInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1340,6 +1370,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1390,6 +1421,7 @@ export type UserUpdateWithoutProfileInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -1424,6 +1456,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -1458,6 +1491,7 @@ export type UserCreateWithoutRolesInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1492,6 +1526,7 @@ export type UserUncheckedCreateWithoutRolesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1542,6 +1577,7 @@ export type UserUpdateWithoutRolesInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -1576,6 +1612,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -1610,6 +1647,7 @@ export type UserCreateWithoutBrokerProfileInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1644,6 +1682,7 @@ export type UserUncheckedCreateWithoutBrokerProfileInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1694,6 +1733,7 @@ export type UserUpdateWithoutBrokerProfileInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -1728,6 +1768,7 @@ export type UserUncheckedUpdateWithoutBrokerProfileInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -1762,6 +1803,7 @@ export type UserCreateWithoutPropertiesInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1796,6 +1838,7 @@ export type UserUncheckedCreateWithoutPropertiesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1835,6 +1878,7 @@ export type UserCreateWithoutReviewedPropertiesInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -1869,6 +1913,7 @@ export type UserUncheckedCreateWithoutReviewedPropertiesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -1919,6 +1964,7 @@ export type UserUpdateWithoutPropertiesInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -1953,6 +1999,7 @@ export type UserUncheckedUpdateWithoutPropertiesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -1998,6 +2045,7 @@ export type UserUpdateWithoutReviewedPropertiesInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2032,6 +2080,7 @@ export type UserUncheckedUpdateWithoutReviewedPropertiesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2066,6 +2115,7 @@ export type UserCreateWithoutMediaUploadsInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -2100,6 +2150,7 @@ export type UserUncheckedCreateWithoutMediaUploadsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -2150,6 +2201,7 @@ export type UserUpdateWithoutMediaUploadsInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2184,6 +2236,7 @@ export type UserUncheckedUpdateWithoutMediaUploadsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2218,6 +2271,7 @@ export type UserCreateWithoutPropertyReportsInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -2252,6 +2306,7 @@ export type UserUncheckedCreateWithoutPropertyReportsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -2291,6 +2346,7 @@ export type UserCreateWithoutAssignedReportsInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -2325,6 +2381,7 @@ export type UserUncheckedCreateWithoutAssignedReportsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -2375,6 +2432,7 @@ export type UserUpdateWithoutPropertyReportsInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2409,6 +2467,7 @@ export type UserUncheckedUpdateWithoutPropertyReportsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2454,6 +2513,7 @@ export type UserUpdateWithoutAssignedReportsInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2488,6 +2548,7 @@ export type UserUncheckedUpdateWithoutAssignedReportsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2522,6 +2583,7 @@ export type UserCreateWithoutReportHistoriesInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -2556,6 +2618,7 @@ export type UserUncheckedCreateWithoutReportHistoriesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -2606,6 +2669,7 @@ export type UserUpdateWithoutReportHistoriesInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2640,6 +2704,7 @@ export type UserUncheckedUpdateWithoutReportHistoriesInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2674,6 +2739,7 @@ export type UserCreateWithoutRequestedVisitsInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -2708,6 +2774,7 @@ export type UserUncheckedCreateWithoutRequestedVisitsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -2747,6 +2814,7 @@ export type UserCreateWithoutManagedVisitsInput = {
   requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -2781,6 +2849,7 @@ export type UserUncheckedCreateWithoutManagedVisitsInput = {
   requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -2831,6 +2900,7 @@ export type UserUpdateWithoutRequestedVisitsInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2865,6 +2935,7 @@ export type UserUncheckedUpdateWithoutRequestedVisitsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2910,6 +2981,7 @@ export type UserUpdateWithoutManagedVisitsInput = {
   requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -2944,6 +3016,7 @@ export type UserUncheckedUpdateWithoutManagedVisitsInput = {
   requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -2978,6 +3051,7 @@ export type UserCreateWithoutVisitHistoriesInput = {
   requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -3012,6 +3086,7 @@ export type UserUncheckedCreateWithoutVisitHistoriesInput = {
   requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -3062,6 +3137,7 @@ export type UserUpdateWithoutVisitHistoriesInput = {
   requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -3096,6 +3172,7 @@ export type UserUncheckedUpdateWithoutVisitHistoriesInput = {
   requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -3130,6 +3207,7 @@ export type UserCreateWithoutNotificationOutboxInput = {
   requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
 }
 
@@ -3164,6 +3242,7 @@ export type UserUncheckedCreateWithoutNotificationOutboxInput = {
   requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -3214,6 +3293,7 @@ export type UserUpdateWithoutNotificationOutboxInput = {
   requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
 }
 
@@ -3248,6 +3328,163 @@ export type UserUncheckedUpdateWithoutNotificationOutboxInput = {
   requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
+}
+
+export type UserCreateWithoutNotificationEndpointsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutBrokerInput
+  reviewedProperties?: Prisma.PropertyCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
+}
+
+export type UserUncheckedCreateWithoutNotificationEndpointsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutBrokerInput
+  reviewedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
+}
+
+export type UserCreateOrConnectWithoutNotificationEndpointsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationEndpointsInput, Prisma.UserUncheckedCreateWithoutNotificationEndpointsInput>
+}
+
+export type UserUpsertWithoutNotificationEndpointsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationEndpointsInput, Prisma.UserUncheckedUpdateWithoutNotificationEndpointsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationEndpointsInput, Prisma.UserUncheckedCreateWithoutNotificationEndpointsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationEndpointsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationEndpointsInput, Prisma.UserUncheckedUpdateWithoutNotificationEndpointsInput>
+}
+
+export type UserUpdateWithoutNotificationEndpointsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutBrokerNestedInput
+  reviewedProperties?: Prisma.PropertyUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationEndpointsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutBrokerNestedInput
+  reviewedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -3283,6 +3520,7 @@ export type UserCreateWithoutReservationDepositsInput = {
   managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReservationDepositsInput = {
@@ -3317,6 +3555,7 @@ export type UserUncheckedCreateWithoutReservationDepositsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReservationDepositsInput = {
@@ -3367,6 +3606,7 @@ export type UserUpdateWithoutReservationDepositsInput = {
   managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReservationDepositsInput = {
@@ -3401,6 +3641,7 @@ export type UserUncheckedUpdateWithoutReservationDepositsInput = {
   managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
   visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
   notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -3422,6 +3663,7 @@ export type UserCountOutputType = {
   managedVisits: number
   visitHistories: number
   notificationOutbox: number
+  notificationEndpoints: number
   reservationDeposits: number
 }
 
@@ -3439,6 +3681,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   managedVisits?: boolean | UserCountOutputTypeCountManagedVisitsArgs
   visitHistories?: boolean | UserCountOutputTypeCountVisitHistoriesArgs
   notificationOutbox?: boolean | UserCountOutputTypeCountNotificationOutboxArgs
+  notificationEndpoints?: boolean | UserCountOutputTypeCountNotificationEndpointsArgs
   reservationDeposits?: boolean | UserCountOutputTypeCountReservationDepositsArgs
 }
 
@@ -3546,6 +3789,13 @@ export type UserCountOutputTypeCountNotificationOutboxArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountNotificationEndpointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationEndpointWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountReservationDepositsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ReservationDepositWhereInput
 }
@@ -3583,6 +3833,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   managedVisits?: boolean | Prisma.User$managedVisitsArgs<ExtArgs>
   visitHistories?: boolean | Prisma.User$visitHistoriesArgs<ExtArgs>
   notificationOutbox?: boolean | Prisma.User$notificationOutboxArgs<ExtArgs>
+  notificationEndpoints?: boolean | Prisma.User$notificationEndpointsArgs<ExtArgs>
   reservationDeposits?: boolean | Prisma.User$reservationDepositsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -3661,6 +3912,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   managedVisits?: boolean | Prisma.User$managedVisitsArgs<ExtArgs>
   visitHistories?: boolean | Prisma.User$visitHistoriesArgs<ExtArgs>
   notificationOutbox?: boolean | Prisma.User$notificationOutboxArgs<ExtArgs>
+  notificationEndpoints?: boolean | Prisma.User$notificationEndpointsArgs<ExtArgs>
   reservationDeposits?: boolean | Prisma.User$reservationDepositsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -3685,6 +3937,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     managedVisits: Prisma.$VisitReservationPayload<ExtArgs>[]
     visitHistories: Prisma.$VisitReservationHistoryPayload<ExtArgs>[]
     notificationOutbox: Prisma.$NotificationOutboxPayload<ExtArgs>[]
+    notificationEndpoints: Prisma.$NotificationEndpointPayload<ExtArgs>[]
     reservationDeposits: Prisma.$ReservationDepositPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -4113,6 +4366,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   managedVisits<T extends Prisma.User$managedVisitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$managedVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VisitReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   visitHistories<T extends Prisma.User$visitHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$visitHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VisitReservationHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificationOutbox<T extends Prisma.User$notificationOutboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationOutboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationOutboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notificationEndpoints<T extends Prisma.User$notificationEndpointsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationEndpointsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reservationDeposits<T extends Prisma.User$reservationDepositsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reservationDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReservationDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4899,6 +5153,30 @@ export type User$notificationOutboxArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.NotificationOutboxScalarFieldEnum | Prisma.NotificationOutboxScalarFieldEnum[]
+}
+
+/**
+ * User.notificationEndpoints
+ */
+export type User$notificationEndpointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NotificationEndpoint
+   */
+  select?: Prisma.NotificationEndpointSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NotificationEndpoint
+   */
+  omit?: Prisma.NotificationEndpointOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationEndpointInclude<ExtArgs> | null
+  where?: Prisma.NotificationEndpointWhereInput
+  orderBy?: Prisma.NotificationEndpointOrderByWithRelationInput | Prisma.NotificationEndpointOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationEndpointWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationEndpointScalarFieldEnum | Prisma.NotificationEndpointScalarFieldEnum[]
 }
 
 /**

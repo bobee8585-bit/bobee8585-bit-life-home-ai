@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.10.0
+# LIFE HOME AI 0.11.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -86,6 +86,9 @@ POST /v1/visit-reservations/:reservationId/deposit/confirm
 POST /v1/payment-webhooks/toss
 POST /v1/payment-webhooks/nicepay
 POST /v1/payment-webhooks/nhn-kcp
+POST /v1/notifications/push-endpoints
+GET  /v1/notifications/push-endpoints
+DELETE /v1/notifications/push-endpoints/:deviceId
 ```
 
 회원가입 예시:
@@ -158,6 +161,22 @@ KRW, USD, EUR, CNY, JPY, GBP, CAD, AUD, SGD, HKD입니다.
 `ALTERNATIVE_PROPOSED → CONFIRMED/ALTERNATIVE_DECLINED`로 전이됩니다.
 회원 취소는 `CANCELLED`로 기록됩니다. 모든 전환은 예약 이력·감사 로그에
 남고 상대방 알림은 `notification_outbox`에 원자적으로 적재됩니다.
+
+알림 작업자는 아웃박스를 주기적으로 선점하여 FCM 푸시를 우선 전송하고,
+활성 푸시 토큰이 없거나 모든 토큰이 영구 무효이면 인증된 국내 휴대폰으로
+네이버 클라우드 SENS SMS를 대체 전송합니다. 앱의 FCM 토큰은
+`POST /v1/notifications/push-endpoints`로 등록하며 AES-256-GCM 암호문과
+검색용 키 해시만 저장합니다. API 응답과 로그에는 토큰·휴대폰 번호를
+노출하지 않습니다.
+
+아웃박스 상태는 `PENDING → PROCESSING → SENT`로 전이됩니다. 일시적 공급자
+장애는 지수형 지연으로 최대 6회 재시도하고, 재시도 한도 또는 영구 오류는
+`FAILED`로 종료합니다. 작업자 잠금에 만료 시간을 두어 프로세스가 중단되어도
+다른 인스턴스가 미완료 작업을 복구할 수 있습니다.
+
+개발 환경의 `PUSH_PROVIDER_MODE=log`, `SMS_PROVIDER_MODE=log`는 외부 전송 없이
+흐름을 검증합니다. 운영 환경은 LOG 모드를 거부하며 FCM 서비스 계정과
+SENS 서비스·IAM 키·등록 발신번호를 비밀 저장소에서 주입해야 합니다.
 
 예약금은 확정된 방문 예약에만 준비할 수 있으며 기본 금액은 10,000원입니다.
 결제 준비·승인은 16~100자의 `Idempotency-Key` 헤더를 요구하고, 예약별 결제

@@ -18,7 +18,7 @@ export default function HomePage() {
     <main>
       <section className="hero">
         <div className="hero__content">
-          <p className="eyebrow">LIFE HOME AI · FOUNDATION 0.10</p>
+          <p className="eyebrow">LIFE HOME AI · FOUNDATION 0.11</p>
           <h1>집을 찾는 전 과정을<br />더 안전하게.</h1>
           <p className="hero__copy">
             검증된 부동산 검색부터 중개사 문의, 방문 예약과 계약까지 연결하는

@@ -76,6 +76,7 @@ export const ModelName = {
   VisitReservation: 'VisitReservation',
   VisitReservationHistory: 'VisitReservationHistory',
   NotificationOutbox: 'NotificationOutbox',
+  NotificationEndpoint: 'NotificationEndpoint',
   ReservationDeposit: 'ReservationDeposit',
   PaymentTransaction: 'PaymentTransaction',
   PaymentWebhookEvent: 'PaymentWebhookEvent'
@@ -531,6 +532,11 @@ export const NotificationOutboxScalarFieldEnum = {
   status: 'status',
   attempts: 'attempts',
   nextAttemptAt: 'nextAttemptAt',
+  deliveryChannel: 'deliveryChannel',
+  deliveryProvider: 'deliveryProvider',
+  providerMessageIds: 'providerMessageIds',
+  lockedAt: 'lockedAt',
+  lockId: 'lockId',
   sentAt: 'sentAt',
   lastError: 'lastError',
   createdAt: 'createdAt',
@@ -538,6 +544,26 @@ export const NotificationOutboxScalarFieldEnum = {
 } as const
 
 export type NotificationOutboxScalarFieldEnum = (typeof NotificationOutboxScalarFieldEnum)[keyof typeof NotificationOutboxScalarFieldEnum]
+
+
+export const NotificationEndpointScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  channel: 'channel',
+  platform: 'platform',
+  provider: 'provider',
+  destinationEncrypted: 'destinationEncrypted',
+  destinationHash: 'destinationHash',
+  deviceIdHash: 'deviceIdHash',
+  locale: 'locale',
+  status: 'status',
+  lastSeenAt: 'lastSeenAt',
+  invalidatedAt: 'invalidatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationEndpointScalarFieldEnum = (typeof NotificationEndpointScalarFieldEnum)[keyof typeof NotificationEndpointScalarFieldEnum]
 
 
 export const ReservationDepositScalarFieldEnum = {
