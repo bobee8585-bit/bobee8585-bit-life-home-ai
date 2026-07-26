@@ -68,7 +68,14 @@ export class AppConfigController {
         externalSignatureAndIdentityVerification: true,
         retentionYears: 10,
       },
-      version: 12,
+      routePlanning: {
+        provider: this.mapRouteProvider(),
+        trafficAwareDrive:
+          this.mapRouteProvider() === 'GOOGLE_ROUTES',
+        localEstimateFallback: true,
+        maxProperties: 5,
+      },
+      version: 13,
     };
   }
 
@@ -142,5 +149,12 @@ export class AppConfigController {
       return process.env.NICEPAY_CLIENT_KEY ?? null;
     }
     return null;
+  }
+
+  private mapRouteProvider(): 'GOOGLE_ROUTES' | 'DISABLED' {
+    return process.env.MAP_ROUTE_PROVIDER?.trim().toUpperCase() ===
+      'GOOGLE_ROUTES'
+      ? 'GOOGLE_ROUTES'
+      : 'DISABLED';
   }
 }

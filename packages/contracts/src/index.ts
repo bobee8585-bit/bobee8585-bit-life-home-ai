@@ -299,6 +299,7 @@ export enum VisitTravelMode {
 export interface VisitRoutePlan {
   planType: 'PRE_BOOKING_ESTIMATE';
   algorithm: 'EXACT_SHORTEST_PATH';
+  optimizationMetric: 'TRAVEL_TIME' | 'DISTANCE';
   travelMode: VisitTravelMode;
   origin: {
     latitude: number;
@@ -306,10 +307,20 @@ export interface VisitRoutePlan {
     departureAt: string;
   };
   estimateBasis: {
-    distanceMethod: 'HAVERSINE_WITH_ROAD_FACTOR';
-    averageSpeedKph: number;
-    roadFactor: number;
-    realTimeTrafficIncluded: false;
+    distanceMethod:
+      | 'PROVIDER_ROUTE_MATRIX'
+      | 'HAVERSINE_WITH_ROAD_FACTOR';
+    provider: 'GOOGLE_ROUTES' | 'LOCAL_ESTIMATE';
+    averageSpeedKph: number | null;
+    roadFactor: number | null;
+    trafficAware: boolean;
+    realTimeTrafficIncluded: boolean;
+    fetchedAt: string | null;
+    fallbackUsed: boolean;
+    fallbackReason:
+      | 'PROVIDER_DISABLED'
+      | 'PROVIDER_UNAVAILABLE'
+      | null;
   };
   stops: Array<{
     order: number;
@@ -326,6 +337,10 @@ export interface VisitRoutePlan {
       straightLineDistanceKm: number;
       estimatedDistanceKm: number;
       estimatedTravelMinutes: number;
+      staticTravelMinutes: number | null;
+      trafficDelayMinutes: number | null;
+      trafficIncluded: boolean;
+      source: 'MAP_PROVIDER' | 'LOCAL_ESTIMATE';
       departAt: string;
       arrivalAt: string;
     };
@@ -451,6 +466,12 @@ export interface AppConfig {
     providers: ElectronicContractProvider[];
     externalSignatureAndIdentityVerification: true;
     retentionYears: 10;
+  };
+  routePlanning?: {
+    provider: 'GOOGLE_ROUTES' | 'DISABLED';
+    trafficAwareDrive: boolean;
+    localEstimateFallback: true;
+    maxProperties: 5;
   };
   version: number;
 }

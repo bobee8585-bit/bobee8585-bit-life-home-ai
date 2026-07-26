@@ -5,6 +5,7 @@ import { VisitReservationsService } from './visit-reservations.service';
 import { VisitRoutePlannerService } from './visit-route-planner.service';
 import { PaymentsModule } from '../payments/payments.module';
 import { PropertyManagerVisitReservationsController } from './property-manager-visit-reservations.controller';
+import { MapRouteProviderService } from './map-route-provider.service';
 
 @Module({
   imports: [PaymentsModule],
@@ -13,6 +14,10 @@ import { PropertyManagerVisitReservationsController } from './property-manager-v
     BrokerVisitReservationsController,
     PropertyManagerVisitReservationsController,
   ],
-  providers: [VisitReservationsService, VisitRoutePlannerService],
+  providers: [
+    VisitReservationsService,
+    VisitRoutePlannerService,
+    MapRouteProviderService,
+  ],
 })
 export class ReservationsModule {}

@@ -3,6 +3,7 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  Optional,
 } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import {
@@ -14,6 +15,11 @@ import {
   type OptimizeVisitRouteDto,
   VisitTravelMode,
 } from './dto/optimize-visit-route.dto';
+import {
+  type MapRouteLeg,
+  type MapRouteMatrix,
+  MapRouteProviderService,
+} from './map-route-provider.service';
 
 const MAX_PLAN_DAYS = 90;
 const EARTH_RADIUS_KM = 6_371;
@@ -33,6 +39,7 @@ type Coordinate = {
 };
 
 type RoutableProperty = Coordinate & {
+  routeIndex: number;
   id: string;
   listingNumber: string;
   title: string;
@@ -42,7 +49,11 @@ type RoutableProperty = Coordinate & {
 
 @Injectable()
 export class VisitRoutePlannerService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @Optional()
+    private readonly mapRouteProvider?: MapRouteProviderService,
+  ) {}
 
   async optimize(requesterId: string, dto: OptimizeVisitRouteDto) {
     const departureAt = new Date(dto.departureAt);
@@ -106,7 +117,8 @@ export class VisitRoutePlannerService {
       });
     }
 
-    const routable = properties.map((property) => ({
+    const routable = properties.map((property, index) => ({
+      routeIndex: index + 1,
       id: property.id,
       listingNumber: property.listingNumber,
       title: property.title,
@@ -119,8 +131,36 @@ export class VisitRoutePlannerService {
       latitude: dto.startLatitude,
       longitude: dto.startLongitude,
     };
-    const ordered = this.shortestPath(origin, routable);
-    return this.schedule(origin, ordered, departureAt, deadlineAt, dto);
+    let matrix: MapRouteMatrix | null = null;
+    let fallbackReason:
+      | 'PROVIDER_DISABLED'
+      | 'PROVIDER_UNAVAILABLE'
+      | null = 'PROVIDER_DISABLED';
+    if (this.mapRouteProvider) {
+      try {
+        matrix = await this.mapRouteProvider.matrix(
+          [origin, ...routable],
+          dto.travelMode,
+          departureAt,
+        );
+        fallbackReason = matrix ? null : 'PROVIDER_DISABLED';
+      } catch {
+        fallbackReason = 'PROVIDER_UNAVAILABLE';
+      }
+    }
+
+    const ordered = matrix
+      ? this.shortestPathByTravelTime(routable, matrix)
+      : this.shortestPath(origin, routable);
+    return this.schedule(
+      origin,
+      ordered,
+      departureAt,
+      deadlineAt,
+      dto,
+      matrix,
+      fallbackReason,
+    );
   }
 
   private validateWindow(departureAt: Date, deadlineAt: Date | null): void {
@@ -167,6 +207,41 @@ export class VisitRoutePlannerService {
     return best ?? [];
   }
 
+  private shortestPathByTravelTime(
+    properties: RoutableProperty[],
+    matrix: MapRouteMatrix,
+  ): RoutableProperty[] {
+    let best: RoutableProperty[] | null = null;
+    let bestMinutes = Number.POSITIVE_INFINITY;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    for (const candidate of this.permutations(properties)) {
+      let fromIndex = 0;
+      let minutes = 0;
+      let distance = 0;
+      for (const property of candidate) {
+        const leg = this.providerLeg(matrix, fromIndex, property.routeIndex);
+        minutes += leg.travelMinutes;
+        distance += leg.distanceKm;
+        fromIndex = property.routeIndex;
+      }
+      const candidateKey = candidate.map((property) => property.id).join(':');
+      const bestKey = best?.map((property) => property.id).join(':') ?? '';
+      if (
+        minutes < bestMinutes ||
+        (minutes === bestMinutes && distance < bestDistance) ||
+        (minutes === bestMinutes &&
+          Math.abs(distance - bestDistance) <= Number.EPSILON &&
+          candidateKey < bestKey)
+      ) {
+        best = candidate;
+        bestMinutes = minutes;
+        bestDistance = distance;
+      }
+    }
+    return best ?? [];
+  }
+
   private permutations(items: RoutableProperty[]): RoutableProperty[][] {
     if (items.length <= 1) {
       return [items];
@@ -197,6 +272,11 @@ export class VisitRoutePlannerService {
     departureAt: Date,
     deadlineAt: Date | null,
     dto: OptimizeVisitRouteDto,
+    matrix: MapRouteMatrix | null,
+    fallbackReason:
+      | 'PROVIDER_DISABLED'
+      | 'PROVIDER_UNAVAILABLE'
+      | null,
   ) {
     const profile = travelProfiles[dto.travelMode];
     const stops = [];
@@ -204,22 +284,33 @@ export class VisitRoutePlannerService {
     let cursor = new Date(departureAt);
     let totalDistanceKm = 0;
     let totalTravelMinutes = 0;
+    const selectedProviderLegs: MapRouteLeg[] = [];
 
     for (const [index, property] of properties.entries()) {
       if (index > 0) {
         cursor = this.addMinutes(cursor, dto.bufferMinutes);
       }
       const straightLineKm = this.straightLineDistance(previous, property);
-      const estimatedDistanceKm = straightLineKm * profile.roadFactor;
+      const fromIndex =
+        index === 0 ? 0 : properties[index - 1]!.routeIndex;
+      const providerLeg = matrix
+        ? this.providerLeg(matrix, fromIndex, property.routeIndex)
+        : null;
+      if (providerLeg) {
+        selectedProviderLegs.push(providerLeg);
+      }
+      const estimatedDistanceKm =
+        providerLeg?.distanceKm ?? straightLineKm * profile.roadFactor;
       const estimatedTravelMinutes =
-        estimatedDistanceKm === 0
+        providerLeg?.travelMinutes ??
+        (estimatedDistanceKm === 0
           ? 0
           : Math.max(
               1,
               Math.ceil(
                 (estimatedDistanceKm / profile.averageSpeedKph) * 60,
               ),
-            );
+            ));
       const departAt = new Date(cursor);
       const arrivalAt = this.addMinutes(departAt, estimatedTravelMinutes);
       const visitEndAt = this.addMinutes(
@@ -243,6 +334,19 @@ export class VisitRoutePlannerService {
           straightLineDistanceKm: this.round(straightLineKm),
           estimatedDistanceKm: this.round(estimatedDistanceKm),
           estimatedTravelMinutes,
+          staticTravelMinutes:
+            providerLeg?.staticTravelMinutes ?? null,
+          trafficDelayMinutes:
+            providerLeg?.staticTravelMinutes === null ||
+            providerLeg?.staticTravelMinutes === undefined
+              ? null
+              : Math.max(
+                  0,
+                  providerLeg.travelMinutes -
+                    providerLeg.staticTravelMinutes,
+                ),
+          trafficIncluded: providerLeg?.trafficIncluded ?? false,
+          source: providerLeg ? 'MAP_PROVIDER' : 'LOCAL_ESTIMATE',
           departAt: departAt.toISOString(),
           arrivalAt: arrivalAt.toISOString(),
         },
@@ -259,9 +363,14 @@ export class VisitRoutePlannerService {
       0,
       (properties.length - 1) * dto.bufferMinutes,
     );
+    const realTimeTrafficIncluded =
+      dto.travelMode === VisitTravelMode.DRIVE &&
+      selectedProviderLegs.length === properties.length &&
+      selectedProviderLegs.every((leg) => leg.trafficIncluded);
     return {
       planType: 'PRE_BOOKING_ESTIMATE',
       algorithm: 'EXACT_SHORTEST_PATH',
+      optimizationMetric: matrix ? 'TRAVEL_TIME' : 'DISTANCE',
       travelMode: dto.travelMode,
       origin: {
         latitude: origin.latitude,
@@ -269,10 +378,18 @@ export class VisitRoutePlannerService {
         departureAt: departureAt.toISOString(),
       },
       estimateBasis: {
-        distanceMethod: 'HAVERSINE_WITH_ROAD_FACTOR',
-        averageSpeedKph: profile.averageSpeedKph,
-        roadFactor: profile.roadFactor,
-        realTimeTrafficIncluded: false,
+        distanceMethod: matrix
+          ? 'PROVIDER_ROUTE_MATRIX'
+          : 'HAVERSINE_WITH_ROAD_FACTOR',
+        provider: matrix?.provider ?? 'LOCAL_ESTIMATE',
+        averageSpeedKph: matrix ? null : profile.averageSpeedKph,
+        roadFactor: matrix ? null : profile.roadFactor,
+        trafficAware:
+          dto.travelMode === VisitTravelMode.DRIVE && matrix !== null,
+        realTimeTrafficIncluded,
+        fetchedAt: matrix?.fetchedAt.toISOString() ?? null,
+        fallbackUsed: matrix === null,
+        fallbackReason,
       },
       stops,
       summary: {
@@ -291,6 +408,20 @@ export class VisitRoutePlannerService {
         approver: 'PROPERTY_REGISTRANT',
       },
     };
+  }
+
+  private providerLeg(
+    matrix: MapRouteMatrix,
+    fromIndex: number,
+    toIndex: number,
+  ): MapRouteLeg {
+    const leg = matrix.legs.get(`${fromIndex}:${toIndex}`);
+    if (!leg) {
+      throw new BadRequestException(
+        '지도 경로 공급자 결과에 필요한 이동 구간이 없습니다.',
+      );
+    }
+    return leg;
   }
 
   private straightLineDistance(
