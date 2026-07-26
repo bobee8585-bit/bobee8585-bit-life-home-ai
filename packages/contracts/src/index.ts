@@ -46,6 +46,23 @@ export enum PropertyListingType {
   OWNER_DIRECT = 'OWNER_DIRECT',
 }
 
+export interface SavedPropertySearch {
+  id: string;
+  name: string;
+  criteria: {
+    city: string | null;
+    propertyType: PropertyType | null;
+    transactionType: PropertyTransactionType | null;
+    currency: string;
+    minPrice: string | null;
+    maxPrice: string | null;
+    minRooms: number | null;
+  };
+  alertsEnabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export enum OwnershipClaimType {
   REGISTERED_OWNER = 'REGISTERED_OWNER',
   AUTHORIZED_REPRESENTATIVE = 'AUTHORIZED_REPRESENTATIVE',
@@ -546,6 +563,12 @@ export interface AppConfig {
     valuationFreshDays: 30;
     contractRecheckRequired: true;
     informationalOnly: true;
+  };
+  savedPropertySearches?: {
+    enabled: true;
+    maxPerUser: 20;
+    newListingAlerts: true;
+    pushOnly: true;
   };
   version: number;
 }

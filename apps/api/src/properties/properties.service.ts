@@ -14,8 +14,10 @@ import {
   OwnershipVerificationStatus,
   PropertyListingType,
   PropertyMediaType,
+  Prisma,
   PropertyStatus,
   PropertyTransactionType,
+  PropertyType,
 } from '../generated/prisma/client';
 import type { CreatePropertyDto } from './dto/create-property.dto';
 import type { ListPropertyReviewsDto } from './dto/list-property-reviews.dto';
@@ -475,7 +477,11 @@ export class PropertiesService {
       }
       const property = await transaction.property.findUniqueOrThrow({
         where: { id: propertyId },
-        select: { listingType: true },
+        select: {
+          id: true, listingNumber: true, brokerUserId: true, listingType: true,
+          city: true, propertyType: true, transactionType: true, currency: true,
+          price: true, rooms: true,
+        },
       });
       if (property.listingType === PropertyListingType.OWNER_DIRECT) {
         const ownershipChanged =
@@ -501,6 +507,9 @@ export class PropertiesService {
           );
         }
       }
+      if (nextStatus === PropertyStatus.ACTIVE) {
+        await this.enqueueNewListingAlerts(transaction, property);
+      }
       await transaction.auditLog.create({
         data: {
           id: createId(),
@@ -522,6 +531,56 @@ export class PropertiesService {
       });
     });
     return this.view(updated, true);
+  }
+
+  private async enqueueNewListingAlerts(
+    transaction: Prisma.TransactionClient,
+    property: {
+      id: string; listingNumber: string; brokerUserId: string; city: string;
+      propertyType: PropertyType; transactionType: PropertyTransactionType;
+      currency: string; price: Prisma.Decimal; rooms: number;
+    },
+  ) {
+    const matches = await transaction.savedPropertySearch.findMany({
+      where: {
+        alertsEnabled: true, userId: { not: property.brokerUserId },
+        currency: property.currency,
+        AND: [
+          { OR: [{ city: null }, { city: { equals: property.city, mode: 'insensitive' } }] },
+          { OR: [{ propertyType: null }, { propertyType: property.propertyType }] },
+          { OR: [{ transactionType: null }, { transactionType: property.transactionType }] },
+          { OR: [{ minPrice: null }, { minPrice: { lte: property.price } }] },
+          { OR: [{ maxPrice: null }, { maxPrice: { gte: property.price } }] },
+          { OR: [{ minRooms: null }, { minRooms: { lte: property.rooms } }] },
+        ],
+      },
+      select: { id: true, userId: true },
+    });
+    if (matches.length === 0) return;
+    const existing = await transaction.savedPropertyAlert.findMany({
+      where: { propertyId: property.id, savedSearchId: { in: matches.map(({ id }) => id) } },
+      select: { savedSearchId: true },
+    });
+    const alreadyAlerted = new Set(existing.map(({ savedSearchId }) => savedSearchId));
+    const fresh = matches.filter(({ id }) => !alreadyAlerted.has(id));
+    if (fresh.length === 0) return;
+    await transaction.savedPropertyAlert.createMany({
+      data: fresh.map((search) => ({
+        id: createId(), savedSearchId: search.id, propertyId: property.id,
+      })),
+    });
+    await transaction.notificationOutbox.createMany({
+      data: fresh.map((search) => ({
+        id: createId(), recipientUserId: search.userId,
+        type: 'PROPERTY_NEW_LISTING_MATCH', aggregateType: 'Property',
+        aggregateId: property.id,
+        payload: {
+          savedSearchId: search.id, propertyId: property.id,
+          listingNumber: property.listingNumber,
+        },
+        smsFallbackAllowed: false,
+      })),
+    });
   }
 
   private async activeBroker(userId: string) {

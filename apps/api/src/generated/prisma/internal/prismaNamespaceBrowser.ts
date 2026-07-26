@@ -69,6 +69,8 @@ export const ModelName = {
   BrokerProfile: 'BrokerProfile',
   Property: 'Property',
   LeaseSafetyAssessment: 'LeaseSafetyAssessment',
+  SavedPropertySearch: 'SavedPropertySearch',
+  SavedPropertyAlert: 'SavedPropertyAlert',
   PropertyOwnershipVerification: 'PropertyOwnershipVerification',
   PropertyMedia: 'PropertyMedia',
   PropertyMediaUpload: 'PropertyMediaUpload',
@@ -430,6 +432,35 @@ export const LeaseSafetyAssessmentScalarFieldEnum = {
 } as const
 
 export type LeaseSafetyAssessmentScalarFieldEnum = (typeof LeaseSafetyAssessmentScalarFieldEnum)[keyof typeof LeaseSafetyAssessmentScalarFieldEnum]
+
+
+export const SavedPropertySearchScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  city: 'city',
+  propertyType: 'propertyType',
+  transactionType: 'transactionType',
+  currency: 'currency',
+  minPrice: 'minPrice',
+  maxPrice: 'maxPrice',
+  minRooms: 'minRooms',
+  alertsEnabled: 'alertsEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SavedPropertySearchScalarFieldEnum = (typeof SavedPropertySearchScalarFieldEnum)[keyof typeof SavedPropertySearchScalarFieldEnum]
+
+
+export const SavedPropertyAlertScalarFieldEnum = {
+  id: 'id',
+  savedSearchId: 'savedSearchId',
+  propertyId: 'propertyId',
+  createdAt: 'createdAt'
+} as const
+
+export type SavedPropertyAlertScalarFieldEnum = (typeof SavedPropertyAlertScalarFieldEnum)[keyof typeof SavedPropertyAlertScalarFieldEnum]
 
 
 export const PropertyOwnershipVerificationScalarFieldEnum = {

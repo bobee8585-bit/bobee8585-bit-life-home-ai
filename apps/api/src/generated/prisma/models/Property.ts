@@ -507,6 +507,7 @@ export type PropertyWhereInput = {
   chatRooms?: Prisma.PropertyChatRoomListRelationFilter
   contracts?: Prisma.ElectronicContractListRelationFilter
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentListRelationFilter
+  savedSearchAlerts?: Prisma.SavedPropertyAlertListRelationFilter
 }
 
 export type PropertyOrderByWithRelationInput = {
@@ -556,6 +557,7 @@ export type PropertyOrderByWithRelationInput = {
   chatRooms?: Prisma.PropertyChatRoomOrderByRelationAggregateInput
   contracts?: Prisma.ElectronicContractOrderByRelationAggregateInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentOrderByRelationAggregateInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertOrderByRelationAggregateInput
 }
 
 export type PropertyWhereUniqueInput = Prisma.AtLeast<{
@@ -608,6 +610,7 @@ export type PropertyWhereUniqueInput = Prisma.AtLeast<{
   chatRooms?: Prisma.PropertyChatRoomListRelationFilter
   contracts?: Prisma.ElectronicContractListRelationFilter
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentListRelationFilter
+  savedSearchAlerts?: Prisma.SavedPropertyAlertListRelationFilter
 }, "id" | "listingNumber">
 
 export type PropertyOrderByWithAggregationInput = {
@@ -738,6 +741,7 @@ export type PropertyCreateInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateInput = {
@@ -784,6 +788,7 @@ export type PropertyUncheckedCreateInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUpdateInput = {
@@ -830,6 +835,7 @@ export type PropertyUpdateInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateInput = {
@@ -876,6 +882,7 @@ export type PropertyUncheckedUpdateInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateManyInput = {
@@ -1326,6 +1333,20 @@ export type PropertyUpdateOneRequiredWithoutLeaseSafetyAssessmentsNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutLeaseSafetyAssessmentsInput, Prisma.PropertyUpdateWithoutLeaseSafetyAssessmentsInput>, Prisma.PropertyUncheckedUpdateWithoutLeaseSafetyAssessmentsInput>
 }
 
+export type PropertyCreateNestedOneWithoutSavedSearchAlertsInput = {
+  create?: Prisma.XOR<Prisma.PropertyCreateWithoutSavedSearchAlertsInput, Prisma.PropertyUncheckedCreateWithoutSavedSearchAlertsInput>
+  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutSavedSearchAlertsInput
+  connect?: Prisma.PropertyWhereUniqueInput
+}
+
+export type PropertyUpdateOneRequiredWithoutSavedSearchAlertsNestedInput = {
+  create?: Prisma.XOR<Prisma.PropertyCreateWithoutSavedSearchAlertsInput, Prisma.PropertyUncheckedCreateWithoutSavedSearchAlertsInput>
+  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutSavedSearchAlertsInput
+  upsert?: Prisma.PropertyUpsertWithoutSavedSearchAlertsInput
+  connect?: Prisma.PropertyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutSavedSearchAlertsInput, Prisma.PropertyUpdateWithoutSavedSearchAlertsInput>, Prisma.PropertyUncheckedUpdateWithoutSavedSearchAlertsInput>
+}
+
 export type PropertyCreateNestedOneWithoutOwnershipVerificationInput = {
   create?: Prisma.XOR<Prisma.PropertyCreateWithoutOwnershipVerificationInput, Prisma.PropertyUncheckedCreateWithoutOwnershipVerificationInput>
   connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutOwnershipVerificationInput
@@ -1467,6 +1488,7 @@ export type PropertyCreateWithoutRegistrantInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutRegistrantInput = {
@@ -1512,6 +1534,7 @@ export type PropertyUncheckedCreateWithoutRegistrantInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutRegistrantInput = {
@@ -1567,6 +1590,7 @@ export type PropertyCreateWithoutReviewerInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutReviewerInput = {
@@ -1612,6 +1636,7 @@ export type PropertyUncheckedCreateWithoutReviewerInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutReviewerInput = {
@@ -1740,6 +1765,7 @@ export type PropertyCreateWithoutBrokerageOfficeInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutBrokerageOfficeInput = {
@@ -1785,6 +1811,7 @@ export type PropertyUncheckedCreateWithoutBrokerageOfficeInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutBrokerageOfficeInput = {
@@ -1856,6 +1883,7 @@ export type PropertyCreateWithoutLeaseSafetyAssessmentsInput = {
   visitReservations?: Prisma.VisitReservationCreateNestedManyWithoutPropertyInput
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutLeaseSafetyAssessmentsInput = {
@@ -1901,6 +1929,7 @@ export type PropertyUncheckedCreateWithoutLeaseSafetyAssessmentsInput = {
   visitReservations?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutPropertyInput
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutLeaseSafetyAssessmentsInput = {
@@ -1962,6 +1991,7 @@ export type PropertyUpdateWithoutLeaseSafetyAssessmentsInput = {
   visitReservations?: Prisma.VisitReservationUpdateManyWithoutPropertyNestedInput
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutLeaseSafetyAssessmentsInput = {
@@ -2007,6 +2037,207 @@ export type PropertyUncheckedUpdateWithoutLeaseSafetyAssessmentsInput = {
   visitReservations?: Prisma.VisitReservationUncheckedUpdateManyWithoutPropertyNestedInput
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
+}
+
+export type PropertyCreateWithoutSavedSearchAlertsInput = {
+  id: string
+  listingNumber: string
+  listingType?: $Enums.PropertyListingType
+  title: string
+  description: string
+  propertyType: $Enums.PropertyType
+  transactionType: $Enums.PropertyTransactionType
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthlyRent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  exclusiveArea: runtime.Decimal | runtime.DecimalJsLike | number | string
+  supplyArea?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  rooms: number
+  bathrooms: number
+  floor?: number | null
+  totalFloors?: number | null
+  countryCode?: string
+  region1: string
+  region2?: string | null
+  city: string
+  addressLine1: string
+  addressLine2?: string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.PropertyStatus
+  rejectionReason?: string | null
+  submittedAt?: Date | string | null
+  reviewedAt?: Date | string | null
+  activatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  registrant: Prisma.UserCreateNestedOneWithoutPropertiesInput
+  brokerageOffice?: Prisma.BrokerageOfficeCreateNestedOneWithoutPropertiesInput
+  reviewer?: Prisma.UserCreateNestedOneWithoutReviewedPropertiesInput
+  ownershipVerification?: Prisma.PropertyOwnershipVerificationCreateNestedOneWithoutPropertyInput
+  media?: Prisma.PropertyMediaCreateNestedManyWithoutPropertyInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutPropertyInput
+  reports?: Prisma.PropertyReportCreateNestedManyWithoutPropertyInput
+  visitReservations?: Prisma.VisitReservationCreateNestedManyWithoutPropertyInput
+  chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
+  contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+}
+
+export type PropertyUncheckedCreateWithoutSavedSearchAlertsInput = {
+  id: string
+  listingNumber: string
+  brokerUserId: string
+  brokerageOfficeId?: string | null
+  listingType?: $Enums.PropertyListingType
+  title: string
+  description: string
+  propertyType: $Enums.PropertyType
+  transactionType: $Enums.PropertyTransactionType
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthlyRent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: string
+  exclusiveArea: runtime.Decimal | runtime.DecimalJsLike | number | string
+  supplyArea?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  rooms: number
+  bathrooms: number
+  floor?: number | null
+  totalFloors?: number | null
+  countryCode?: string
+  region1: string
+  region2?: string | null
+  city: string
+  addressLine1: string
+  addressLine2?: string | null
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.PropertyStatus
+  rejectionReason?: string | null
+  submittedAt?: Date | string | null
+  reviewedBy?: string | null
+  reviewedAt?: Date | string | null
+  activatedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ownershipVerification?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedOneWithoutPropertyInput
+  media?: Prisma.PropertyMediaUncheckedCreateNestedManyWithoutPropertyInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutPropertyInput
+  reports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutPropertyInput
+  visitReservations?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutPropertyInput
+  chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
+  contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+}
+
+export type PropertyCreateOrConnectWithoutSavedSearchAlertsInput = {
+  where: Prisma.PropertyWhereUniqueInput
+  create: Prisma.XOR<Prisma.PropertyCreateWithoutSavedSearchAlertsInput, Prisma.PropertyUncheckedCreateWithoutSavedSearchAlertsInput>
+}
+
+export type PropertyUpsertWithoutSavedSearchAlertsInput = {
+  update: Prisma.XOR<Prisma.PropertyUpdateWithoutSavedSearchAlertsInput, Prisma.PropertyUncheckedUpdateWithoutSavedSearchAlertsInput>
+  create: Prisma.XOR<Prisma.PropertyCreateWithoutSavedSearchAlertsInput, Prisma.PropertyUncheckedCreateWithoutSavedSearchAlertsInput>
+  where?: Prisma.PropertyWhereInput
+}
+
+export type PropertyUpdateToOneWithWhereWithoutSavedSearchAlertsInput = {
+  where?: Prisma.PropertyWhereInput
+  data: Prisma.XOR<Prisma.PropertyUpdateWithoutSavedSearchAlertsInput, Prisma.PropertyUncheckedUpdateWithoutSavedSearchAlertsInput>
+}
+
+export type PropertyUpdateWithoutSavedSearchAlertsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  listingNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  listingType?: Prisma.EnumPropertyListingTypeFieldUpdateOperationsInput | $Enums.PropertyListingType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyType?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
+  transactionType?: Prisma.EnumPropertyTransactionTypeFieldUpdateOperationsInput | $Enums.PropertyTransactionType
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthlyRent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exclusiveArea?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  supplyArea?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  rooms?: Prisma.IntFieldUpdateOperationsInput | number
+  bathrooms?: Prisma.IntFieldUpdateOperationsInput | number
+  floor?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  totalFloors?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  region1?: Prisma.StringFieldUpdateOperationsInput | string
+  region2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  registrant?: Prisma.UserUpdateOneRequiredWithoutPropertiesNestedInput
+  brokerageOffice?: Prisma.BrokerageOfficeUpdateOneWithoutPropertiesNestedInput
+  reviewer?: Prisma.UserUpdateOneWithoutReviewedPropertiesNestedInput
+  ownershipVerification?: Prisma.PropertyOwnershipVerificationUpdateOneWithoutPropertyNestedInput
+  media?: Prisma.PropertyMediaUpdateManyWithoutPropertyNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutPropertyNestedInput
+  reports?: Prisma.PropertyReportUpdateManyWithoutPropertyNestedInput
+  visitReservations?: Prisma.VisitReservationUpdateManyWithoutPropertyNestedInput
+  chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
+  contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+}
+
+export type PropertyUncheckedUpdateWithoutSavedSearchAlertsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  listingNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  brokerUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  brokerageOfficeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  listingType?: Prisma.EnumPropertyListingTypeFieldUpdateOperationsInput | $Enums.PropertyListingType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyType?: Prisma.EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
+  transactionType?: Prisma.EnumPropertyTransactionTypeFieldUpdateOperationsInput | $Enums.PropertyTransactionType
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  monthlyRent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exclusiveArea?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  supplyArea?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  rooms?: Prisma.IntFieldUpdateOperationsInput | number
+  bathrooms?: Prisma.IntFieldUpdateOperationsInput | number
+  floor?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  totalFloors?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  region1?: Prisma.StringFieldUpdateOperationsInput | string
+  region2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ownershipVerification?: Prisma.PropertyOwnershipVerificationUncheckedUpdateOneWithoutPropertyNestedInput
+  media?: Prisma.PropertyMediaUncheckedUpdateManyWithoutPropertyNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutPropertyNestedInput
+  reports?: Prisma.PropertyReportUncheckedUpdateManyWithoutPropertyNestedInput
+  visitReservations?: Prisma.VisitReservationUncheckedUpdateManyWithoutPropertyNestedInput
+  chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
+  contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutOwnershipVerificationInput = {
@@ -2052,6 +2283,7 @@ export type PropertyCreateWithoutOwnershipVerificationInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutOwnershipVerificationInput = {
@@ -2097,6 +2329,7 @@ export type PropertyUncheckedCreateWithoutOwnershipVerificationInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutOwnershipVerificationInput = {
@@ -2158,6 +2391,7 @@ export type PropertyUpdateWithoutOwnershipVerificationInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutOwnershipVerificationInput = {
@@ -2203,6 +2437,7 @@ export type PropertyUncheckedUpdateWithoutOwnershipVerificationInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutMediaInput = {
@@ -2248,6 +2483,7 @@ export type PropertyCreateWithoutMediaInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutMediaInput = {
@@ -2293,6 +2529,7 @@ export type PropertyUncheckedCreateWithoutMediaInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutMediaInput = {
@@ -2354,6 +2591,7 @@ export type PropertyUpdateWithoutMediaInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutMediaInput = {
@@ -2399,6 +2637,7 @@ export type PropertyUncheckedUpdateWithoutMediaInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutMediaUploadsInput = {
@@ -2444,6 +2683,7 @@ export type PropertyCreateWithoutMediaUploadsInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutMediaUploadsInput = {
@@ -2489,6 +2729,7 @@ export type PropertyUncheckedCreateWithoutMediaUploadsInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutMediaUploadsInput = {
@@ -2550,6 +2791,7 @@ export type PropertyUpdateWithoutMediaUploadsInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutMediaUploadsInput = {
@@ -2595,6 +2837,7 @@ export type PropertyUncheckedUpdateWithoutMediaUploadsInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutReportsInput = {
@@ -2640,6 +2883,7 @@ export type PropertyCreateWithoutReportsInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutReportsInput = {
@@ -2685,6 +2929,7 @@ export type PropertyUncheckedCreateWithoutReportsInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutReportsInput = {
@@ -2746,6 +2991,7 @@ export type PropertyUpdateWithoutReportsInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutReportsInput = {
@@ -2791,6 +3037,7 @@ export type PropertyUncheckedUpdateWithoutReportsInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutVisitReservationsInput = {
@@ -2836,6 +3083,7 @@ export type PropertyCreateWithoutVisitReservationsInput = {
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutVisitReservationsInput = {
@@ -2881,6 +3129,7 @@ export type PropertyUncheckedCreateWithoutVisitReservationsInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutVisitReservationsInput = {
@@ -2942,6 +3191,7 @@ export type PropertyUpdateWithoutVisitReservationsInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutVisitReservationsInput = {
@@ -2987,6 +3237,7 @@ export type PropertyUncheckedUpdateWithoutVisitReservationsInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutChatRoomsInput = {
@@ -3032,6 +3283,7 @@ export type PropertyCreateWithoutChatRoomsInput = {
   visitReservations?: Prisma.VisitReservationCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutChatRoomsInput = {
@@ -3077,6 +3329,7 @@ export type PropertyUncheckedCreateWithoutChatRoomsInput = {
   visitReservations?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutPropertyInput
   contracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutChatRoomsInput = {
@@ -3138,6 +3391,7 @@ export type PropertyUpdateWithoutChatRoomsInput = {
   visitReservations?: Prisma.VisitReservationUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutChatRoomsInput = {
@@ -3183,6 +3437,7 @@ export type PropertyUncheckedUpdateWithoutChatRoomsInput = {
   visitReservations?: Prisma.VisitReservationUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateWithoutContractsInput = {
@@ -3228,6 +3483,7 @@ export type PropertyCreateWithoutContractsInput = {
   visitReservations?: Prisma.VisitReservationCreateNestedManyWithoutPropertyInput
   chatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutContractsInput = {
@@ -3273,6 +3529,7 @@ export type PropertyUncheckedCreateWithoutContractsInput = {
   visitReservations?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutPropertyInput
   chatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutPropertyInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutPropertyInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutContractsInput = {
@@ -3334,6 +3591,7 @@ export type PropertyUpdateWithoutContractsInput = {
   visitReservations?: Prisma.VisitReservationUpdateManyWithoutPropertyNestedInput
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutContractsInput = {
@@ -3379,6 +3637,7 @@ export type PropertyUncheckedUpdateWithoutContractsInput = {
   visitReservations?: Prisma.VisitReservationUncheckedUpdateManyWithoutPropertyNestedInput
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateManyRegistrantInput = {
@@ -3498,6 +3757,7 @@ export type PropertyUpdateWithoutRegistrantInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutRegistrantInput = {
@@ -3543,6 +3803,7 @@ export type PropertyUncheckedUpdateWithoutRegistrantInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateManyWithoutRegistrantInput = {
@@ -3625,6 +3886,7 @@ export type PropertyUpdateWithoutReviewerInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutReviewerInput = {
@@ -3670,6 +3932,7 @@ export type PropertyUncheckedUpdateWithoutReviewerInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateManyWithoutReviewerInput = {
@@ -3789,6 +4052,7 @@ export type PropertyUpdateWithoutBrokerageOfficeInput = {
   chatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutBrokerageOfficeInput = {
@@ -3834,6 +4098,7 @@ export type PropertyUncheckedUpdateWithoutBrokerageOfficeInput = {
   chatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutPropertyNestedInput
   contracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutPropertyNestedInput
   leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutPropertyNestedInput
+  savedSearchAlerts?: Prisma.SavedPropertyAlertUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateManyWithoutBrokerageOfficeInput = {
@@ -3886,6 +4151,7 @@ export type PropertyCountOutputType = {
   chatRooms: number
   contracts: number
   leaseSafetyAssessments: number
+  savedSearchAlerts: number
 }
 
 export type PropertyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3896,6 +4162,7 @@ export type PropertyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   chatRooms?: boolean | PropertyCountOutputTypeCountChatRoomsArgs
   contracts?: boolean | PropertyCountOutputTypeCountContractsArgs
   leaseSafetyAssessments?: boolean | PropertyCountOutputTypeCountLeaseSafetyAssessmentsArgs
+  savedSearchAlerts?: boolean | PropertyCountOutputTypeCountSavedSearchAlertsArgs
 }
 
 /**
@@ -3957,6 +4224,13 @@ export type PropertyCountOutputTypeCountLeaseSafetyAssessmentsArgs<ExtArgs exten
   where?: Prisma.LeaseSafetyAssessmentWhereInput
 }
 
+/**
+ * PropertyCountOutputType without action
+ */
+export type PropertyCountOutputTypeCountSavedSearchAlertsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavedPropertyAlertWhereInput
+}
+
 
 export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4005,6 +4279,7 @@ export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   chatRooms?: boolean | Prisma.Property$chatRoomsArgs<ExtArgs>
   contracts?: boolean | Prisma.Property$contractsArgs<ExtArgs>
   leaseSafetyAssessments?: boolean | Prisma.Property$leaseSafetyAssessmentsArgs<ExtArgs>
+  savedSearchAlerts?: boolean | Prisma.Property$savedSearchAlertsArgs<ExtArgs>
   _count?: boolean | Prisma.PropertyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["property"]>
 
@@ -4141,6 +4416,7 @@ export type PropertyInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   chatRooms?: boolean | Prisma.Property$chatRoomsArgs<ExtArgs>
   contracts?: boolean | Prisma.Property$contractsArgs<ExtArgs>
   leaseSafetyAssessments?: boolean | Prisma.Property$leaseSafetyAssessmentsArgs<ExtArgs>
+  savedSearchAlerts?: boolean | Prisma.Property$savedSearchAlertsArgs<ExtArgs>
   _count?: boolean | Prisma.PropertyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PropertyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4168,6 +4444,7 @@ export type $PropertyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     chatRooms: Prisma.$PropertyChatRoomPayload<ExtArgs>[]
     contracts: Prisma.$ElectronicContractPayload<ExtArgs>[]
     leaseSafetyAssessments: Prisma.$LeaseSafetyAssessmentPayload<ExtArgs>[]
+    savedSearchAlerts: Prisma.$SavedPropertyAlertPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4610,6 +4887,7 @@ export interface Prisma__PropertyClient<T, Null = never, ExtArgs extends runtime
   chatRooms<T extends Prisma.Property$chatRoomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$chatRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contracts<T extends Prisma.Property$contractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$contractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leaseSafetyAssessments<T extends Prisma.Property$leaseSafetyAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$leaseSafetyAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeaseSafetyAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savedSearchAlerts<T extends Prisma.Property$savedSearchAlertsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$savedSearchAlertsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedPropertyAlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5297,6 +5575,30 @@ export type Property$leaseSafetyAssessmentsArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.LeaseSafetyAssessmentScalarFieldEnum | Prisma.LeaseSafetyAssessmentScalarFieldEnum[]
+}
+
+/**
+ * Property.savedSearchAlerts
+ */
+export type Property$savedSearchAlertsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavedPropertyAlert
+   */
+  select?: Prisma.SavedPropertyAlertSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavedPropertyAlert
+   */
+  omit?: Prisma.SavedPropertyAlertOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedPropertyAlertInclude<ExtArgs> | null
+  where?: Prisma.SavedPropertyAlertWhereInput
+  orderBy?: Prisma.SavedPropertyAlertOrderByWithRelationInput | Prisma.SavedPropertyAlertOrderByWithRelationInput[]
+  cursor?: Prisma.SavedPropertyAlertWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavedPropertyAlertScalarFieldEnum | Prisma.SavedPropertyAlertScalarFieldEnum[]
 }
 
 /**

@@ -85,6 +85,12 @@ export class NotificationTemplateService {
           ),
           data: commonData,
         };
+      case 'PROPERTY_NEW_LISTING_MATCH':
+        return {
+          title: '저장 검색에 새 매물이 등록됐어요',
+          body: this.compact(`${this.text(payload.listingNumber)} 매물을 확인해주세요.`),
+          data: commonData,
+        };
       default:
         return {
           title: 'LIFE HOME AI 알림',

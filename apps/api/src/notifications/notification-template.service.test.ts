@@ -53,4 +53,16 @@ describe('NotificationTemplateService', () => {
     expect(result.body).toContain('LH-2026-CHAT');
     expect(JSON.stringify(result)).not.toContain('노출되면 안 되는');
   });
+
+  it('renders a new-listing alert without exposing criteria or address', () => {
+    const result = service.render(
+      'PROPERTY_NEW_LISTING_MATCH', 'Property',
+      '019c75df-0255-7000-8000-000000000701',
+      { listingNumber: 'LH-2026-NEW', addressLine1: '상세주소', savedCriteria: '검색조건' },
+    );
+    expect(result.title).toContain('새 매물');
+    expect(result.body).toContain('LH-2026-NEW');
+    expect(JSON.stringify(result)).not.toContain('상세주소');
+    expect(JSON.stringify(result)).not.toContain('검색조건');
+  });
 });

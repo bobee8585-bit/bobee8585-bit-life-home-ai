@@ -83,7 +83,13 @@ export class AppConfigController {
         contractRecheckRequired: true,
         informationalOnly: true,
       },
-      version: 14,
+      savedPropertySearches: {
+        enabled: true,
+        maxPerUser: 20,
+        newListingAlerts: true,
+        pushOnly: true,
+      },
+      version: 15,
     };
   }
 

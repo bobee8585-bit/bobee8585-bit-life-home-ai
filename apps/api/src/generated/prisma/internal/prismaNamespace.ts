@@ -415,6 +415,8 @@ export const ModelName = {
   BrokerProfile: 'BrokerProfile',
   Property: 'Property',
   LeaseSafetyAssessment: 'LeaseSafetyAssessment',
+  SavedPropertySearch: 'SavedPropertySearch',
+  SavedPropertyAlert: 'SavedPropertyAlert',
   PropertyOwnershipVerification: 'PropertyOwnershipVerification',
   PropertyMedia: 'PropertyMedia',
   PropertyMediaUpload: 'PropertyMediaUpload',
@@ -449,7 +451,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "leaseSafetyAssessment" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
+    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "leaseSafetyAssessment" | "savedPropertySearch" | "savedPropertyAlert" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1782,6 +1784,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.LeaseSafetyAssessmentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.LeaseSafetyAssessmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    SavedPropertySearch: {
+      payload: Prisma.$SavedPropertySearchPayload<ExtArgs>
+      fields: Prisma.SavedPropertySearchFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SavedPropertySearchFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SavedPropertySearchFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>
+        }
+        findFirst: {
+          args: Prisma.SavedPropertySearchFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SavedPropertySearchFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>
+        }
+        findMany: {
+          args: Prisma.SavedPropertySearchFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>[]
+        }
+        create: {
+          args: Prisma.SavedPropertySearchCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>
+        }
+        createMany: {
+          args: Prisma.SavedPropertySearchCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SavedPropertySearchCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>[]
+        }
+        delete: {
+          args: Prisma.SavedPropertySearchDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>
+        }
+        update: {
+          args: Prisma.SavedPropertySearchUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>
+        }
+        deleteMany: {
+          args: Prisma.SavedPropertySearchDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SavedPropertySearchUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SavedPropertySearchUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>[]
+        }
+        upsert: {
+          args: Prisma.SavedPropertySearchUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertySearchPayload>
+        }
+        aggregate: {
+          args: Prisma.SavedPropertySearchAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSavedPropertySearch>
+        }
+        groupBy: {
+          args: Prisma.SavedPropertySearchGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedPropertySearchGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SavedPropertySearchCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedPropertySearchCountAggregateOutputType> | number
+        }
+      }
+    }
+    SavedPropertyAlert: {
+      payload: Prisma.$SavedPropertyAlertPayload<ExtArgs>
+      fields: Prisma.SavedPropertyAlertFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SavedPropertyAlertFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SavedPropertyAlertFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>
+        }
+        findFirst: {
+          args: Prisma.SavedPropertyAlertFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SavedPropertyAlertFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>
+        }
+        findMany: {
+          args: Prisma.SavedPropertyAlertFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>[]
+        }
+        create: {
+          args: Prisma.SavedPropertyAlertCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>
+        }
+        createMany: {
+          args: Prisma.SavedPropertyAlertCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SavedPropertyAlertCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>[]
+        }
+        delete: {
+          args: Prisma.SavedPropertyAlertDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>
+        }
+        update: {
+          args: Prisma.SavedPropertyAlertUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>
+        }
+        deleteMany: {
+          args: Prisma.SavedPropertyAlertDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SavedPropertyAlertUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SavedPropertyAlertUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>[]
+        }
+        upsert: {
+          args: Prisma.SavedPropertyAlertUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedPropertyAlertPayload>
+        }
+        aggregate: {
+          args: Prisma.SavedPropertyAlertAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSavedPropertyAlert>
+        }
+        groupBy: {
+          args: Prisma.SavedPropertyAlertGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedPropertyAlertGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SavedPropertyAlertCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedPropertyAlertCountAggregateOutputType> | number
         }
       }
     }
@@ -3556,6 +3706,35 @@ export const LeaseSafetyAssessmentScalarFieldEnum = {
 export type LeaseSafetyAssessmentScalarFieldEnum = (typeof LeaseSafetyAssessmentScalarFieldEnum)[keyof typeof LeaseSafetyAssessmentScalarFieldEnum]
 
 
+export const SavedPropertySearchScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  city: 'city',
+  propertyType: 'propertyType',
+  transactionType: 'transactionType',
+  currency: 'currency',
+  minPrice: 'minPrice',
+  maxPrice: 'maxPrice',
+  minRooms: 'minRooms',
+  alertsEnabled: 'alertsEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SavedPropertySearchScalarFieldEnum = (typeof SavedPropertySearchScalarFieldEnum)[keyof typeof SavedPropertySearchScalarFieldEnum]
+
+
+export const SavedPropertyAlertScalarFieldEnum = {
+  id: 'id',
+  savedSearchId: 'savedSearchId',
+  propertyId: 'propertyId',
+  createdAt: 'createdAt'
+} as const
+
+export type SavedPropertyAlertScalarFieldEnum = (typeof SavedPropertyAlertScalarFieldEnum)[keyof typeof SavedPropertyAlertScalarFieldEnum]
+
+
 export const PropertyOwnershipVerificationScalarFieldEnum = {
   id: 'id',
   propertyId: 'propertyId',
@@ -4777,6 +4956,8 @@ export type GlobalOmitConfig = {
   brokerProfile?: Prisma.BrokerProfileOmit
   property?: Prisma.PropertyOmit
   leaseSafetyAssessment?: Prisma.LeaseSafetyAssessmentOmit
+  savedPropertySearch?: Prisma.SavedPropertySearchOmit
+  savedPropertyAlert?: Prisma.SavedPropertyAlertOmit
   propertyOwnershipVerification?: Prisma.PropertyOwnershipVerificationOmit
   propertyMedia?: Prisma.PropertyMediaOmit
   propertyMediaUpload?: Prisma.PropertyMediaUploadOmit

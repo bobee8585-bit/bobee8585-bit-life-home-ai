@@ -130,6 +130,16 @@ export type Property = Prisma.PropertyModel
  */
 export type LeaseSafetyAssessment = Prisma.LeaseSafetyAssessmentModel
 /**
+ * Model SavedPropertySearch
+ * 
+ */
+export type SavedPropertySearch = Prisma.SavedPropertySearchModel
+/**
+ * Model SavedPropertyAlert
+ * 
+ */
+export type SavedPropertyAlert = Prisma.SavedPropertyAlertModel
+/**
  * Model PropertyOwnershipVerification
  * 
  */

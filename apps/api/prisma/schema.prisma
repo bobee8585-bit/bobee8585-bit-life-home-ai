@@ -324,6 +324,7 @@ model User {
   registrantContracts     ElectronicContract[]            @relation("ElectronicContractRegistrant")
   contractParties         ElectronicContractParty[]
   leaseSafetyAssessments  LeaseSafetyAssessment[]       @relation("LeaseSafetyAnalyst")
+  savedPropertySearches   SavedPropertySearch[]
 
   @@map("users")
 }
@@ -633,6 +634,7 @@ model Property {
   chatRooms             PropertyChatRoom[]
   contracts             ElectronicContract[]
   leaseSafetyAssessments LeaseSafetyAssessment[]
+  savedSearchAlerts      SavedPropertyAlert[]
 
   @@index([status, createdAt])
   @@index([city, propertyType, transactionType, status])
@@ -673,6 +675,42 @@ model LeaseSafetyAssessment {
   @@index([propertyId, assessedAt])
   @@index([status, assessedAt])
   @@map("lease_safety_assessments")
+}
+
+model SavedPropertySearch {
+  id              String                   @id @db.Uuid
+  userId          String                   @map("user_id") @db.Uuid
+  name            String                   @db.VarChar(80)
+  city            String?                  @db.VarChar(80)
+  propertyType    PropertyType?            @map("property_type")
+  transactionType PropertyTransactionType? @map("transaction_type")
+  currency        String                   @default("KRW") @db.VarChar(3)
+  minPrice        Decimal?                 @map("min_price") @db.Decimal(18, 2)
+  maxPrice        Decimal?                 @map("max_price") @db.Decimal(18, 2)
+  minRooms        Int?                     @map("min_rooms")
+  alertsEnabled   Boolean                  @default(true) @map("alerts_enabled")
+  createdAt       DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user            User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alerts          SavedPropertyAlert[]
+
+  @@unique([userId, name])
+  @@index([userId, updatedAt])
+  @@index([alertsEnabled, city, propertyType, transactionType])
+  @@map("saved_property_searches")
+}
+
+model SavedPropertyAlert {
+  id            String              @id @db.Uuid
+  savedSearchId String              @map("saved_search_id") @db.Uuid
+  propertyId    String              @map("property_id") @db.Uuid
+  createdAt     DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+  savedSearch   SavedPropertySearch @relation(fields: [savedSearchId], references: [id], onDelete: Cascade)
+  property      Property            @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@unique([savedSearchId, propertyId])
+  @@index([propertyId, createdAt])
+  @@map("saved_property_alerts")
 }
 
 model PropertyOwnershipVerification {

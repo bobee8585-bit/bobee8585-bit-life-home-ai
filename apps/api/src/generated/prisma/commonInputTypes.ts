@@ -697,6 +697,40 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
 }
 
+export type EnumPropertyTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyType | Prisma.EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTypeNullableFilter<$PrismaModel> | $Enums.PropertyType | null
+}
+
+export type EnumPropertyTransactionTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyTransactionType | Prisma.EnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel> | $Enums.PropertyTransactionType | null
+}
+
+export type EnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyType | Prisma.EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PropertyType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+}
+
+export type EnumPropertyTransactionTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyTransactionType | Prisma.EnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTransactionTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PropertyTransactionType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel>
+}
+
 export type EnumOwnershipClaimTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.OwnershipClaimType | Prisma.EnumOwnershipClaimTypeFieldRefInput<$PrismaModel>
   in?: $Enums.OwnershipClaimType[] | Prisma.ListEnumOwnershipClaimTypeFieldRefInput<$PrismaModel>
@@ -1812,6 +1846,40 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumPropertyTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyType | Prisma.EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTypeNullableFilter<$PrismaModel> | $Enums.PropertyType | null
+}
+
+export type NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyTransactionType | Prisma.EnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel> | $Enums.PropertyTransactionType | null
+}
+
+export type NestedEnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyType | Prisma.EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyType[] | Prisma.ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PropertyType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumPropertyTransactionTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PropertyTransactionType | Prisma.EnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.PropertyTransactionType[] | Prisma.ListEnumPropertyTransactionTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumPropertyTransactionTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PropertyTransactionType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPropertyTransactionTypeNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumOwnershipClaimTypeFilter<$PrismaModel = never> = {

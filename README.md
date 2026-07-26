@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.20.0
+# LIFE HOME AI 0.21.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -107,6 +107,10 @@ GET  /v1/contracts/:contractId
 POST /v1/contracts/:contractId/signing-session
 POST /v1/contract-webhooks/:provider
 GET  /v1/admin/dashboard/summary
+GET  /v1/saved-property-searches
+POST /v1/saved-property-searches
+PATCH /v1/saved-property-searches/:id
+DELETE /v1/saved-property-searches/:id
 ```
 
 회원가입 예시:
@@ -186,6 +190,16 @@ API 키, 공개 웹훅 주소와 웹훅 검증 키가 필요합니다. 공급자
 읽기 상태를 모두 통과해야 하며, 대시보드 응답에는 회원번호·결제번호·연락처
 같은 개별 식별정보를 포함하지 않습니다. Access Token은 브라우저 저장소에
 남기지 않고 현재 화면 메모리에서만 사용합니다.
+
+인증 회원은 도시, 매물 유형, 거래 유형, 가격 범위, 최소 방 수를 조합한 검색을
+회원당 최대 20개까지 저장할 수 있습니다. 각 저장 검색은 신규 매물 알림을
+개별적으로 켜거나 끌 수 있고 언제든 수정·삭제할 수 있습니다.
+
+관리자가 매물을 승인해 공개 상태가 되면 서버가 활성 저장 검색과 조건을
+비교하고 검색별·매물별 고유 기록으로 중복 알림을 차단합니다. 알림에는
+저장 검색 ID, 매물 ID와 매물번호만 넣고 상세주소·연락처·전체 검색조건은
+복사하지 않습니다. 신규 매물 알림은 푸시 전용이므로 푸시 토큰이 없는
+회원에게 SMS 비용을 발생시키지 않고 `SKIPPED`로 종결합니다.
 
 매물 상태는 `DRAFT → PENDING_REVIEW → ACTIVE` 또는 `REJECTED` 순서로
 전이됩니다. 반려 매물은 수정하면 다시 `DRAFT`가 되며 재검수를 요청할 수
