@@ -18,6 +18,7 @@ type DashboardSummary = {
   systemOperations: {
     failedNotifications: number;
     failedContractWebhooks: number;
+    failedContractSafetyRechecks: number;
   };
   totalPending: number;
   urgentCount: number;
@@ -248,6 +249,12 @@ export default function AdminDashboardPage() {
               <dt>전자계약 웹훅 실패</dt>
               <dd>
                 {summary?.systemOperations.failedContractWebhooks ?? 0}건
+              </dd>
+            </div>
+            <div className={styles.dangerRow}>
+              <dt>계약 안전 재확인 실패</dt>
+              <dd>
+                {summary?.systemOperations.failedContractSafetyRechecks ?? 0}건
               </dd>
             </div>
           </dl>

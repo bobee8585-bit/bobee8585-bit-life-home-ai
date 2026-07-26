@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import {
   BrokerStatus,
+  ContractSafetyRecheckStatus,
   ContractWebhookEventStatus,
   NotificationDeliveryStatus,
   PaymentTransactionStatus,
@@ -26,6 +27,7 @@ export class AdminDashboardService {
       failedRefunds,
       failedNotifications,
       failedContractWebhooks,
+      failedContractSafetyRechecks,
     ] = await this.prisma.$transaction([
       this.prisma.brokerProfile.count({
         where: { status: BrokerStatus.PENDING },
@@ -64,10 +66,17 @@ export class AdminDashboardService {
       this.prisma.contractWebhookEvent.count({
         where: { status: ContractWebhookEventStatus.FAILED },
       }),
+      this.prisma.contractSafetyRecheck.count({
+        where: { status: ContractSafetyRecheckStatus.FAILED },
+      }),
     ]);
 
     const urgentCount =
-      overdueRefunds + failedRefunds + failedNotifications + failedContractWebhooks;
+      overdueRefunds +
+      failedRefunds +
+      failedNotifications +
+      failedContractWebhooks +
+      failedContractSafetyRechecks;
 
     return {
       reviewQueues: {
@@ -83,6 +92,7 @@ export class AdminDashboardService {
       systemOperations: {
         failedNotifications,
         failedContractWebhooks,
+        failedContractSafetyRechecks,
       },
       totalPending:
         pendingBrokers + pendingProperties + openReports + pendingRefunds,

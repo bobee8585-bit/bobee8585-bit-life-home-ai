@@ -247,12 +247,27 @@ export enum ElectronicContractStatus {
   FAILED = 'FAILED',
 }
 
+export enum ContractSafetyRecheckStatus {
+  RUNNING = 'RUNNING',
+  PASSED = 'PASSED',
+  BLOCKED = 'BLOCKED',
+  FAILED = 'FAILED',
+}
+
 export type ElectronicContractPartyRole = 'MEMBER' | 'REGISTRANT';
 export type ElectronicContractPartyStatus =
   | 'PENDING'
   | 'VIEWED'
   | 'SIGNED'
   | 'DECLINED';
+
+export interface ContractSafetyRecheckSummary {
+  id: string;
+  attempt: number;
+  status: ContractSafetyRecheckStatus;
+  failureCode: string | null;
+  expiresAt: string | null;
+}
 
 export interface ElectronicContract {
   id: string;
@@ -288,6 +303,7 @@ export interface ElectronicContract {
   signedDocumentAvailable: boolean;
   signedDocumentHash: string | null;
   retainedUntil: string;
+  safetyRecheck: ContractSafetyRecheckSummary | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -562,6 +578,12 @@ export interface AppConfig {
     registryFreshDays: 7;
     valuationFreshDays: 30;
     contractRecheckRequired: true;
+    contractRecheck: {
+      mode: 'MOCK' | 'GATEWAY' | 'DISABLED';
+      validityMinutes: 30;
+      registryMaxAgeHours: 24;
+      failClosed: true;
+    };
     informationalOnly: true;
   };
   savedPropertySearches?: {

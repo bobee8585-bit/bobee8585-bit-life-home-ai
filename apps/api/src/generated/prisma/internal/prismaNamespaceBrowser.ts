@@ -82,6 +82,7 @@ export const ModelName = {
   PropertyChatRoom: 'PropertyChatRoom',
   ChatMessage: 'ChatMessage',
   ElectronicContract: 'ElectronicContract',
+  ContractSafetyRecheck: 'ContractSafetyRecheck',
   ElectronicContractParty: 'ElectronicContractParty',
   ElectronicContractHistory: 'ElectronicContractHistory',
   ContractWebhookEvent: 'ContractWebhookEvent',
@@ -674,6 +675,36 @@ export const ElectronicContractScalarFieldEnum = {
 } as const
 
 export type ElectronicContractScalarFieldEnum = (typeof ElectronicContractScalarFieldEnum)[keyof typeof ElectronicContractScalarFieldEnum]
+
+
+export const ContractSafetyRecheckScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  requestedByUserId: 'requestedByUserId',
+  attempt: 'attempt',
+  status: 'status',
+  registryDecision: 'registryDecision',
+  ownerMatched: 'ownerMatched',
+  registryRiskCodes: 'registryRiskCodes',
+  registryIssuedAt: 'registryIssuedAt',
+  registryCheckedAt: 'registryCheckedAt',
+  registryProvider: 'registryProvider',
+  registryReferenceHash: 'registryReferenceHash',
+  guaranteeEligibility: 'guaranteeEligibility',
+  guaranteeReasonCodes: 'guaranteeReasonCodes',
+  guaranteeCheckedAt: 'guaranteeCheckedAt',
+  guaranteeProvider: 'guaranteeProvider',
+  guaranteeReferenceHash: 'guaranteeReferenceHash',
+  failureCode: 'failureCode',
+  resultSnapshot: 'resultSnapshot',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractSafetyRecheckScalarFieldEnum = (typeof ContractSafetyRecheckScalarFieldEnum)[keyof typeof ContractSafetyRecheckScalarFieldEnum]
 
 
 export const ElectronicContractPartyScalarFieldEnum = {

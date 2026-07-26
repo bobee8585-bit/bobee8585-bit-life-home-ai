@@ -2,6 +2,7 @@ import {
   ConflictException,
   ForbiddenException,
   NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { describe, expect, it, vi } from 'vitest';
 import type { PrismaService } from '../database/prisma.service';
@@ -15,6 +16,7 @@ import {
   VisitReservationStatus,
 } from '../generated/prisma/client';
 import type { ContractProviderService } from './contract-provider.service';
+import type { ContractSafetyRecheckService } from './contract-safety-recheck.service';
 import { ElectronicContractService } from './electronic-contract.service';
 
 const memberId = '019c75df-0255-7000-8000-000000000711';
@@ -105,6 +107,7 @@ const contract = {
       },
     },
   ],
+  safetyRechecks: [],
 };
 
 const dto = {
@@ -118,6 +121,10 @@ const dto = {
 };
 
 describe('ElectronicContractService', () => {
+  const safetyRechecks = {
+    ensurePassedForSigning: vi.fn(async () => ({ required: true })),
+  } as unknown as ContractSafetyRecheckService;
+
   it('requires all contract consents before reading reservation data', async () => {
     const findFirst = vi.fn();
     const prisma = {
@@ -126,7 +133,7 @@ describe('ElectronicContractService', () => {
     const provider = {} as ContractProviderService;
 
     await expect(
-      new ElectronicContractService(prisma, provider).create(
+      new ElectronicContractService(prisma, provider, safetyRechecks).create(
         memberId,
         reservationId,
         {
@@ -152,6 +159,7 @@ describe('ElectronicContractService', () => {
       new ElectronicContractService(
         prisma,
         {} as ContractProviderService,
+        safetyRechecks,
       ).create(memberId, reservationId, dto),
     ).rejects.toThrow(ForbiddenException);
   });
@@ -165,6 +173,7 @@ describe('ElectronicContractService', () => {
       new ElectronicContractService(
         prisma,
         {} as ContractProviderService,
+        safetyRechecks,
       ).get('019c75df-0255-7000-8000-000000000799', contractId),
     ).rejects.toThrow(NotFoundException);
   });
@@ -182,6 +191,7 @@ describe('ElectronicContractService', () => {
     const result = await new ElectronicContractService(
       prisma,
       {} as ContractProviderService,
+      safetyRechecks,
     ).create(memberId, reservationId, dto);
 
     expect(result.alreadyExists).toBe(true);
@@ -227,6 +237,7 @@ describe('ElectronicContractService', () => {
     const result = await new ElectronicContractService(
       prisma,
       provider,
+      safetyRechecks,
     ).create(memberId, reservationId, dto);
 
     const create = tx.electronicContract.create.mock.calls[0]?.[0];
@@ -261,12 +272,44 @@ describe('ElectronicContractService', () => {
     } as unknown as ContractProviderService;
 
     await expect(
-      new ElectronicContractService(prisma, provider).startSigning(
+      new ElectronicContractService(
+        prisma,
+        provider,
+        safetyRechecks,
+      ).startSigning(
         memberId,
         contractId,
       ),
     ).rejects.toThrow(ConflictException);
     expect(provider.createSigningSession).not.toHaveBeenCalled();
     expect(tx.electronicContractHistory.create).not.toHaveBeenCalled();
+  });
+
+  it('does not claim a signing session when the safety recheck blocks it', async () => {
+    const transaction = vi.fn();
+    const prisma = {
+      electronicContract: {
+        findFirst: vi.fn(async () => contract),
+      },
+      $transaction: transaction,
+    } as unknown as PrismaService;
+    const provider = {
+      createSigningSession: vi.fn(),
+    } as unknown as ContractProviderService;
+    const blockedSafetyRechecks = {
+      ensurePassedForSigning: vi.fn(async () => {
+        throw new UnprocessableEntityException('blocked');
+      }),
+    } as unknown as ContractSafetyRecheckService;
+
+    await expect(
+      new ElectronicContractService(
+        prisma,
+        provider,
+        blockedSafetyRechecks,
+      ).startSigning(memberId, contractId),
+    ).rejects.toThrow(UnprocessableEntityException);
+    expect(transaction).not.toHaveBeenCalled();
+    expect(provider.createSigningSession).not.toHaveBeenCalled();
   });
 });

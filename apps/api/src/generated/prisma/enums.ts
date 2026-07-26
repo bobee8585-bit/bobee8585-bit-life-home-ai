@@ -391,3 +391,13 @@ export const GuaranteeEligibility = {
 } as const
 
 export type GuaranteeEligibility = (typeof GuaranteeEligibility)[keyof typeof GuaranteeEligibility]
+
+
+export const ContractSafetyRecheckStatus = {
+  RUNNING: 'RUNNING',
+  PASSED: 'PASSED',
+  BLOCKED: 'BLOCKED',
+  FAILED: 'FAILED'
+} as const
+
+export type ContractSafetyRecheckStatus = (typeof ContractSafetyRecheckStatus)[keyof typeof ContractSafetyRecheckStatus]

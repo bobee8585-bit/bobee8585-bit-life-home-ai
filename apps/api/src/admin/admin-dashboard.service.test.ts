@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { PrismaService } from '../database/prisma.service';
 import {
   BrokerStatus,
+  ContractSafetyRecheckStatus,
   ContractWebhookEventStatus,
   NotificationDeliveryStatus,
   PaymentTransactionStatus,
@@ -14,7 +15,7 @@ import { AdminDashboardService } from './admin-dashboard.service';
 
 describe('AdminDashboardService', () => {
   it('returns operational queue counts without member or payment details', async () => {
-    const counts = [2, 3, 4, 5, 1, 2, 3, 4];
+    const counts = [2, 3, 4, 5, 1, 2, 3, 4, 5];
     let index = 0;
     const count = vi.fn(() => Promise.resolve(counts[index++]));
     const prisma = {
@@ -25,6 +26,7 @@ describe('AdminDashboardService', () => {
       paymentTransaction: { count },
       notificationOutbox: { count },
       contractWebhookEvent: { count },
+      contractSafetyRecheck: { count },
       $transaction: vi.fn(async (operations: Array<Promise<number>>) =>
         Promise.all(operations),
       ),
@@ -45,9 +47,10 @@ describe('AdminDashboardService', () => {
     expect(result.systemOperations).toEqual({
       failedNotifications: 3,
       failedContractWebhooks: 4,
+      failedContractSafetyRechecks: 5,
     });
     expect(result.totalPending).toBe(14);
-    expect(result.urgentCount).toBe(10);
+    expect(result.urgentCount).toBe(15);
     expect(JSON.stringify(result)).not.toContain('memberNumber');
   });
 
@@ -59,6 +62,7 @@ describe('AdminDashboardService', () => {
     const transactionCount = vi.fn(async () => 0);
     const notificationCount = vi.fn(async () => 0);
     const webhookCount = vi.fn(async () => 0);
+    const safetyRecheckCount = vi.fn(async () => 0);
     const prisma = {
       brokerProfile: { count: brokerCount },
       property: { count: propertyCount },
@@ -67,6 +71,7 @@ describe('AdminDashboardService', () => {
       paymentTransaction: { count: transactionCount },
       notificationOutbox: { count: notificationCount },
       contractWebhookEvent: { count: webhookCount },
+      contractSafetyRecheck: { count: safetyRecheckCount },
       $transaction: vi.fn(async (operations: Array<Promise<number>>) =>
         Promise.all(operations),
       ),
@@ -101,6 +106,9 @@ describe('AdminDashboardService', () => {
     });
     expect(webhookCount).toHaveBeenCalledWith({
       where: { status: ContractWebhookEventStatus.FAILED },
+    });
+    expect(safetyRecheckCount).toHaveBeenCalledWith({
+      where: { status: ContractSafetyRecheckStatus.FAILED },
     });
   });
 });

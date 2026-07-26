@@ -13,13 +13,17 @@ import { Permissions } from '../auth/permissions.decorator';
 import { MenuAccess } from '../feature-policy/menu-access.decorator';
 import { CreateElectronicContractDto } from './dto/create-electronic-contract.dto';
 import { ListElectronicContractsDto } from './dto/list-electronic-contracts.dto';
+import { ContractSafetyRecheckService } from './contract-safety-recheck.service';
 import { ElectronicContractService } from './electronic-contract.service';
 
 @Permissions('CONTRACT.READ')
 @MenuAccess('ELECTRONIC_CONTRACT')
 @Controller()
 export class ElectronicContractController {
-  constructor(private readonly contracts: ElectronicContractService) {}
+  constructor(
+    private readonly contracts: ElectronicContractService,
+    private readonly safetyRechecks: ContractSafetyRecheckService,
+  ) {}
 
   @Permissions('CONTRACT.MANAGE')
   @MenuAccess('ELECTRONIC_CONTRACT', 'write')
@@ -46,6 +50,26 @@ export class ElectronicContractController {
     @Req() request: AuthenticatedRequest,
   ) {
     return this.contracts.get(request.auth.sub, contractId);
+  }
+
+  @Get('contracts/:contractId/safety-recheck')
+  latestSafetyRecheck(
+    @Param('contractId', ParseUUIDPipe) contractId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.safetyRechecks.latest(request.auth.sub, contractId);
+  }
+
+  @Permissions('CONTRACT.MANAGE')
+  @MenuAccess('ELECTRONIC_CONTRACT', 'write')
+  @Post('contracts/:contractId/safety-recheck')
+  runSafetyRecheck(
+    @Param('contractId', ParseUUIDPipe) contractId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.safetyRechecks.run(request.auth.sub, contractId, {
+      force: true,
+    });
   }
 
   @Permissions('CONTRACT.MANAGE')

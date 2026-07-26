@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.21.0
+# LIFE HOME AI 0.22.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -104,6 +104,8 @@ POST /v1/chat-rooms/:chatRoomId/read
 POST /v1/visit-reservations/:reservationId/contracts
 GET  /v1/contracts
 GET  /v1/contracts/:contractId
+GET  /v1/contracts/:contractId/safety-recheck
+POST /v1/contracts/:contractId/safety-recheck
 POST /v1/contracts/:contractId/signing-session
 POST /v1/contract-webhooks/:provider
 GET  /v1/admin/dashboard/summary
@@ -184,9 +186,26 @@ API 키, 공개 웹훅 주소와 웹훅 검증 키가 필요합니다. 공급자
 합니다. 서버는 원문 바이트 서명, 이벤트 멱등성, 본문 변경과 완료 상태 역행을
 검증한 뒤에만 계약 상태를 반영합니다.
 
+원화 전세 전자계약은 서명 세션을 만들기 직전에 최신 등기와 보증보험 가입
+가능 여부를 자동으로 다시 확인합니다. 등기상 소유자 불일치, 경매·압류·가압류·
+신탁 위험, 24시간이 지난 등기 근거, 보증가입 불가·미확정 중 하나라도 확인되면
+서명 세션을 만들지 않습니다. 통과 결과는 30분 동안만 재사용하며 이후에는
+공급자를 다시 조회합니다.
+
+재확인 이력에는 판정·위험코드·조회시각·공급자와 공급자 참조값의 SHA-256
+해시만 저장하고, 외부 원문 참조값은 저장하지 않습니다. 차단 시 두 당사자에게
+푸시 전용 알림을 보내고 SMS 대체는 하지 않습니다. 공급자 장애나 잘못된 응답도
+안전하게 실패 처리하여 서명이 진행되지 않습니다.
+
+개발 환경의 `PROPERTY_SAFETY_PROVIDER_MODE=mock`은 정상 통과 흐름만 검증하며
+운영 환경에서는 거부됩니다. 운영은 `GATEWAY` 모드, HTTPS 게이트웨이 주소와
+API 키가 필요합니다. 플랫폼은 재확인 ID를 멱등성 키로 보내고 공급자 응답의
+날짜·판정·소유자 일치·보증가입 상태를 검증합니다.
+
 관리자 CMS의 `/admin` 대시보드는 중개사 신청, 매물 승인, 허위매물 신고,
-환불 대기·기한 초과·실패, 알림 전송 실패와 전자계약 웹훅 실패 건수를 한
-화면에서 집계합니다. `ADMIN.DASHBOARD.READ` 권한과 `ADMIN_DASHBOARD` 메뉴
+환불 대기·기한 초과·실패, 알림 전송 실패, 전자계약 웹훅 실패와 계약 안전
+재확인 공급자 실패 건수를 한 화면에서 집계합니다. `ADMIN.DASHBOARD.READ`
+권한과 `ADMIN_DASHBOARD` 메뉴
 읽기 상태를 모두 통과해야 하며, 대시보드 응답에는 회원번호·결제번호·연락처
 같은 개별 식별정보를 포함하지 않습니다. Access Token은 브라우저 저장소에
 남기지 않고 현재 화면 메모리에서만 사용합니다.

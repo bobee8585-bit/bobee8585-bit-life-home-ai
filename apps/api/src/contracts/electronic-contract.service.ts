@@ -16,6 +16,7 @@ import {
 import type { CreateElectronicContractDto } from './dto/create-electronic-contract.dto';
 import type { ListElectronicContractsDto } from './dto/list-electronic-contracts.dto';
 import { ContractProviderService } from './contract-provider.service';
+import { ContractSafetyRecheckService } from './contract-safety-recheck.service';
 
 const contractInclude = {
   property: {
@@ -46,6 +47,10 @@ const contractInclude = {
       },
     },
   },
+  safetyRechecks: {
+    orderBy: { attempt: 'desc' as const },
+    take: 1,
+  },
 } as const;
 
 type ContractViewInput = Prisma.ElectronicContractGetPayload<{
@@ -57,6 +62,7 @@ export class ElectronicContractService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly provider: ContractProviderService,
+    private readonly safetyRechecks: ContractSafetyRecheckService,
   ) {}
 
   async create(
@@ -226,6 +232,7 @@ export class ElectronicContractService {
         '현재 상태에서는 전자서명 세션을 다시 시작할 수 없습니다.',
       );
     }
+    await this.safetyRechecks.ensurePassedForSigning(userId, contract.id);
 
     const claimed = await this.prisma.$transaction(
       async (transaction) => {
@@ -410,6 +417,16 @@ export class ElectronicContractService {
         contract.status === ElectronicContractStatus.SIGNED,
       signedDocumentHash: contract.signedDocumentHash,
       retainedUntil: contract.retainedUntil.toISOString(),
+      safetyRecheck: contract.safetyRechecks[0]
+        ? {
+            id: contract.safetyRechecks[0].id,
+            attempt: contract.safetyRechecks[0].attempt,
+            status: contract.safetyRechecks[0].status,
+            failureCode: contract.safetyRechecks[0].failureCode,
+            expiresAt:
+              contract.safetyRechecks[0].expiresAt?.toISOString() ?? null,
+          }
+        : null,
       createdAt: contract.createdAt.toISOString(),
       updatedAt: contract.updatedAt.toISOString(),
     };

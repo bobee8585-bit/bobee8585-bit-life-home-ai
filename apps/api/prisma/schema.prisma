@@ -280,51 +280,59 @@ enum GuaranteeEligibility {
   UNKNOWN
 }
 
+enum ContractSafetyRecheckStatus {
+  RUNNING
+  PASSED
+  BLOCKED
+  FAILED
+}
+
 model User {
-  id                      String                          @id @db.Uuid
-  memberNumber            String                          @unique @map("member_number")
-  email                   String?                         @unique
-  phoneCountryCode        String?                         @map("phone_country_code")
-  phoneNumberEncrypted    String?                         @map("phone_number_encrypted")
-  phoneHash               String?                         @unique @map("phone_hash")
-  passwordHash            String?                         @map("password_hash")
-  status                  UserStatus                      @default(PENDING)
-  emailVerifiedAt         DateTime?                       @map("email_verified_at") @db.Timestamptz(6)
-  phoneVerifiedAt         DateTime?                       @map("phone_verified_at") @db.Timestamptz(6)
-  lastLoginAt             DateTime?                       @map("last_login_at") @db.Timestamptz(6)
-  failedLoginCount        Int                             @default(0) @map("failed_login_count")
-  lockedUntil             DateTime?                       @map("locked_until") @db.Timestamptz(6)
-  deletedAt               DateTime?                       @map("deleted_at") @db.Timestamptz(6)
-  createdAt               DateTime                        @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt               DateTime                        @updatedAt @map("updated_at") @db.Timestamptz(6)
-  profile                 UserProfile?
-  roles                   UserRole[]
-  sessions                UserSession[]
-  verificationChallenges  VerificationChallenge[]
-  brokerProfile           BrokerProfile?
-  properties              Property[]                      @relation("PropertyRegistrant")
-  reviewedProperties      Property[]                      @relation("PropertyReviewer")
-  ownershipClaims         PropertyOwnershipVerification[] @relation("OwnershipClaimant")
-  reviewedOwnershipClaims PropertyOwnershipVerification[] @relation("OwnershipReviewer")
-  mediaUploads            PropertyMediaUpload[]
-  propertyReports         PropertyReport[]                @relation("PropertyReporter")
-  assignedReports         PropertyReport[]                @relation("PropertyReportAssignee")
-  reportHistories         PropertyReportHistory[]         @relation("PropertyReportHistoryActor")
-  requestedVisits         VisitReservation[]              @relation("VisitReservationRequester")
-  managedVisits           VisitReservation[]              @relation("VisitReservationBroker")
-  visitHistories          VisitReservationHistory[]
-  notificationOutbox      NotificationOutbox[]
-  notificationEndpoints   NotificationEndpoint[]
-  reservationDeposits     ReservationDeposit[]
-  memberChatRooms         PropertyChatRoom[]              @relation("PropertyChatMember")
-  registrantChatRooms     PropertyChatRoom[]              @relation("PropertyChatRegistrant")
-  sentChatMessages        ChatMessage[]                   @relation("ChatMessageSender")
-  createdContracts        ElectronicContract[]            @relation("ElectronicContractCreator")
-  memberContracts         ElectronicContract[]            @relation("ElectronicContractMember")
-  registrantContracts     ElectronicContract[]            @relation("ElectronicContractRegistrant")
-  contractParties         ElectronicContractParty[]
-  leaseSafetyAssessments  LeaseSafetyAssessment[]       @relation("LeaseSafetyAnalyst")
-  savedPropertySearches   SavedPropertySearch[]
+  id                              String                          @id @db.Uuid
+  memberNumber                    String                          @unique @map("member_number")
+  email                           String?                         @unique
+  phoneCountryCode                String?                         @map("phone_country_code")
+  phoneNumberEncrypted            String?                         @map("phone_number_encrypted")
+  phoneHash                       String?                         @unique @map("phone_hash")
+  passwordHash                    String?                         @map("password_hash")
+  status                          UserStatus                      @default(PENDING)
+  emailVerifiedAt                 DateTime?                       @map("email_verified_at") @db.Timestamptz(6)
+  phoneVerifiedAt                 DateTime?                       @map("phone_verified_at") @db.Timestamptz(6)
+  lastLoginAt                     DateTime?                       @map("last_login_at") @db.Timestamptz(6)
+  failedLoginCount                Int                             @default(0) @map("failed_login_count")
+  lockedUntil                     DateTime?                       @map("locked_until") @db.Timestamptz(6)
+  deletedAt                       DateTime?                       @map("deleted_at") @db.Timestamptz(6)
+  createdAt                       DateTime                        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                       DateTime                        @updatedAt @map("updated_at") @db.Timestamptz(6)
+  profile                         UserProfile?
+  roles                           UserRole[]
+  sessions                        UserSession[]
+  verificationChallenges          VerificationChallenge[]
+  brokerProfile                   BrokerProfile?
+  properties                      Property[]                      @relation("PropertyRegistrant")
+  reviewedProperties              Property[]                      @relation("PropertyReviewer")
+  ownershipClaims                 PropertyOwnershipVerification[] @relation("OwnershipClaimant")
+  reviewedOwnershipClaims         PropertyOwnershipVerification[] @relation("OwnershipReviewer")
+  mediaUploads                    PropertyMediaUpload[]
+  propertyReports                 PropertyReport[]                @relation("PropertyReporter")
+  assignedReports                 PropertyReport[]                @relation("PropertyReportAssignee")
+  reportHistories                 PropertyReportHistory[]         @relation("PropertyReportHistoryActor")
+  requestedVisits                 VisitReservation[]              @relation("VisitReservationRequester")
+  managedVisits                   VisitReservation[]              @relation("VisitReservationBroker")
+  visitHistories                  VisitReservationHistory[]
+  notificationOutbox              NotificationOutbox[]
+  notificationEndpoints           NotificationEndpoint[]
+  reservationDeposits             ReservationDeposit[]
+  memberChatRooms                 PropertyChatRoom[]              @relation("PropertyChatMember")
+  registrantChatRooms             PropertyChatRoom[]              @relation("PropertyChatRegistrant")
+  sentChatMessages                ChatMessage[]                   @relation("ChatMessageSender")
+  createdContracts                ElectronicContract[]            @relation("ElectronicContractCreator")
+  memberContracts                 ElectronicContract[]            @relation("ElectronicContractMember")
+  registrantContracts             ElectronicContract[]            @relation("ElectronicContractRegistrant")
+  contractParties                 ElectronicContractParty[]
+  leaseSafetyAssessments          LeaseSafetyAssessment[]         @relation("LeaseSafetyAnalyst")
+  savedPropertySearches           SavedPropertySearch[]
+  requestedContractSafetyRechecks ContractSafetyRecheck[]         @relation("ContractSafetyRecheckRequester")
 
   @@map("users")
 }
@@ -588,51 +596,51 @@ model BrokerProfile {
 }
 
 model Property {
-  id                    String                         @id @db.Uuid
-  listingNumber         String                         @unique @map("listing_number")
-  brokerUserId          String                         @map("broker_user_id") @db.Uuid
-  brokerageOfficeId     String?                        @map("brokerage_office_id") @db.Uuid
-  listingType           PropertyListingType            @default(BROKERAGE) @map("listing_type")
-  title                 String
-  description           String
-  propertyType          PropertyType                   @map("property_type")
-  transactionType       PropertyTransactionType        @map("transaction_type")
-  price                 Decimal                        @db.Decimal(18, 2)
-  deposit               Decimal?                       @db.Decimal(18, 2)
-  monthlyRent           Decimal?                       @map("monthly_rent") @db.Decimal(18, 2)
-  currency              String                         @default("KRW")
-  exclusiveArea         Decimal                        @map("exclusive_area") @db.Decimal(10, 2)
-  supplyArea            Decimal?                       @map("supply_area") @db.Decimal(10, 2)
-  rooms                 Int
-  bathrooms             Int
-  floor                 Int?
-  totalFloors           Int?                           @map("total_floors")
-  countryCode           String                         @default("KR") @map("country_code")
-  region1               String
-  region2               String?
-  city                  String
-  addressLine1          String                         @map("address_line1")
-  addressLine2          String?                        @map("address_line2")
-  latitude              Decimal?                       @db.Decimal(10, 7)
-  longitude             Decimal?                       @db.Decimal(10, 7)
-  status                PropertyStatus                 @default(DRAFT)
-  rejectionReason       String?                        @map("rejection_reason")
-  submittedAt           DateTime?                      @map("submitted_at") @db.Timestamptz(6)
-  reviewedBy            String?                        @map("reviewed_by") @db.Uuid
-  reviewedAt            DateTime?                      @map("reviewed_at") @db.Timestamptz(6)
-  activatedAt           DateTime?                      @map("activated_at") @db.Timestamptz(6)
-  createdAt             DateTime                       @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt             DateTime                       @updatedAt @map("updated_at") @db.Timestamptz(6)
-  registrant            User                           @relation("PropertyRegistrant", fields: [brokerUserId], references: [id], onDelete: Restrict)
-  brokerageOffice       BrokerageOffice?               @relation(fields: [brokerageOfficeId], references: [id], onDelete: Restrict)
-  reviewer              User?                          @relation("PropertyReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
-  ownershipVerification PropertyOwnershipVerification?
-  media                 PropertyMedia[]
-  mediaUploads          PropertyMediaUpload[]
-  reports               PropertyReport[]
-  visitReservations     VisitReservation[]
-  chatRooms             PropertyChatRoom[]
-  contracts             ElectronicContract[]
+  id                     String                         @id @db.Uuid
+  listingNumber          String                         @unique @map("listing_number")
+  brokerUserId           String                         @map("broker_user_id") @db.Uuid
+  brokerageOfficeId      String?                        @map("brokerage_office_id") @db.Uuid
+  listingType            PropertyListingType            @default(BROKERAGE) @map("listing_type")
+  title                  String
+  description            String
+  propertyType           PropertyType                   @map("property_type")
+  transactionType        PropertyTransactionType        @map("transaction_type")
+  price                  Decimal                        @db.Decimal(18, 2)
+  deposit                Decimal?                       @db.Decimal(18, 2)
+  monthlyRent            Decimal?                       @map("monthly_rent") @db.Decimal(18, 2)
+  currency               String                         @default("KRW")
+  exclusiveArea          Decimal                        @map("exclusive_area") @db.Decimal(10, 2)
+  supplyArea             Decimal?                       @map("supply_area") @db.Decimal(10, 2)
+  rooms                  Int
+  bathrooms              Int
+  floor                  Int?
+  totalFloors            Int?                           @map("total_floors")
+  countryCode            String                         @default("KR") @map("country_code")
+  region1                String
+  region2                String?
+  city                   String
+  addressLine1           String                         @map("address_line1")
+  addressLine2           String?                        @map("address_line2")
+  latitude               Decimal?                       @db.Decimal(10, 7)
+  longitude              Decimal?                       @db.Decimal(10, 7)
+  status                 PropertyStatus                 @default(DRAFT)
+  rejectionReason        String?                        @map("rejection_reason")
+  submittedAt            DateTime?                      @map("submitted_at") @db.Timestamptz(6)
+  reviewedBy             String?                        @map("reviewed_by") @db.Uuid
+  reviewedAt             DateTime?                      @map("reviewed_at") @db.Timestamptz(6)
+  activatedAt            DateTime?                      @map("activated_at") @db.Timestamptz(6)
+  createdAt              DateTime                       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime                       @updatedAt @map("updated_at") @db.Timestamptz(6)
+  registrant             User                           @relation("PropertyRegistrant", fields: [brokerUserId], references: [id], onDelete: Restrict)
+  brokerageOffice        BrokerageOffice?               @relation(fields: [brokerageOfficeId], references: [id], onDelete: Restrict)
+  reviewer               User?                          @relation("PropertyReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+  ownershipVerification  PropertyOwnershipVerification?
+  media                  PropertyMedia[]
+  mediaUploads           PropertyMediaUpload[]
+  reports                PropertyReport[]
+  visitReservations      VisitReservation[]
+  chatRooms              PropertyChatRoom[]
+  contracts              ElectronicContract[]
   leaseSafetyAssessments LeaseSafetyAssessment[]
   savedSearchAlerts      SavedPropertyAlert[]
 
@@ -644,32 +652,32 @@ model Property {
 }
 
 model LeaseSafetyAssessment {
-  id                        String                      @id @db.Uuid
-  propertyId                String                      @map("property_id") @db.Uuid
-  analystUserId             String                      @map("analyst_user_id") @db.Uuid
-  version                   Int
-  status                    LeaseSafetyAssessmentStatus
-  score                     Int?
-  grade                     LeaseSafetyGrade
-  estimatedMarketValue      Decimal?                    @map("estimated_market_value") @db.Decimal(18, 2)
-  seniorClaimAmount         Decimal?                    @map("senior_claim_amount") @db.Decimal(18, 2)
-  jeonseRatio               Decimal?                    @map("jeonse_ratio") @db.Decimal(7, 4)
-  totalExposureRatio        Decimal?                    @map("total_exposure_ratio") @db.Decimal(7, 4)
-  ownerMatched              Boolean?                    @map("owner_matched")
-  guaranteeEligibility      GuaranteeEligibility        @default(UNKNOWN) @map("guarantee_eligibility")
-  registryRiskCodes         String[]                    @default([]) @map("registry_risk_codes")
-  registryIssuedAt          DateTime?                   @map("registry_issued_at") @db.Timestamptz(6)
-  valuationAssessedAt       DateTime?                   @map("valuation_assessed_at") @db.Timestamptz(6)
-  registrySource            String?                     @map("registry_source") @db.VarChar(100)
-  valuationSource           String?                     @map("valuation_source") @db.VarChar(100)
-  evidenceReferenceHash     String?                     @map("evidence_reference_hash") @db.VarChar(64)
-  missingInputs             String[]                    @default([]) @map("missing_inputs")
-  deductionBreakdown        Json                        @map("deduction_breakdown")
-  calculationVersion        String                      @map("calculation_version") @db.VarChar(40)
-  assessedAt                DateTime                    @map("assessed_at") @db.Timestamptz(6)
-  createdAt                 DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
-  property                  Property                    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  analyst                   User                        @relation("LeaseSafetyAnalyst", fields: [analystUserId], references: [id], onDelete: Restrict)
+  id                    String                      @id @db.Uuid
+  propertyId            String                      @map("property_id") @db.Uuid
+  analystUserId         String                      @map("analyst_user_id") @db.Uuid
+  version               Int
+  status                LeaseSafetyAssessmentStatus
+  score                 Int?
+  grade                 LeaseSafetyGrade
+  estimatedMarketValue  Decimal?                    @map("estimated_market_value") @db.Decimal(18, 2)
+  seniorClaimAmount     Decimal?                    @map("senior_claim_amount") @db.Decimal(18, 2)
+  jeonseRatio           Decimal?                    @map("jeonse_ratio") @db.Decimal(7, 4)
+  totalExposureRatio    Decimal?                    @map("total_exposure_ratio") @db.Decimal(7, 4)
+  ownerMatched          Boolean?                    @map("owner_matched")
+  guaranteeEligibility  GuaranteeEligibility        @default(UNKNOWN) @map("guarantee_eligibility")
+  registryRiskCodes     String[]                    @default([]) @map("registry_risk_codes")
+  registryIssuedAt      DateTime?                   @map("registry_issued_at") @db.Timestamptz(6)
+  valuationAssessedAt   DateTime?                   @map("valuation_assessed_at") @db.Timestamptz(6)
+  registrySource        String?                     @map("registry_source") @db.VarChar(100)
+  valuationSource       String?                     @map("valuation_source") @db.VarChar(100)
+  evidenceReferenceHash String?                     @map("evidence_reference_hash") @db.VarChar(64)
+  missingInputs         String[]                    @default([]) @map("missing_inputs")
+  deductionBreakdown    Json                        @map("deduction_breakdown")
+  calculationVersion    String                      @map("calculation_version") @db.VarChar(40)
+  assessedAt            DateTime                    @map("assessed_at") @db.Timestamptz(6)
+  createdAt             DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  property              Property                    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  analyst               User                        @relation("LeaseSafetyAnalyst", fields: [analystUserId], references: [id], onDelete: Restrict)
 
   @@unique([propertyId, version])
   @@index([propertyId, assessedAt])
@@ -974,6 +982,7 @@ model ElectronicContract {
   parties                          ElectronicContractParty[]
   histories                        ElectronicContractHistory[]
   webhookEvents                    ContractWebhookEvent[]
+  safetyRechecks                   ContractSafetyRecheck[]
 
   @@index([memberUserId, status, createdAt])
   @@index([registrantUserId, status, createdAt])
@@ -981,6 +990,41 @@ model ElectronicContract {
   @@index([status, signingExpiresAt])
   @@index([retainedUntil])
   @@map("electronic_contracts")
+}
+
+model ContractSafetyRecheck {
+  id                     String                      @id @db.Uuid
+  contractId             String                      @map("contract_id") @db.Uuid
+  requestedByUserId      String                      @map("requested_by_user_id") @db.Uuid
+  attempt                Int
+  status                 ContractSafetyRecheckStatus @default(RUNNING)
+  registryDecision       String?                     @map("registry_decision") @db.VarChar(40)
+  ownerMatched           Boolean?                    @map("owner_matched")
+  registryRiskCodes      String[]                    @default([]) @map("registry_risk_codes")
+  registryIssuedAt       DateTime?                   @map("registry_issued_at") @db.Timestamptz(6)
+  registryCheckedAt      DateTime?                   @map("registry_checked_at") @db.Timestamptz(6)
+  registryProvider       String?                     @map("registry_provider") @db.VarChar(80)
+  registryReferenceHash  String?                     @map("registry_reference_hash") @db.VarChar(64)
+  guaranteeEligibility   GuaranteeEligibility        @default(UNKNOWN) @map("guarantee_eligibility")
+  guaranteeReasonCodes   String[]                    @default([]) @map("guarantee_reason_codes")
+  guaranteeCheckedAt     DateTime?                   @map("guarantee_checked_at") @db.Timestamptz(6)
+  guaranteeProvider      String?                     @map("guarantee_provider") @db.VarChar(80)
+  guaranteeReferenceHash String?                     @map("guarantee_reference_hash") @db.VarChar(64)
+  failureCode            String?                     @map("failure_code") @db.VarChar(80)
+  resultSnapshot         Json?                       @map("result_snapshot")
+  startedAt              DateTime                    @default(now()) @map("started_at") @db.Timestamptz(6)
+  completedAt            DateTime?                   @map("completed_at") @db.Timestamptz(6)
+  expiresAt              DateTime?                   @map("expires_at") @db.Timestamptz(6)
+  createdAt              DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime                    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  contract               ElectronicContract          @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  requestedBy            User                        @relation("ContractSafetyRecheckRequester", fields: [requestedByUserId], references: [id], onDelete: Restrict)
+
+  @@unique([contractId, attempt])
+  @@index([contractId, status, createdAt])
+  @@index([status, expiresAt])
+  @@index([requestedByUserId, createdAt])
+  @@map("contract_safety_rechecks")
 }
 
 model ElectronicContractParty {

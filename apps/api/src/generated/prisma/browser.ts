@@ -173,6 +173,11 @@ export type ChatMessage = Prisma.ChatMessageModel
  */
 export type ElectronicContract = Prisma.ElectronicContractModel
 /**
+ * Model ContractSafetyRecheck
+ *
+ */
+export type ContractSafetyRecheck = Prisma.ContractSafetyRecheckModel
+/**
  * Model ElectronicContractParty
  * 
  */

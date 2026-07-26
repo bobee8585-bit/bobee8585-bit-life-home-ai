@@ -314,6 +314,7 @@ export type ElectronicContractWhereInput = {
   parties?: Prisma.ElectronicContractPartyListRelationFilter
   histories?: Prisma.ElectronicContractHistoryListRelationFilter
   webhookEvents?: Prisma.ContractWebhookEventListRelationFilter
+  safetyRechecks?: Prisma.ContractSafetyRecheckListRelationFilter
 }
 
 export type ElectronicContractOrderByWithRelationInput = {
@@ -346,6 +347,7 @@ export type ElectronicContractOrderByWithRelationInput = {
   parties?: Prisma.ElectronicContractPartyOrderByRelationAggregateInput
   histories?: Prisma.ElectronicContractHistoryOrderByRelationAggregateInput
   webhookEvents?: Prisma.ContractWebhookEventOrderByRelationAggregateInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckOrderByRelationAggregateInput
 }
 
 export type ElectronicContractWhereUniqueInput = Prisma.AtLeast<{
@@ -381,6 +383,7 @@ export type ElectronicContractWhereUniqueInput = Prisma.AtLeast<{
   parties?: Prisma.ElectronicContractPartyListRelationFilter
   histories?: Prisma.ElectronicContractHistoryListRelationFilter
   webhookEvents?: Prisma.ContractWebhookEventListRelationFilter
+  safetyRechecks?: Prisma.ContractSafetyRecheckListRelationFilter
 }, "id" | "contractNumber" | "reservationId" | "providerContractId">
 
 export type ElectronicContractOrderByWithAggregationInput = {
@@ -462,6 +465,7 @@ export type ElectronicContractCreateInput = {
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateInput = {
@@ -489,6 +493,7 @@ export type ElectronicContractUncheckedCreateInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUpdateInput = {
@@ -516,6 +521,7 @@ export type ElectronicContractUpdateInput = {
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateInput = {
@@ -543,6 +549,7 @@ export type ElectronicContractUncheckedUpdateInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractCreateManyInput = {
@@ -910,6 +917,20 @@ export type EnumElectronicContractStatusFieldUpdateOperationsInput = {
   set?: $Enums.ElectronicContractStatus
 }
 
+export type ElectronicContractCreateNestedOneWithoutSafetyRechecksInput = {
+  create?: Prisma.XOR<Prisma.ElectronicContractCreateWithoutSafetyRechecksInput, Prisma.ElectronicContractUncheckedCreateWithoutSafetyRechecksInput>
+  connectOrCreate?: Prisma.ElectronicContractCreateOrConnectWithoutSafetyRechecksInput
+  connect?: Prisma.ElectronicContractWhereUniqueInput
+}
+
+export type ElectronicContractUpdateOneRequiredWithoutSafetyRechecksNestedInput = {
+  create?: Prisma.XOR<Prisma.ElectronicContractCreateWithoutSafetyRechecksInput, Prisma.ElectronicContractUncheckedCreateWithoutSafetyRechecksInput>
+  connectOrCreate?: Prisma.ElectronicContractCreateOrConnectWithoutSafetyRechecksInput
+  upsert?: Prisma.ElectronicContractUpsertWithoutSafetyRechecksInput
+  connect?: Prisma.ElectronicContractWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ElectronicContractUpdateToOneWithWhereWithoutSafetyRechecksInput, Prisma.ElectronicContractUpdateWithoutSafetyRechecksInput>, Prisma.ElectronicContractUncheckedUpdateWithoutSafetyRechecksInput>
+}
+
 export type ElectronicContractCreateNestedOneWithoutPartiesInput = {
   create?: Prisma.XOR<Prisma.ElectronicContractCreateWithoutPartiesInput, Prisma.ElectronicContractUncheckedCreateWithoutPartiesInput>
   connectOrCreate?: Prisma.ElectronicContractCreateOrConnectWithoutPartiesInput
@@ -978,6 +999,7 @@ export type ElectronicContractCreateWithoutCreatorInput = {
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutCreatorInput = {
@@ -1004,6 +1026,7 @@ export type ElectronicContractUncheckedCreateWithoutCreatorInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutCreatorInput = {
@@ -1040,6 +1063,7 @@ export type ElectronicContractCreateWithoutMemberInput = {
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutMemberInput = {
@@ -1066,6 +1090,7 @@ export type ElectronicContractUncheckedCreateWithoutMemberInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutMemberInput = {
@@ -1102,6 +1127,7 @@ export type ElectronicContractCreateWithoutRegistrantInput = {
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutRegistrantInput = {
@@ -1128,6 +1154,7 @@ export type ElectronicContractUncheckedCreateWithoutRegistrantInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutRegistrantInput = {
@@ -1239,6 +1266,7 @@ export type ElectronicContractCreateWithoutPropertyInput = {
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutPropertyInput = {
@@ -1265,6 +1293,7 @@ export type ElectronicContractUncheckedCreateWithoutPropertyInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutPropertyInput = {
@@ -1317,6 +1346,7 @@ export type ElectronicContractCreateWithoutReservationInput = {
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutReservationInput = {
@@ -1343,6 +1373,7 @@ export type ElectronicContractUncheckedCreateWithoutReservationInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutReservationInput = {
@@ -1385,11 +1416,137 @@ export type ElectronicContractUpdateWithoutReservationInput = {
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutReservationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  memberUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  registrantUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdByUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.EnumElectronicContractProviderFieldUpdateOperationsInput | $Enums.ElectronicContractProvider
+  providerContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumElectronicContractStatusFieldUpdateOperationsInput | $Enums.ElectronicContractStatus
+  termsVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  termsSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signedDocumentReferenceEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedDocumentReferenceHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedDocumentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signingExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  retainedUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
+  histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
+  webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
+}
+
+export type ElectronicContractCreateWithoutSafetyRechecksInput = {
+  id: string
+  contractNumber: string
+  provider: $Enums.ElectronicContractProvider
+  providerContractId?: string | null
+  status?: $Enums.ElectronicContractStatus
+  termsVersion: string
+  termsSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signedDocumentReferenceEncrypted?: string | null
+  signedDocumentReferenceHash?: string | null
+  signedDocumentHash?: string | null
+  signingExpiresAt?: Date | string | null
+  signedAt?: Date | string | null
+  retainedUntil: Date | string
+  failureCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reservation: Prisma.VisitReservationCreateNestedOneWithoutContractInput
+  property: Prisma.PropertyCreateNestedOneWithoutContractsInput
+  member: Prisma.UserCreateNestedOneWithoutMemberContractsInput
+  registrant: Prisma.UserCreateNestedOneWithoutRegistrantContractsInput
+  creator: Prisma.UserCreateNestedOneWithoutCreatedContractsInput
+  parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
+  histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
+  webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+}
+
+export type ElectronicContractUncheckedCreateWithoutSafetyRechecksInput = {
+  id: string
+  contractNumber: string
+  reservationId: string
+  propertyId: string
+  memberUserId: string
+  registrantUserId: string
+  createdByUserId: string
+  provider: $Enums.ElectronicContractProvider
+  providerContractId?: string | null
+  status?: $Enums.ElectronicContractStatus
+  termsVersion: string
+  termsSnapshot: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signedDocumentReferenceEncrypted?: string | null
+  signedDocumentReferenceHash?: string | null
+  signedDocumentHash?: string | null
+  signingExpiresAt?: Date | string | null
+  signedAt?: Date | string | null
+  retainedUntil: Date | string
+  failureCode?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
+  histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
+  webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+}
+
+export type ElectronicContractCreateOrConnectWithoutSafetyRechecksInput = {
+  where: Prisma.ElectronicContractWhereUniqueInput
+  create: Prisma.XOR<Prisma.ElectronicContractCreateWithoutSafetyRechecksInput, Prisma.ElectronicContractUncheckedCreateWithoutSafetyRechecksInput>
+}
+
+export type ElectronicContractUpsertWithoutSafetyRechecksInput = {
+  update: Prisma.XOR<Prisma.ElectronicContractUpdateWithoutSafetyRechecksInput, Prisma.ElectronicContractUncheckedUpdateWithoutSafetyRechecksInput>
+  create: Prisma.XOR<Prisma.ElectronicContractCreateWithoutSafetyRechecksInput, Prisma.ElectronicContractUncheckedCreateWithoutSafetyRechecksInput>
+  where?: Prisma.ElectronicContractWhereInput
+}
+
+export type ElectronicContractUpdateToOneWithWhereWithoutSafetyRechecksInput = {
+  where?: Prisma.ElectronicContractWhereInput
+  data: Prisma.XOR<Prisma.ElectronicContractUpdateWithoutSafetyRechecksInput, Prisma.ElectronicContractUncheckedUpdateWithoutSafetyRechecksInput>
+}
+
+export type ElectronicContractUpdateWithoutSafetyRechecksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  contractNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.EnumElectronicContractProviderFieldUpdateOperationsInput | $Enums.ElectronicContractProvider
+  providerContractId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumElectronicContractStatusFieldUpdateOperationsInput | $Enums.ElectronicContractStatus
+  termsVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  termsSnapshot?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  signedDocumentReferenceEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedDocumentReferenceHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signedDocumentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signingExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  signedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  retainedUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reservation?: Prisma.VisitReservationUpdateOneRequiredWithoutContractNestedInput
+  property?: Prisma.PropertyUpdateOneRequiredWithoutContractsNestedInput
+  member?: Prisma.UserUpdateOneRequiredWithoutMemberContractsNestedInput
+  registrant?: Prisma.UserUpdateOneRequiredWithoutRegistrantContractsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreatedContractsNestedInput
+  parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
+  histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
+  webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+}
+
+export type ElectronicContractUncheckedUpdateWithoutSafetyRechecksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  contractNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationId?: Prisma.StringFieldUpdateOperationsInput | string
   propertyId?: Prisma.StringFieldUpdateOperationsInput | string
   memberUserId?: Prisma.StringFieldUpdateOperationsInput | string
   registrantUserId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1437,6 +1594,7 @@ export type ElectronicContractCreateWithoutPartiesInput = {
   creator: Prisma.UserCreateNestedOneWithoutCreatedContractsInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutPartiesInput = {
@@ -1463,6 +1621,7 @@ export type ElectronicContractUncheckedCreateWithoutPartiesInput = {
   updatedAt?: Date | string
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutPartiesInput = {
@@ -1505,6 +1664,7 @@ export type ElectronicContractUpdateWithoutPartiesInput = {
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedContractsNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutPartiesInput = {
@@ -1531,6 +1691,7 @@ export type ElectronicContractUncheckedUpdateWithoutPartiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractCreateWithoutHistoriesInput = {
@@ -1557,6 +1718,7 @@ export type ElectronicContractCreateWithoutHistoriesInput = {
   creator: Prisma.UserCreateNestedOneWithoutCreatedContractsInput
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutHistoriesInput = {
@@ -1583,6 +1745,7 @@ export type ElectronicContractUncheckedCreateWithoutHistoriesInput = {
   updatedAt?: Date | string
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutHistoriesInput = {
@@ -1625,6 +1788,7 @@ export type ElectronicContractUpdateWithoutHistoriesInput = {
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedContractsNestedInput
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutHistoriesInput = {
@@ -1651,6 +1815,7 @@ export type ElectronicContractUncheckedUpdateWithoutHistoriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractCreateWithoutWebhookEventsInput = {
@@ -1677,6 +1842,7 @@ export type ElectronicContractCreateWithoutWebhookEventsInput = {
   creator: Prisma.UserCreateNestedOneWithoutCreatedContractsInput
   parties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractUncheckedCreateWithoutWebhookEventsInput = {
@@ -1703,6 +1869,7 @@ export type ElectronicContractUncheckedCreateWithoutWebhookEventsInput = {
   updatedAt?: Date | string
   parties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutContractInput
   histories?: Prisma.ElectronicContractHistoryUncheckedCreateNestedManyWithoutContractInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedCreateNestedManyWithoutContractInput
 }
 
 export type ElectronicContractCreateOrConnectWithoutWebhookEventsInput = {
@@ -1745,6 +1912,7 @@ export type ElectronicContractUpdateWithoutWebhookEventsInput = {
   creator?: Prisma.UserUpdateOneRequiredWithoutCreatedContractsNestedInput
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutWebhookEventsInput = {
@@ -1771,6 +1939,7 @@ export type ElectronicContractUncheckedUpdateWithoutWebhookEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractCreateManyCreatorInput = {
@@ -1866,6 +2035,7 @@ export type ElectronicContractUpdateWithoutCreatorInput = {
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutCreatorInput = {
@@ -1892,6 +2062,7 @@ export type ElectronicContractUncheckedUpdateWithoutCreatorInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateManyWithoutCreatorInput = {
@@ -1941,6 +2112,7 @@ export type ElectronicContractUpdateWithoutMemberInput = {
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutMemberInput = {
@@ -1967,6 +2139,7 @@ export type ElectronicContractUncheckedUpdateWithoutMemberInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateManyWithoutMemberInput = {
@@ -2016,6 +2189,7 @@ export type ElectronicContractUpdateWithoutRegistrantInput = {
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutRegistrantInput = {
@@ -2042,6 +2216,7 @@ export type ElectronicContractUncheckedUpdateWithoutRegistrantInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateManyWithoutRegistrantInput = {
@@ -2114,6 +2289,7 @@ export type ElectronicContractUpdateWithoutPropertyInput = {
   parties?: Prisma.ElectronicContractPartyUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateWithoutPropertyInput = {
@@ -2140,6 +2316,7 @@ export type ElectronicContractUncheckedUpdateWithoutPropertyInput = {
   parties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutContractNestedInput
   histories?: Prisma.ElectronicContractHistoryUncheckedUpdateManyWithoutContractNestedInput
   webhookEvents?: Prisma.ContractWebhookEventUncheckedUpdateManyWithoutContractNestedInput
+  safetyRechecks?: Prisma.ContractSafetyRecheckUncheckedUpdateManyWithoutContractNestedInput
 }
 
 export type ElectronicContractUncheckedUpdateManyWithoutPropertyInput = {
@@ -2174,12 +2351,14 @@ export type ElectronicContractCountOutputType = {
   parties: number
   histories: number
   webhookEvents: number
+  safetyRechecks: number
 }
 
 export type ElectronicContractCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   parties?: boolean | ElectronicContractCountOutputTypeCountPartiesArgs
   histories?: boolean | ElectronicContractCountOutputTypeCountHistoriesArgs
   webhookEvents?: boolean | ElectronicContractCountOutputTypeCountWebhookEventsArgs
+  safetyRechecks?: boolean | ElectronicContractCountOutputTypeCountSafetyRechecksArgs
 }
 
 /**
@@ -2213,6 +2392,13 @@ export type ElectronicContractCountOutputTypeCountWebhookEventsArgs<ExtArgs exte
   where?: Prisma.ContractWebhookEventWhereInput
 }
 
+/**
+ * ElectronicContractCountOutputType without action
+ */
+export type ElectronicContractCountOutputTypeCountSafetyRechecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractSafetyRecheckWhereInput
+}
+
 
 export type ElectronicContractSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2244,6 +2430,7 @@ export type ElectronicContractSelect<ExtArgs extends runtime.Types.Extensions.In
   parties?: boolean | Prisma.ElectronicContract$partiesArgs<ExtArgs>
   histories?: boolean | Prisma.ElectronicContract$historiesArgs<ExtArgs>
   webhookEvents?: boolean | Prisma.ElectronicContract$webhookEventsArgs<ExtArgs>
+  safetyRechecks?: boolean | Prisma.ElectronicContract$safetyRechecksArgs<ExtArgs>
   _count?: boolean | Prisma.ElectronicContractCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["electronicContract"]>
 
@@ -2339,6 +2526,7 @@ export type ElectronicContractInclude<ExtArgs extends runtime.Types.Extensions.I
   parties?: boolean | Prisma.ElectronicContract$partiesArgs<ExtArgs>
   histories?: boolean | Prisma.ElectronicContract$historiesArgs<ExtArgs>
   webhookEvents?: boolean | Prisma.ElectronicContract$webhookEventsArgs<ExtArgs>
+  safetyRechecks?: boolean | Prisma.ElectronicContract$safetyRechecksArgs<ExtArgs>
   _count?: boolean | Prisma.ElectronicContractCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ElectronicContractIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2367,6 +2555,7 @@ export type $ElectronicContractPayload<ExtArgs extends runtime.Types.Extensions.
     parties: Prisma.$ElectronicContractPartyPayload<ExtArgs>[]
     histories: Prisma.$ElectronicContractHistoryPayload<ExtArgs>[]
     webhookEvents: Prisma.$ContractWebhookEventPayload<ExtArgs>[]
+    safetyRechecks: Prisma.$ContractSafetyRecheckPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2792,6 +2981,7 @@ export interface Prisma__ElectronicContractClient<T, Null = never, ExtArgs exten
   parties<T extends Prisma.ElectronicContract$partiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ElectronicContract$partiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPartyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   histories<T extends Prisma.ElectronicContract$historiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ElectronicContract$historiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   webhookEvents<T extends Prisma.ElectronicContract$webhookEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ElectronicContract$webhookEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractWebhookEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  safetyRechecks<T extends Prisma.ElectronicContract$safetyRechecksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ElectronicContract$safetyRechecksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractSafetyRecheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3312,6 +3502,30 @@ export type ElectronicContract$webhookEventsArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.ContractWebhookEventScalarFieldEnum | Prisma.ContractWebhookEventScalarFieldEnum[]
+}
+
+/**
+ * ElectronicContract.safetyRechecks
+ */
+export type ElectronicContract$safetyRechecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContractSafetyRecheck
+   */
+  select?: Prisma.ContractSafetyRecheckSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContractSafetyRecheck
+   */
+  omit?: Prisma.ContractSafetyRecheckOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContractSafetyRecheckInclude<ExtArgs> | null
+  where?: Prisma.ContractSafetyRecheckWhereInput
+  orderBy?: Prisma.ContractSafetyRecheckOrderByWithRelationInput | Prisma.ContractSafetyRecheckOrderByWithRelationInput[]
+  cursor?: Prisma.ContractSafetyRecheckWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContractSafetyRecheckScalarFieldEnum | Prisma.ContractSafetyRecheckScalarFieldEnum[]
 }
 
 /**

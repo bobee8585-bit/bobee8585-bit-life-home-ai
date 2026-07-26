@@ -81,6 +81,12 @@ export class AppConfigController {
         registryFreshDays: 7,
         valuationFreshDays: 30,
         contractRecheckRequired: true,
+        contractRecheck: {
+          mode: this.propertySafetyMode(),
+          validityMinutes: 30,
+          registryMaxAgeHours: 24,
+          failClosed: true,
+        },
         informationalOnly: true,
       },
       savedPropertySearches: {
@@ -89,7 +95,7 @@ export class AppConfigController {
         newListingAlerts: true,
         pushOnly: true,
       },
-      version: 15,
+      version: 16,
     };
   }
 
@@ -151,6 +157,19 @@ export class AppConfigController {
       .filter((value): value is ContractProviderContract =>
         supported.has(value as ContractProviderContract),
       );
+  }
+
+  private propertySafetyMode(): 'MOCK' | 'GATEWAY' | 'DISABLED' {
+    const value =
+      process.env.PROPERTY_SAFETY_PROVIDER_MODE?.trim().toUpperCase() ??
+      'MOCK';
+    if (value === 'GATEWAY') {
+      return 'GATEWAY';
+    }
+    if (value === 'MOCK' && process.env.NODE_ENV !== 'production') {
+      return 'MOCK';
+    }
+    return 'DISABLED';
   }
 
   private paymentClientKey(

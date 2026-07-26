@@ -14,7 +14,7 @@ export class HealthController {
     return {
       status: 'ok',
       service: 'life-home-api',
-      version: '0.18.0',
+      version: '0.22.0',
       timestamp: new Date().toISOString(),
     };
   }

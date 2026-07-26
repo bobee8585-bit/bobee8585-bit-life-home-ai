@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  ContractSafetyRecheckStatus,
   type ExchangeRate,
   MenuState,
   PropertyReportStatus,
@@ -158,6 +159,17 @@ describe('ElectronicContractStatus', () => {
       'DECLINED',
       'CANCELLED',
       'EXPIRED',
+      'FAILED',
+    ]);
+  });
+});
+
+describe('ContractSafetyRecheckStatus', () => {
+  it('fails closed while preserving blocked and provider-failure outcomes', () => {
+    expect(Object.values(ContractSafetyRecheckStatus)).toEqual([
+      'RUNNING',
+      'PASSED',
+      'BLOCKED',
       'FAILED',
     ]);
   });

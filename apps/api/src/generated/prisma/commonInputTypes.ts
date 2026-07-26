@@ -989,6 +989,23 @@ export type EnumElectronicContractStatusWithAggregatesFilter<$PrismaModel = neve
   _max?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
 }
 
+export type EnumContractSafetyRecheckStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractSafetyRecheckStatus | Prisma.EnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel> | $Enums.ContractSafetyRecheckStatus
+}
+
+export type EnumContractSafetyRecheckStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractSafetyRecheckStatus | Prisma.EnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractSafetyRecheckStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractSafetyRecheckStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel>
+}
+
 export type EnumElectronicContractPartyRoleFilter<$PrismaModel = never> = {
   equals?: $Enums.ElectronicContractPartyRole | Prisma.EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
   in?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
@@ -2138,6 +2155,23 @@ export type NestedEnumElectronicContractStatusWithAggregatesFilter<$PrismaModel 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractSafetyRecheckStatus | Prisma.EnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel> | $Enums.ContractSafetyRecheckStatus
+}
+
+export type NestedEnumContractSafetyRecheckStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractSafetyRecheckStatus | Prisma.EnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractSafetyRecheckStatus[] | Prisma.ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractSafetyRecheckStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractSafetyRecheckStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumContractSafetyRecheckStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumElectronicContractPartyRoleFilter<$PrismaModel = never> = {

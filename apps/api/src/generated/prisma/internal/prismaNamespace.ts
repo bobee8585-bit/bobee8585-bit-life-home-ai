@@ -428,6 +428,7 @@ export const ModelName = {
   PropertyChatRoom: 'PropertyChatRoom',
   ChatMessage: 'ChatMessage',
   ElectronicContract: 'ElectronicContract',
+  ContractSafetyRecheck: 'ContractSafetyRecheck',
   ElectronicContractParty: 'ElectronicContractParty',
   ElectronicContractHistory: 'ElectronicContractHistory',
   ContractWebhookEvent: 'ContractWebhookEvent',
@@ -451,7 +452,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "leaseSafetyAssessment" | "savedPropertySearch" | "savedPropertyAlert" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
+    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "leaseSafetyAssessment" | "savedPropertySearch" | "savedPropertyAlert" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "contractSafetyRecheck" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2749,6 +2750,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ContractSafetyRecheck: {
+      payload: Prisma.$ContractSafetyRecheckPayload<ExtArgs>
+      fields: Prisma.ContractSafetyRecheckFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContractSafetyRecheckFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContractSafetyRecheckFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>
+        }
+        findFirst: {
+          args: Prisma.ContractSafetyRecheckFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContractSafetyRecheckFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>
+        }
+        findMany: {
+          args: Prisma.ContractSafetyRecheckFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>[]
+        }
+        create: {
+          args: Prisma.ContractSafetyRecheckCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>
+        }
+        createMany: {
+          args: Prisma.ContractSafetyRecheckCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContractSafetyRecheckCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>[]
+        }
+        delete: {
+          args: Prisma.ContractSafetyRecheckDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>
+        }
+        update: {
+          args: Prisma.ContractSafetyRecheckUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContractSafetyRecheckDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContractSafetyRecheckUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContractSafetyRecheckUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContractSafetyRecheckUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractSafetyRecheckPayload>
+        }
+        aggregate: {
+          args: Prisma.ContractSafetyRecheckAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContractSafetyRecheck>
+        }
+        groupBy: {
+          args: Prisma.ContractSafetyRecheckGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractSafetyRecheckGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContractSafetyRecheckCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractSafetyRecheckCountAggregateOutputType> | number
+        }
+      }
+    }
     ElectronicContractParty: {
       payload: Prisma.$ElectronicContractPartyPayload<ExtArgs>
       fields: Prisma.ElectronicContractPartyFieldRefs
@@ -3948,6 +4023,36 @@ export const ElectronicContractScalarFieldEnum = {
 export type ElectronicContractScalarFieldEnum = (typeof ElectronicContractScalarFieldEnum)[keyof typeof ElectronicContractScalarFieldEnum]
 
 
+export const ContractSafetyRecheckScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  requestedByUserId: 'requestedByUserId',
+  attempt: 'attempt',
+  status: 'status',
+  registryDecision: 'registryDecision',
+  ownerMatched: 'ownerMatched',
+  registryRiskCodes: 'registryRiskCodes',
+  registryIssuedAt: 'registryIssuedAt',
+  registryCheckedAt: 'registryCheckedAt',
+  registryProvider: 'registryProvider',
+  registryReferenceHash: 'registryReferenceHash',
+  guaranteeEligibility: 'guaranteeEligibility',
+  guaranteeReasonCodes: 'guaranteeReasonCodes',
+  guaranteeCheckedAt: 'guaranteeCheckedAt',
+  guaranteeProvider: 'guaranteeProvider',
+  guaranteeReferenceHash: 'guaranteeReferenceHash',
+  failureCode: 'failureCode',
+  resultSnapshot: 'resultSnapshot',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractSafetyRecheckScalarFieldEnum = (typeof ContractSafetyRecheckScalarFieldEnum)[keyof typeof ContractSafetyRecheckScalarFieldEnum]
+
+
 export const ElectronicContractPartyScalarFieldEnum = {
   id: 'id',
   contractId: 'contractId',
@@ -4621,6 +4726,20 @@ export type ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> = FieldR
 
 
 /**
+ * Reference to a field of type 'ContractSafetyRecheckStatus'
+ */
+export type EnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractSafetyRecheckStatus'>
+
+
+
+/**
+ * Reference to a field of type 'ContractSafetyRecheckStatus[]'
+ */
+export type ListEnumContractSafetyRecheckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractSafetyRecheckStatus[]'>
+
+
+
+/**
  * Reference to a field of type 'ElectronicContractPartyRole'
  */
 export type EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractPartyRole'>
@@ -4969,6 +5088,7 @@ export type GlobalOmitConfig = {
   propertyChatRoom?: Prisma.PropertyChatRoomOmit
   chatMessage?: Prisma.ChatMessageOmit
   electronicContract?: Prisma.ElectronicContractOmit
+  contractSafetyRecheck?: Prisma.ContractSafetyRecheckOmit
   electronicContractParty?: Prisma.ElectronicContractPartyOmit
   electronicContractHistory?: Prisma.ElectronicContractHistoryOmit
   contractWebhookEvent?: Prisma.ContractWebhookEventOmit
@@ -5039,4 +5159,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-
