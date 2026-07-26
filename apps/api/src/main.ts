@@ -6,7 +6,7 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { ResponseEnvelopeInterceptor } from './common/response-envelope.interceptor';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { rawBody: true });
 
   app.setGlobalPrefix('v1');
   app.enableCors({

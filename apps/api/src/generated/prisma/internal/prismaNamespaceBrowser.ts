@@ -78,6 +78,10 @@ export const ModelName = {
   VisitReservationHistory: 'VisitReservationHistory',
   PropertyChatRoom: 'PropertyChatRoom',
   ChatMessage: 'ChatMessage',
+  ElectronicContract: 'ElectronicContract',
+  ElectronicContractParty: 'ElectronicContractParty',
+  ElectronicContractHistory: 'ElectronicContractHistory',
+  ContractWebhookEvent: 'ContractWebhookEvent',
   NotificationOutbox: 'NotificationOutbox',
   NotificationEndpoint: 'NotificationEndpoint',
   ReservationDeposit: 'ReservationDeposit',
@@ -581,6 +585,82 @@ export const ChatMessageScalarFieldEnum = {
 } as const
 
 export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
+
+
+export const ElectronicContractScalarFieldEnum = {
+  id: 'id',
+  contractNumber: 'contractNumber',
+  reservationId: 'reservationId',
+  propertyId: 'propertyId',
+  memberUserId: 'memberUserId',
+  registrantUserId: 'registrantUserId',
+  createdByUserId: 'createdByUserId',
+  provider: 'provider',
+  providerContractId: 'providerContractId',
+  status: 'status',
+  termsVersion: 'termsVersion',
+  termsSnapshot: 'termsSnapshot',
+  signedDocumentReferenceEncrypted: 'signedDocumentReferenceEncrypted',
+  signedDocumentReferenceHash: 'signedDocumentReferenceHash',
+  signedDocumentHash: 'signedDocumentHash',
+  signingExpiresAt: 'signingExpiresAt',
+  signedAt: 'signedAt',
+  retainedUntil: 'retainedUntil',
+  failureCode: 'failureCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElectronicContractScalarFieldEnum = (typeof ElectronicContractScalarFieldEnum)[keyof typeof ElectronicContractScalarFieldEnum]
+
+
+export const ElectronicContractPartyScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  userId: 'userId',
+  role: 'role',
+  status: 'status',
+  viewedAt: 'viewedAt',
+  signedAt: 'signedAt',
+  declinedAt: 'declinedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElectronicContractPartyScalarFieldEnum = (typeof ElectronicContractPartyScalarFieldEnum)[keyof typeof ElectronicContractPartyScalarFieldEnum]
+
+
+export const ElectronicContractHistoryScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  previousStatus: 'previousStatus',
+  nextStatus: 'nextStatus',
+  source: 'source',
+  eventType: 'eventType',
+  actorUserId: 'actorUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type ElectronicContractHistoryScalarFieldEnum = (typeof ElectronicContractHistoryScalarFieldEnum)[keyof typeof ElectronicContractHistoryScalarFieldEnum]
+
+
+export const ContractWebhookEventScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  transmissionId: 'transmissionId',
+  eventType: 'eventType',
+  status: 'status',
+  contractId: 'contractId',
+  providerContractId: 'providerContractId',
+  payloadHash: 'payloadHash',
+  failureCode: 'failureCode',
+  receivedAt: 'receivedAt',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractWebhookEventScalarFieldEnum = (typeof ContractWebhookEventScalarFieldEnum)[keyof typeof ContractWebhookEventScalarFieldEnum]
 
 
 export const NotificationOutboxScalarFieldEnum = {

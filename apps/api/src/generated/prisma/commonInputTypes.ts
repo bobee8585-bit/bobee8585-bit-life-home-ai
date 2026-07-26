@@ -806,6 +806,20 @@ export type EnumChatMessageTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumChatMessageTypeFilter<$PrismaModel>
 }
 
+export type EnumElectronicContractProviderFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractProvider | Prisma.EnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractProviderFilter<$PrismaModel> | $Enums.ElectronicContractProvider
+}
+
+export type EnumElectronicContractStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel> | $Enums.ElectronicContractStatus
+}
+
 export type JsonFilter<$PrismaModel = never> =
 | Prisma.PatchUndefined<
     Prisma.Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -830,18 +844,24 @@ export type JsonFilterBase<$PrismaModel = never> = {
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
 }
 
-export type EnumNotificationDeliveryStatusFilter<$PrismaModel = never> = {
-  equals?: $Enums.NotificationDeliveryStatus | Prisma.EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumNotificationDeliveryStatusFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+export type EnumElectronicContractProviderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractProvider | Prisma.EnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractProviderWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractProvider
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractProviderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractProviderFilter<$PrismaModel>
 }
 
-export type EnumNotificationChannelNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.NotificationChannel | Prisma.EnumNotificationChannelFieldRefInput<$PrismaModel> | null
-  in?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumNotificationChannelNullableFilter<$PrismaModel> | $Enums.NotificationChannel | null
+export type EnumElectronicContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
 }
 
 export type JsonWithAggregatesFilter<$PrismaModel = never> =
@@ -869,6 +889,88 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedJsonFilter<$PrismaModel>
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
+}
+
+export type EnumElectronicContractPartyRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyRole | Prisma.EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyRoleFilter<$PrismaModel> | $Enums.ElectronicContractPartyRole
+}
+
+export type EnumElectronicContractPartyStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyStatus | Prisma.EnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyStatusFilter<$PrismaModel> | $Enums.ElectronicContractPartyStatus
+}
+
+export type EnumElectronicContractPartyRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyRole | Prisma.EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyRoleWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractPartyRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractPartyRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractPartyRoleFilter<$PrismaModel>
+}
+
+export type EnumElectronicContractPartyStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyStatus | Prisma.EnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyStatusWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractPartyStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractPartyStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractPartyStatusFilter<$PrismaModel>
+}
+
+export type EnumElectronicContractStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumElectronicContractStatusNullableFilter<$PrismaModel> | $Enums.ElectronicContractStatus | null
+}
+
+export type EnumElectronicContractStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumElectronicContractStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractStatusNullableFilter<$PrismaModel>
+}
+
+export type EnumContractWebhookEventStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractWebhookEventStatus | Prisma.EnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractWebhookEventStatusFilter<$PrismaModel> | $Enums.ContractWebhookEventStatus
+}
+
+export type EnumContractWebhookEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractWebhookEventStatus | Prisma.EnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractWebhookEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractWebhookEventStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumContractWebhookEventStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumContractWebhookEventStatusFilter<$PrismaModel>
+}
+
+export type EnumNotificationDeliveryStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationDeliveryStatus | Prisma.EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNotificationDeliveryStatusFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+}
+
+export type EnumNotificationChannelNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationChannel | Prisma.EnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  in?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumNotificationChannelNullableFilter<$PrismaModel> | $Enums.NotificationChannel | null
 }
 
 export type EnumNotificationDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -1784,18 +1886,38 @@ export type NestedEnumChatMessageTypeWithAggregatesFilter<$PrismaModel = never> 
   _max?: Prisma.NestedEnumChatMessageTypeFilter<$PrismaModel>
 }
 
-export type NestedEnumNotificationDeliveryStatusFilter<$PrismaModel = never> = {
-  equals?: $Enums.NotificationDeliveryStatus | Prisma.EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumNotificationDeliveryStatusFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+export type NestedEnumElectronicContractProviderFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractProvider | Prisma.EnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractProviderFilter<$PrismaModel> | $Enums.ElectronicContractProvider
 }
 
-export type NestedEnumNotificationChannelNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.NotificationChannel | Prisma.EnumNotificationChannelFieldRefInput<$PrismaModel> | null
-  in?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumNotificationChannelNullableFilter<$PrismaModel> | $Enums.NotificationChannel | null
+export type NestedEnumElectronicContractStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel> | $Enums.ElectronicContractStatus
+}
+
+export type NestedEnumElectronicContractProviderWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractProvider | Prisma.EnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractProvider[] | Prisma.ListEnumElectronicContractProviderFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractProviderWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractProvider
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractProviderFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractProviderFilter<$PrismaModel>
+}
+
+export type NestedEnumElectronicContractStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractStatusWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractStatusFilter<$PrismaModel>
 }
 
 export type NestedJsonFilter<$PrismaModel = never> =
@@ -1820,6 +1942,88 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumElectronicContractPartyRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyRole | Prisma.EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyRoleFilter<$PrismaModel> | $Enums.ElectronicContractPartyRole
+}
+
+export type NestedEnumElectronicContractPartyStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyStatus | Prisma.EnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyStatusFilter<$PrismaModel> | $Enums.ElectronicContractPartyStatus
+}
+
+export type NestedEnumElectronicContractPartyRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyRole | Prisma.EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyRole[] | Prisma.ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyRoleWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractPartyRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractPartyRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractPartyRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumElectronicContractPartyStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractPartyStatus | Prisma.EnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ElectronicContractPartyStatus[] | Prisma.ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumElectronicContractPartyStatusWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractPartyStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractPartyStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractPartyStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumElectronicContractStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumElectronicContractStatusNullableFilter<$PrismaModel> | $Enums.ElectronicContractStatus | null
+}
+
+export type NestedEnumElectronicContractStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ElectronicContractStatus | Prisma.EnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ElectronicContractStatus[] | Prisma.ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumElectronicContractStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ElectronicContractStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumElectronicContractStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumElectronicContractStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumContractWebhookEventStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractWebhookEventStatus | Prisma.EnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractWebhookEventStatusFilter<$PrismaModel> | $Enums.ContractWebhookEventStatus
+}
+
+export type NestedEnumContractWebhookEventStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ContractWebhookEventStatus | Prisma.EnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ContractWebhookEventStatus[] | Prisma.ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumContractWebhookEventStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContractWebhookEventStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumContractWebhookEventStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumContractWebhookEventStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumNotificationDeliveryStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationDeliveryStatus | Prisma.EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NotificationDeliveryStatus[] | Prisma.ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNotificationDeliveryStatusFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+}
+
+export type NestedEnumNotificationChannelNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.NotificationChannel | Prisma.EnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  in?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.NotificationChannel[] | Prisma.ListEnumNotificationChannelFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumNotificationChannelNullableFilter<$PrismaModel> | $Enums.NotificationChannel | null
 }
 
 export type NestedEnumNotificationDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {

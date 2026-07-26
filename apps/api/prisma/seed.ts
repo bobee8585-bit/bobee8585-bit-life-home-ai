@@ -106,6 +106,8 @@ async function seedRolesAndPermissions(): Promise<void> {
       'RESERVATION.RESPOND',
       'RESERVATION.MANAGE_OWN_LISTING',
       'CHAT.USE',
+      'CONTRACT.READ',
+      'CONTRACT.MANAGE',
     ],
     PROPERTY_OWNER: [
       'PROPERTY.READ',
@@ -117,6 +119,8 @@ async function seedRolesAndPermissions(): Promise<void> {
       'RESERVATION.RESPOND',
       'RESERVATION.MANAGE_OWN_LISTING',
       'CHAT.USE',
+      'CONTRACT.READ',
+      'CONTRACT.MANAGE',
     ],
     BROKER: [
       'PROPERTY.READ',
@@ -159,6 +163,8 @@ async function seedRolesAndPermissions(): Promise<void> {
       'RESERVATION.RESPOND',
       'RESERVATION.MANAGE',
       'CHAT.USE',
+      'CONTRACT.READ',
+      'CONTRACT.MANAGE',
       'MENU.STATE_CHANGE',
       'ADMIN.ROLE_CHANGE',
       'AUDIT_LOG.READ',

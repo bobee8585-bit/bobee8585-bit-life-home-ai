@@ -11,6 +11,8 @@ import {
   PropertyListingType,
   VisitTravelMode,
   ChatMessageType,
+  ElectronicContractProvider,
+  ElectronicContractStatus,
 } from './index';
 
 const sampleRate: ExchangeRate = {
@@ -131,5 +133,30 @@ describe('VisitTravelMode', () => {
 describe('ChatMessageType', () => {
   it('starts with immutable text and system message records', () => {
     expect(Object.values(ChatMessageType)).toEqual(['TEXT', 'SYSTEM']);
+  });
+});
+
+describe('ElectronicContractProvider', () => {
+  it('keeps provider selection explicit in the shared contract', () => {
+    expect(Object.values(ElectronicContractProvider)).toEqual([
+      'MODOOSIGN',
+      'EFORM_SIGN',
+      'GOVERNMENT',
+    ]);
+  });
+});
+
+describe('ElectronicContractStatus', () => {
+  it('distinguishes signing progress from terminal outcomes', () => {
+    expect(Object.values(ElectronicContractStatus)).toEqual([
+      'DRAFT',
+      'SIGNING_PENDING',
+      'PARTIALLY_SIGNED',
+      'SIGNED',
+      'DECLINED',
+      'CANCELLED',
+      'EXPIRED',
+      'FAILED',
+    ]);
   });
 });

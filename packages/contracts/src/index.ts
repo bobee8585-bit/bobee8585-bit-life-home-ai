@@ -147,6 +147,68 @@ export enum ChatMessageType {
   SYSTEM = 'SYSTEM',
 }
 
+export enum ElectronicContractProvider {
+  MODOOSIGN = 'MODOOSIGN',
+  EFORM_SIGN = 'EFORM_SIGN',
+  GOVERNMENT = 'GOVERNMENT',
+}
+
+export enum ElectronicContractStatus {
+  DRAFT = 'DRAFT',
+  SIGNING_PENDING = 'SIGNING_PENDING',
+  PARTIALLY_SIGNED = 'PARTIALLY_SIGNED',
+  SIGNED = 'SIGNED',
+  DECLINED = 'DECLINED',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+  FAILED = 'FAILED',
+}
+
+export type ElectronicContractPartyRole = 'MEMBER' | 'REGISTRANT';
+export type ElectronicContractPartyStatus =
+  | 'PENDING'
+  | 'VIEWED'
+  | 'SIGNED'
+  | 'DECLINED';
+
+export interface ElectronicContract {
+  id: string;
+  contractNumber: string;
+  provider: ElectronicContractProvider;
+  status: ElectronicContractStatus;
+  reservation: {
+    id: string;
+    reservationNumber: string;
+    status: VisitReservationStatus;
+  };
+  property: {
+    id: string;
+    listingNumber: string;
+    title: string;
+    listingType: PropertyListingType;
+    transactionType: PropertyTransactionType;
+    city: string;
+  };
+  myRole: ElectronicContractPartyRole;
+  parties: Array<{
+    role: ElectronicContractPartyRole;
+    status: ElectronicContractPartyStatus;
+    memberNumber: string;
+    displayName: string;
+    viewedAt: string | null;
+    signedAt: string | null;
+    declinedAt: string | null;
+  }>;
+  termsVersion: string;
+  signingExpiresAt: string | null;
+  signedAt: string | null;
+  signedDocumentAvailable: boolean;
+  signedDocumentHash: string | null;
+  retainedUntil: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type ChatParticipantRole = 'MEMBER' | 'REGISTRANT';
 
 export interface PropertyChatMessage {
@@ -382,6 +444,13 @@ export interface AppConfig {
     messageMaxLength: number;
     clientMessageIdRequired: true;
     propertyRegistrantOnly: true;
+  };
+  electronicContract?: {
+    enabled: boolean;
+    mode: 'MOCK' | 'GATEWAY' | 'DISABLED';
+    providers: ElectronicContractProvider[];
+    externalSignatureAndIdentityVerification: true;
+    retentionYears: 10;
   };
   version: number;
 }

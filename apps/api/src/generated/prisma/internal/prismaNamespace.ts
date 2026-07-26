@@ -424,6 +424,10 @@ export const ModelName = {
   VisitReservationHistory: 'VisitReservationHistory',
   PropertyChatRoom: 'PropertyChatRoom',
   ChatMessage: 'ChatMessage',
+  ElectronicContract: 'ElectronicContract',
+  ElectronicContractParty: 'ElectronicContractParty',
+  ElectronicContractHistory: 'ElectronicContractHistory',
+  ContractWebhookEvent: 'ContractWebhookEvent',
   NotificationOutbox: 'NotificationOutbox',
   NotificationEndpoint: 'NotificationEndpoint',
   ReservationDeposit: 'ReservationDeposit',
@@ -444,7 +448,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
+    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2446,6 +2450,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ElectronicContract: {
+      payload: Prisma.$ElectronicContractPayload<ExtArgs>
+      fields: Prisma.ElectronicContractFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ElectronicContractFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ElectronicContractFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>
+        }
+        findFirst: {
+          args: Prisma.ElectronicContractFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ElectronicContractFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>
+        }
+        findMany: {
+          args: Prisma.ElectronicContractFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>[]
+        }
+        create: {
+          args: Prisma.ElectronicContractCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>
+        }
+        createMany: {
+          args: Prisma.ElectronicContractCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ElectronicContractCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>[]
+        }
+        delete: {
+          args: Prisma.ElectronicContractDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>
+        }
+        update: {
+          args: Prisma.ElectronicContractUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>
+        }
+        deleteMany: {
+          args: Prisma.ElectronicContractDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ElectronicContractUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ElectronicContractUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>[]
+        }
+        upsert: {
+          args: Prisma.ElectronicContractUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPayload>
+        }
+        aggregate: {
+          args: Prisma.ElectronicContractAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateElectronicContract>
+        }
+        groupBy: {
+          args: Prisma.ElectronicContractGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectronicContractGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ElectronicContractCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectronicContractCountAggregateOutputType> | number
+        }
+      }
+    }
+    ElectronicContractParty: {
+      payload: Prisma.$ElectronicContractPartyPayload<ExtArgs>
+      fields: Prisma.ElectronicContractPartyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ElectronicContractPartyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ElectronicContractPartyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>
+        }
+        findFirst: {
+          args: Prisma.ElectronicContractPartyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ElectronicContractPartyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>
+        }
+        findMany: {
+          args: Prisma.ElectronicContractPartyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>[]
+        }
+        create: {
+          args: Prisma.ElectronicContractPartyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>
+        }
+        createMany: {
+          args: Prisma.ElectronicContractPartyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ElectronicContractPartyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>[]
+        }
+        delete: {
+          args: Prisma.ElectronicContractPartyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>
+        }
+        update: {
+          args: Prisma.ElectronicContractPartyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>
+        }
+        deleteMany: {
+          args: Prisma.ElectronicContractPartyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ElectronicContractPartyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ElectronicContractPartyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>[]
+        }
+        upsert: {
+          args: Prisma.ElectronicContractPartyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractPartyPayload>
+        }
+        aggregate: {
+          args: Prisma.ElectronicContractPartyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateElectronicContractParty>
+        }
+        groupBy: {
+          args: Prisma.ElectronicContractPartyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectronicContractPartyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ElectronicContractPartyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectronicContractPartyCountAggregateOutputType> | number
+        }
+      }
+    }
+    ElectronicContractHistory: {
+      payload: Prisma.$ElectronicContractHistoryPayload<ExtArgs>
+      fields: Prisma.ElectronicContractHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ElectronicContractHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ElectronicContractHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ElectronicContractHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ElectronicContractHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ElectronicContractHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ElectronicContractHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ElectronicContractHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ElectronicContractHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ElectronicContractHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>
+        }
+        update: {
+          args: Prisma.ElectronicContractHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ElectronicContractHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ElectronicContractHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ElectronicContractHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ElectronicContractHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElectronicContractHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ElectronicContractHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateElectronicContractHistory>
+        }
+        groupBy: {
+          args: Prisma.ElectronicContractHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectronicContractHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ElectronicContractHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElectronicContractHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContractWebhookEvent: {
+      payload: Prisma.$ContractWebhookEventPayload<ExtArgs>
+      fields: Prisma.ContractWebhookEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContractWebhookEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContractWebhookEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>
+        }
+        findFirst: {
+          args: Prisma.ContractWebhookEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContractWebhookEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>
+        }
+        findMany: {
+          args: Prisma.ContractWebhookEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>[]
+        }
+        create: {
+          args: Prisma.ContractWebhookEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>
+        }
+        createMany: {
+          args: Prisma.ContractWebhookEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContractWebhookEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>[]
+        }
+        delete: {
+          args: Prisma.ContractWebhookEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>
+        }
+        update: {
+          args: Prisma.ContractWebhookEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContractWebhookEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContractWebhookEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContractWebhookEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContractWebhookEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractWebhookEventPayload>
+        }
+        aggregate: {
+          args: Prisma.ContractWebhookEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContractWebhookEvent>
+        }
+        groupBy: {
+          args: Prisma.ContractWebhookEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractWebhookEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContractWebhookEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractWebhookEventCountAggregateOutputType> | number
+        }
+      }
+    }
     NotificationOutbox: {
       payload: Prisma.$NotificationOutboxPayload<ExtArgs>
       fields: Prisma.NotificationOutboxFieldRefs
@@ -3337,6 +3637,82 @@ export const ChatMessageScalarFieldEnum = {
 export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
+export const ElectronicContractScalarFieldEnum = {
+  id: 'id',
+  contractNumber: 'contractNumber',
+  reservationId: 'reservationId',
+  propertyId: 'propertyId',
+  memberUserId: 'memberUserId',
+  registrantUserId: 'registrantUserId',
+  createdByUserId: 'createdByUserId',
+  provider: 'provider',
+  providerContractId: 'providerContractId',
+  status: 'status',
+  termsVersion: 'termsVersion',
+  termsSnapshot: 'termsSnapshot',
+  signedDocumentReferenceEncrypted: 'signedDocumentReferenceEncrypted',
+  signedDocumentReferenceHash: 'signedDocumentReferenceHash',
+  signedDocumentHash: 'signedDocumentHash',
+  signingExpiresAt: 'signingExpiresAt',
+  signedAt: 'signedAt',
+  retainedUntil: 'retainedUntil',
+  failureCode: 'failureCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElectronicContractScalarFieldEnum = (typeof ElectronicContractScalarFieldEnum)[keyof typeof ElectronicContractScalarFieldEnum]
+
+
+export const ElectronicContractPartyScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  userId: 'userId',
+  role: 'role',
+  status: 'status',
+  viewedAt: 'viewedAt',
+  signedAt: 'signedAt',
+  declinedAt: 'declinedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElectronicContractPartyScalarFieldEnum = (typeof ElectronicContractPartyScalarFieldEnum)[keyof typeof ElectronicContractPartyScalarFieldEnum]
+
+
+export const ElectronicContractHistoryScalarFieldEnum = {
+  id: 'id',
+  contractId: 'contractId',
+  previousStatus: 'previousStatus',
+  nextStatus: 'nextStatus',
+  source: 'source',
+  eventType: 'eventType',
+  actorUserId: 'actorUserId',
+  createdAt: 'createdAt'
+} as const
+
+export type ElectronicContractHistoryScalarFieldEnum = (typeof ElectronicContractHistoryScalarFieldEnum)[keyof typeof ElectronicContractHistoryScalarFieldEnum]
+
+
+export const ContractWebhookEventScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  transmissionId: 'transmissionId',
+  eventType: 'eventType',
+  status: 'status',
+  contractId: 'contractId',
+  providerContractId: 'providerContractId',
+  payloadHash: 'payloadHash',
+  failureCode: 'failureCode',
+  receivedAt: 'receivedAt',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContractWebhookEventScalarFieldEnum = (typeof ContractWebhookEventScalarFieldEnum)[keyof typeof ContractWebhookEventScalarFieldEnum]
+
+
 export const NotificationOutboxScalarFieldEnum = {
   id: 'id',
   recipientUserId: 'recipientUserId',
@@ -3891,6 +4267,76 @@ export type ListEnumChatMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'ElectronicContractProvider'
+ */
+export type EnumElectronicContractProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractProvider[]'
+ */
+export type ListEnumElectronicContractProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractProvider[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractStatus'
+ */
+export type EnumElectronicContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractStatus[]'
+ */
+export type ListEnumElectronicContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractPartyRole'
+ */
+export type EnumElectronicContractPartyRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractPartyRole'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractPartyRole[]'
+ */
+export type ListEnumElectronicContractPartyRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractPartyRole[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractPartyStatus'
+ */
+export type EnumElectronicContractPartyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractPartyStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ElectronicContractPartyStatus[]'
+ */
+export type ListEnumElectronicContractPartyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ElectronicContractPartyStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractWebhookEventStatus'
+ */
+export type EnumContractWebhookEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractWebhookEventStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractWebhookEventStatus[]'
+ */
+export type ListEnumContractWebhookEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractWebhookEventStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'NotificationDeliveryStatus'
  */
 export type EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationDeliveryStatus'>
@@ -4193,6 +4639,10 @@ export type GlobalOmitConfig = {
   visitReservationHistory?: Prisma.VisitReservationHistoryOmit
   propertyChatRoom?: Prisma.PropertyChatRoomOmit
   chatMessage?: Prisma.ChatMessageOmit
+  electronicContract?: Prisma.ElectronicContractOmit
+  electronicContractParty?: Prisma.ElectronicContractPartyOmit
+  electronicContractHistory?: Prisma.ElectronicContractHistoryOmit
+  contractWebhookEvent?: Prisma.ContractWebhookEventOmit
   notificationOutbox?: Prisma.NotificationOutboxOmit
   notificationEndpoint?: Prisma.NotificationEndpointOmit
   reservationDeposit?: Prisma.ReservationDepositOmit

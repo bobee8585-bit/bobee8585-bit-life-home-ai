@@ -307,6 +307,7 @@ export type VisitReservationWhereInput = {
   broker?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   histories?: Prisma.VisitReservationHistoryListRelationFilter
   deposit?: Prisma.XOR<Prisma.ReservationDepositNullableScalarRelationFilter, Prisma.ReservationDepositWhereInput> | null
+  contract?: Prisma.XOR<Prisma.ElectronicContractNullableScalarRelationFilter, Prisma.ElectronicContractWhereInput> | null
 }
 
 export type VisitReservationOrderByWithRelationInput = {
@@ -335,6 +336,7 @@ export type VisitReservationOrderByWithRelationInput = {
   broker?: Prisma.UserOrderByWithRelationInput
   histories?: Prisma.VisitReservationHistoryOrderByRelationAggregateInput
   deposit?: Prisma.ReservationDepositOrderByWithRelationInput
+  contract?: Prisma.ElectronicContractOrderByWithRelationInput
 }
 
 export type VisitReservationWhereUniqueInput = Prisma.AtLeast<{
@@ -366,6 +368,7 @@ export type VisitReservationWhereUniqueInput = Prisma.AtLeast<{
   broker?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   histories?: Prisma.VisitReservationHistoryListRelationFilter
   deposit?: Prisma.XOR<Prisma.ReservationDepositNullableScalarRelationFilter, Prisma.ReservationDepositWhereInput> | null
+  contract?: Prisma.XOR<Prisma.ElectronicContractNullableScalarRelationFilter, Prisma.ElectronicContractWhereInput> | null
 }, "id" | "reservationNumber">
 
 export type VisitReservationOrderByWithAggregationInput = {
@@ -443,6 +446,7 @@ export type VisitReservationCreateInput = {
   broker: Prisma.UserCreateNestedOneWithoutManagedVisitsInput
   histories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUncheckedCreateInput = {
@@ -468,6 +472,7 @@ export type VisitReservationUncheckedCreateInput = {
   updatedAt?: Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositUncheckedCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractUncheckedCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUpdateInput = {
@@ -493,6 +498,7 @@ export type VisitReservationUpdateInput = {
   broker?: Prisma.UserUpdateOneRequiredWithoutManagedVisitsNestedInput
   histories?: Prisma.VisitReservationHistoryUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateInput = {
@@ -518,6 +524,7 @@ export type VisitReservationUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUncheckedUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUncheckedUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationCreateManyInput = {
@@ -814,6 +821,20 @@ export type VisitReservationUpdateOneRequiredWithoutHistoriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VisitReservationUpdateToOneWithWhereWithoutHistoriesInput, Prisma.VisitReservationUpdateWithoutHistoriesInput>, Prisma.VisitReservationUncheckedUpdateWithoutHistoriesInput>
 }
 
+export type VisitReservationCreateNestedOneWithoutContractInput = {
+  create?: Prisma.XOR<Prisma.VisitReservationCreateWithoutContractInput, Prisma.VisitReservationUncheckedCreateWithoutContractInput>
+  connectOrCreate?: Prisma.VisitReservationCreateOrConnectWithoutContractInput
+  connect?: Prisma.VisitReservationWhereUniqueInput
+}
+
+export type VisitReservationUpdateOneRequiredWithoutContractNestedInput = {
+  create?: Prisma.XOR<Prisma.VisitReservationCreateWithoutContractInput, Prisma.VisitReservationUncheckedCreateWithoutContractInput>
+  connectOrCreate?: Prisma.VisitReservationCreateOrConnectWithoutContractInput
+  upsert?: Prisma.VisitReservationUpsertWithoutContractInput
+  connect?: Prisma.VisitReservationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VisitReservationUpdateToOneWithWhereWithoutContractInput, Prisma.VisitReservationUpdateWithoutContractInput>, Prisma.VisitReservationUncheckedUpdateWithoutContractInput>
+}
+
 export type VisitReservationCreateNestedOneWithoutDepositInput = {
   create?: Prisma.XOR<Prisma.VisitReservationCreateWithoutDepositInput, Prisma.VisitReservationUncheckedCreateWithoutDepositInput>
   connectOrCreate?: Prisma.VisitReservationCreateOrConnectWithoutDepositInput
@@ -850,6 +871,7 @@ export type VisitReservationCreateWithoutRequesterInput = {
   broker: Prisma.UserCreateNestedOneWithoutManagedVisitsInput
   histories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUncheckedCreateWithoutRequesterInput = {
@@ -874,6 +896,7 @@ export type VisitReservationUncheckedCreateWithoutRequesterInput = {
   updatedAt?: Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositUncheckedCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractUncheckedCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationCreateOrConnectWithoutRequesterInput = {
@@ -908,6 +931,7 @@ export type VisitReservationCreateWithoutBrokerInput = {
   requester: Prisma.UserCreateNestedOneWithoutRequestedVisitsInput
   histories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUncheckedCreateWithoutBrokerInput = {
@@ -932,6 +956,7 @@ export type VisitReservationUncheckedCreateWithoutBrokerInput = {
   updatedAt?: Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositUncheckedCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractUncheckedCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationCreateOrConnectWithoutBrokerInput = {
@@ -1024,6 +1049,7 @@ export type VisitReservationCreateWithoutPropertyInput = {
   broker: Prisma.UserCreateNestedOneWithoutManagedVisitsInput
   histories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUncheckedCreateWithoutPropertyInput = {
@@ -1048,6 +1074,7 @@ export type VisitReservationUncheckedCreateWithoutPropertyInput = {
   updatedAt?: Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutReservationInput
   deposit?: Prisma.ReservationDepositUncheckedCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractUncheckedCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationCreateOrConnectWithoutPropertyInput = {
@@ -1098,6 +1125,7 @@ export type VisitReservationCreateWithoutHistoriesInput = {
   requester: Prisma.UserCreateNestedOneWithoutRequestedVisitsInput
   broker: Prisma.UserCreateNestedOneWithoutManagedVisitsInput
   deposit?: Prisma.ReservationDepositCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUncheckedCreateWithoutHistoriesInput = {
@@ -1122,6 +1150,7 @@ export type VisitReservationUncheckedCreateWithoutHistoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deposit?: Prisma.ReservationDepositUncheckedCreateNestedOneWithoutReservationInput
+  contract?: Prisma.ElectronicContractUncheckedCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationCreateOrConnectWithoutHistoriesInput = {
@@ -1162,6 +1191,7 @@ export type VisitReservationUpdateWithoutHistoriesInput = {
   requester?: Prisma.UserUpdateOneRequiredWithoutRequestedVisitsNestedInput
   broker?: Prisma.UserUpdateOneRequiredWithoutManagedVisitsNestedInput
   deposit?: Prisma.ReservationDepositUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateWithoutHistoriesInput = {
@@ -1185,6 +1215,123 @@ export type VisitReservationUncheckedUpdateWithoutHistoriesInput = {
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deposit?: Prisma.ReservationDepositUncheckedUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUncheckedUpdateOneWithoutReservationNestedInput
+}
+
+export type VisitReservationCreateWithoutContractInput = {
+  id: string
+  reservationNumber: string
+  status?: $Enums.VisitReservationStatus
+  requestedStartAt: Date | string
+  requestedEndAt: Date | string
+  alternativeStartAt?: Date | string | null
+  alternativeEndAt?: Date | string | null
+  alternativeExpiresAt?: Date | string | null
+  confirmedStartAt?: Date | string | null
+  confirmedEndAt?: Date | string | null
+  requestMessage?: string | null
+  responseMessage?: string | null
+  cancellationReason?: string | null
+  respondedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  property: Prisma.PropertyCreateNestedOneWithoutVisitReservationsInput
+  requester: Prisma.UserCreateNestedOneWithoutRequestedVisitsInput
+  broker: Prisma.UserCreateNestedOneWithoutManagedVisitsInput
+  histories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutReservationInput
+  deposit?: Prisma.ReservationDepositCreateNestedOneWithoutReservationInput
+}
+
+export type VisitReservationUncheckedCreateWithoutContractInput = {
+  id: string
+  reservationNumber: string
+  propertyId: string
+  requesterId: string
+  brokerUserId: string
+  status?: $Enums.VisitReservationStatus
+  requestedStartAt: Date | string
+  requestedEndAt: Date | string
+  alternativeStartAt?: Date | string | null
+  alternativeEndAt?: Date | string | null
+  alternativeExpiresAt?: Date | string | null
+  confirmedStartAt?: Date | string | null
+  confirmedEndAt?: Date | string | null
+  requestMessage?: string | null
+  responseMessage?: string | null
+  cancellationReason?: string | null
+  respondedAt?: Date | string | null
+  cancelledAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  histories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutReservationInput
+  deposit?: Prisma.ReservationDepositUncheckedCreateNestedOneWithoutReservationInput
+}
+
+export type VisitReservationCreateOrConnectWithoutContractInput = {
+  where: Prisma.VisitReservationWhereUniqueInput
+  create: Prisma.XOR<Prisma.VisitReservationCreateWithoutContractInput, Prisma.VisitReservationUncheckedCreateWithoutContractInput>
+}
+
+export type VisitReservationUpsertWithoutContractInput = {
+  update: Prisma.XOR<Prisma.VisitReservationUpdateWithoutContractInput, Prisma.VisitReservationUncheckedUpdateWithoutContractInput>
+  create: Prisma.XOR<Prisma.VisitReservationCreateWithoutContractInput, Prisma.VisitReservationUncheckedCreateWithoutContractInput>
+  where?: Prisma.VisitReservationWhereInput
+}
+
+export type VisitReservationUpdateToOneWithWhereWithoutContractInput = {
+  where?: Prisma.VisitReservationWhereInput
+  data: Prisma.XOR<Prisma.VisitReservationUpdateWithoutContractInput, Prisma.VisitReservationUncheckedUpdateWithoutContractInput>
+}
+
+export type VisitReservationUpdateWithoutContractInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumVisitReservationStatusFieldUpdateOperationsInput | $Enums.VisitReservationStatus
+  requestedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requestedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  alternativeStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  alternativeEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  alternativeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requestMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  property?: Prisma.PropertyUpdateOneRequiredWithoutVisitReservationsNestedInput
+  requester?: Prisma.UserUpdateOneRequiredWithoutRequestedVisitsNestedInput
+  broker?: Prisma.UserUpdateOneRequiredWithoutManagedVisitsNestedInput
+  histories?: Prisma.VisitReservationHistoryUpdateManyWithoutReservationNestedInput
+  deposit?: Prisma.ReservationDepositUpdateOneWithoutReservationNestedInput
+}
+
+export type VisitReservationUncheckedUpdateWithoutContractInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  propertyId?: Prisma.StringFieldUpdateOperationsInput | string
+  requesterId?: Prisma.StringFieldUpdateOperationsInput | string
+  brokerUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumVisitReservationStatusFieldUpdateOperationsInput | $Enums.VisitReservationStatus
+  requestedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requestedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  alternativeStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  alternativeEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  alternativeExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  requestMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responseMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  histories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUncheckedUpdateOneWithoutReservationNestedInput
 }
 
@@ -1210,6 +1357,7 @@ export type VisitReservationCreateWithoutDepositInput = {
   requester: Prisma.UserCreateNestedOneWithoutRequestedVisitsInput
   broker: Prisma.UserCreateNestedOneWithoutManagedVisitsInput
   histories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutReservationInput
+  contract?: Prisma.ElectronicContractCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationUncheckedCreateWithoutDepositInput = {
@@ -1234,6 +1382,7 @@ export type VisitReservationUncheckedCreateWithoutDepositInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutReservationInput
+  contract?: Prisma.ElectronicContractUncheckedCreateNestedOneWithoutReservationInput
 }
 
 export type VisitReservationCreateOrConnectWithoutDepositInput = {
@@ -1274,6 +1423,7 @@ export type VisitReservationUpdateWithoutDepositInput = {
   requester?: Prisma.UserUpdateOneRequiredWithoutRequestedVisitsNestedInput
   broker?: Prisma.UserUpdateOneRequiredWithoutManagedVisitsNestedInput
   histories?: Prisma.VisitReservationHistoryUpdateManyWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateWithoutDepositInput = {
@@ -1298,6 +1448,7 @@ export type VisitReservationUncheckedUpdateWithoutDepositInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUncheckedUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationCreateManyRequesterInput = {
@@ -1366,6 +1517,7 @@ export type VisitReservationUpdateWithoutRequesterInput = {
   broker?: Prisma.UserUpdateOneRequiredWithoutManagedVisitsNestedInput
   histories?: Prisma.VisitReservationHistoryUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateWithoutRequesterInput = {
@@ -1390,6 +1542,7 @@ export type VisitReservationUncheckedUpdateWithoutRequesterInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUncheckedUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUncheckedUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateManyWithoutRequesterInput = {
@@ -1436,6 +1589,7 @@ export type VisitReservationUpdateWithoutBrokerInput = {
   requester?: Prisma.UserUpdateOneRequiredWithoutRequestedVisitsNestedInput
   histories?: Prisma.VisitReservationHistoryUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateWithoutBrokerInput = {
@@ -1460,6 +1614,7 @@ export type VisitReservationUncheckedUpdateWithoutBrokerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUncheckedUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUncheckedUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateManyWithoutBrokerInput = {
@@ -1528,6 +1683,7 @@ export type VisitReservationUpdateWithoutPropertyInput = {
   broker?: Prisma.UserUpdateOneRequiredWithoutManagedVisitsNestedInput
   histories?: Prisma.VisitReservationHistoryUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateWithoutPropertyInput = {
@@ -1552,6 +1708,7 @@ export type VisitReservationUncheckedUpdateWithoutPropertyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   histories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutReservationNestedInput
   deposit?: Prisma.ReservationDepositUncheckedUpdateOneWithoutReservationNestedInput
+  contract?: Prisma.ElectronicContractUncheckedUpdateOneWithoutReservationNestedInput
 }
 
 export type VisitReservationUncheckedUpdateManyWithoutPropertyInput = {
@@ -1633,6 +1790,7 @@ export type VisitReservationSelect<ExtArgs extends runtime.Types.Extensions.Inte
   broker?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   histories?: boolean | Prisma.VisitReservation$historiesArgs<ExtArgs>
   deposit?: boolean | Prisma.VisitReservation$depositArgs<ExtArgs>
+  contract?: boolean | Prisma.VisitReservation$contractArgs<ExtArgs>
   _count?: boolean | Prisma.VisitReservationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["visitReservation"]>
 
@@ -1718,6 +1876,7 @@ export type VisitReservationInclude<ExtArgs extends runtime.Types.Extensions.Int
   broker?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   histories?: boolean | Prisma.VisitReservation$historiesArgs<ExtArgs>
   deposit?: boolean | Prisma.VisitReservation$depositArgs<ExtArgs>
+  contract?: boolean | Prisma.VisitReservation$contractArgs<ExtArgs>
   _count?: boolean | Prisma.VisitReservationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VisitReservationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1739,6 +1898,7 @@ export type $VisitReservationPayload<ExtArgs extends runtime.Types.Extensions.In
     broker: Prisma.$UserPayload<ExtArgs>
     histories: Prisma.$VisitReservationHistoryPayload<ExtArgs>[]
     deposit: Prisma.$ReservationDepositPayload<ExtArgs> | null
+    contract: Prisma.$ElectronicContractPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2160,6 +2320,7 @@ export interface Prisma__VisitReservationClient<T, Null = never, ExtArgs extends
   broker<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   histories<T extends Prisma.VisitReservation$historiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VisitReservation$historiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VisitReservationHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deposit<T extends Prisma.VisitReservation$depositArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VisitReservation$depositArgs<ExtArgs>>): Prisma.Prisma__ReservationDepositClient<runtime.Types.Result.GetResult<Prisma.$ReservationDepositPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  contract<T extends Prisma.VisitReservation$contractArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VisitReservation$contractArgs<ExtArgs>>): Prisma.Prisma__ElectronicContractClient<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2650,6 +2811,25 @@ export type VisitReservation$depositArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.ReservationDepositInclude<ExtArgs> | null
   where?: Prisma.ReservationDepositWhereInput
+}
+
+/**
+ * VisitReservation.contract
+ */
+export type VisitReservation$contractArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectronicContract
+   */
+  select?: Prisma.ElectronicContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectronicContract
+   */
+  omit?: Prisma.ElectronicContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectronicContractInclude<ExtArgs> | null
+  where?: Prisma.ElectronicContractWhereInput
 }
 
 /**

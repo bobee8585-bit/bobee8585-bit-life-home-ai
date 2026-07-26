@@ -187,6 +187,42 @@ enum ChatMessageType {
   SYSTEM
 }
 
+enum ElectronicContractProvider {
+  MODOOSIGN
+  EFORM_SIGN
+  GOVERNMENT
+}
+
+enum ElectronicContractStatus {
+  DRAFT
+  SIGNING_PENDING
+  PARTIALLY_SIGNED
+  SIGNED
+  DECLINED
+  CANCELLED
+  EXPIRED
+  FAILED
+}
+
+enum ElectronicContractPartyRole {
+  MEMBER
+  REGISTRANT
+}
+
+enum ElectronicContractPartyStatus {
+  PENDING
+  VIEWED
+  SIGNED
+  DECLINED
+}
+
+enum ContractWebhookEventStatus {
+  RECEIVED
+  PROCESSED
+  IGNORED
+  FAILED
+}
+
 enum ReservationDepositStatus {
   READY
   PAID
@@ -262,6 +298,10 @@ model User {
   memberChatRooms         PropertyChatRoom[]              @relation("PropertyChatMember")
   registrantChatRooms     PropertyChatRoom[]              @relation("PropertyChatRegistrant")
   sentChatMessages        ChatMessage[]                   @relation("ChatMessageSender")
+  createdContracts        ElectronicContract[]            @relation("ElectronicContractCreator")
+  memberContracts         ElectronicContract[]            @relation("ElectronicContractMember")
+  registrantContracts     ElectronicContract[]            @relation("ElectronicContractRegistrant")
+  contractParties         ElectronicContractParty[]
 
   @@map("users")
 }
@@ -569,6 +609,7 @@ model Property {
   reports               PropertyReport[]
   visitReservations     VisitReservation[]
   chatRooms             PropertyChatRoom[]
+  contracts             ElectronicContract[]
 
   @@index([status, createdAt])
   @@index([city, propertyType, transactionType, status])
@@ -739,6 +780,7 @@ model VisitReservation {
   broker               User                      @relation("VisitReservationBroker", fields: [brokerUserId], references: [id], onDelete: Restrict)
   histories            VisitReservationHistory[]
   deposit              ReservationDeposit?
+  contract             ElectronicContract?
 
   @@index([requesterId, status, createdAt])
   @@index([brokerUserId, status, requestedStartAt])
@@ -805,6 +847,103 @@ model ChatMessage {
   @@index([chatRoomId, createdAt])
   @@index([senderUserId, createdAt])
   @@map("chat_messages")
+}
+
+model ElectronicContract {
+  id                               String                      @id @db.Uuid
+  contractNumber                   String                      @unique @map("contract_number") @db.VarChar(32)
+  reservationId                    String                      @unique @map("reservation_id") @db.Uuid
+  propertyId                       String                      @map("property_id") @db.Uuid
+  memberUserId                     String                      @map("member_user_id") @db.Uuid
+  registrantUserId                 String                      @map("registrant_user_id") @db.Uuid
+  createdByUserId                  String                      @map("created_by_user_id") @db.Uuid
+  provider                         ElectronicContractProvider
+  providerContractId               String?                     @unique @map("provider_contract_id") @db.VarChar(200)
+  status                           ElectronicContractStatus    @default(DRAFT)
+  termsVersion                     String                      @map("terms_version") @db.VarChar(40)
+  termsSnapshot                    Json                        @map("terms_snapshot")
+  signedDocumentReferenceEncrypted String?                     @map("signed_document_reference_encrypted")
+  signedDocumentReferenceHash      String?                     @map("signed_document_reference_hash") @db.VarChar(64)
+  signedDocumentHash               String?                     @map("signed_document_hash") @db.VarChar(64)
+  signingExpiresAt                 DateTime?                   @map("signing_expires_at") @db.Timestamptz(6)
+  signedAt                         DateTime?                   @map("signed_at") @db.Timestamptz(6)
+  retainedUntil                    DateTime                    @map("retained_until") @db.Timestamptz(6)
+  failureCode                      String?                     @map("failure_code") @db.VarChar(80)
+  createdAt                        DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                        DateTime                    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  reservation                      VisitReservation            @relation(fields: [reservationId], references: [id], onDelete: Restrict)
+  property                         Property                    @relation(fields: [propertyId], references: [id], onDelete: Restrict)
+  member                           User                        @relation("ElectronicContractMember", fields: [memberUserId], references: [id], onDelete: Restrict)
+  registrant                       User                        @relation("ElectronicContractRegistrant", fields: [registrantUserId], references: [id], onDelete: Restrict)
+  creator                          User                        @relation("ElectronicContractCreator", fields: [createdByUserId], references: [id], onDelete: Restrict)
+  parties                          ElectronicContractParty[]
+  histories                        ElectronicContractHistory[]
+  webhookEvents                    ContractWebhookEvent[]
+
+  @@index([memberUserId, status, createdAt])
+  @@index([registrantUserId, status, createdAt])
+  @@index([propertyId, status, createdAt])
+  @@index([status, signingExpiresAt])
+  @@index([retainedUntil])
+  @@map("electronic_contracts")
+}
+
+model ElectronicContractParty {
+  id         String                        @id @db.Uuid
+  contractId String                        @map("contract_id") @db.Uuid
+  userId     String                        @map("user_id") @db.Uuid
+  role       ElectronicContractPartyRole
+  status     ElectronicContractPartyStatus @default(PENDING)
+  viewedAt   DateTime?                     @map("viewed_at") @db.Timestamptz(6)
+  signedAt   DateTime?                     @map("signed_at") @db.Timestamptz(6)
+  declinedAt DateTime?                     @map("declined_at") @db.Timestamptz(6)
+  createdAt  DateTime                      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime                      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  contract   ElectronicContract            @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  user       User                          @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([contractId, role])
+  @@unique([contractId, userId])
+  @@index([userId, status, createdAt])
+  @@map("electronic_contract_parties")
+}
+
+model ElectronicContractHistory {
+  id             String                    @id @db.Uuid
+  contractId     String                    @map("contract_id") @db.Uuid
+  previousStatus ElectronicContractStatus? @map("previous_status")
+  nextStatus     ElectronicContractStatus  @map("next_status")
+  source         String                    @db.VarChar(40)
+  eventType      String?                   @map("event_type") @db.VarChar(80)
+  actorUserId    String?                   @map("actor_user_id") @db.Uuid
+  createdAt      DateTime                  @default(now()) @map("created_at") @db.Timestamptz(6)
+  contract       ElectronicContract        @relation(fields: [contractId], references: [id], onDelete: Cascade)
+
+  @@index([contractId, createdAt])
+  @@map("electronic_contract_histories")
+}
+
+model ContractWebhookEvent {
+  id                 String                     @id @db.Uuid
+  provider           ElectronicContractProvider
+  transmissionId     String                     @map("transmission_id") @db.VarChar(200)
+  eventType          String                     @map("event_type") @db.VarChar(80)
+  status             ContractWebhookEventStatus @default(RECEIVED)
+  contractId         String?                    @map("contract_id") @db.Uuid
+  providerContractId String?                    @map("provider_contract_id") @db.VarChar(200)
+  payloadHash        String                     @map("payload_hash") @db.VarChar(64)
+  failureCode        String?                    @map("failure_code") @db.VarChar(80)
+  receivedAt         DateTime                   @default(now()) @map("received_at") @db.Timestamptz(6)
+  processedAt        DateTime?                  @map("processed_at") @db.Timestamptz(6)
+  createdAt          DateTime                   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime                   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  contract           ElectronicContract?        @relation(fields: [contractId], references: [id], onDelete: SetNull)
+
+  @@unique([provider, transmissionId])
+  @@index([status, receivedAt])
+  @@index([contractId, receivedAt])
+  @@index([providerContractId])
+  @@map("contract_webhook_events")
 }
 
 model NotificationOutbox {

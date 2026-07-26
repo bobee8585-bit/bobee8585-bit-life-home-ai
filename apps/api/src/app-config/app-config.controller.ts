@@ -1,5 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
-import type { AppConfig } from '@lifehome/contracts';
+import {
+  ElectronicContractProvider as ContractProviderContract,
+  type AppConfig,
+} from '@lifehome/contracts';
 import { Public } from '../auth/public.decorator';
 import { FeaturePolicyService } from '../feature-policy/feature-policy.service';
 import { Platform } from '../generated/prisma/client';
@@ -58,7 +61,14 @@ export class AppConfigController {
         clientMessageIdRequired: true,
         propertyRegistrantOnly: true,
       },
-      version: 11,
+      electronicContract: {
+        enabled: this.contractMode() !== 'DISABLED',
+        mode: this.contractMode(),
+        providers: this.contractProviders(),
+        externalSignatureAndIdentityVerification: true,
+        retentionYears: 10,
+      },
+      version: 12,
     };
   }
 
@@ -92,6 +102,34 @@ export class AppConfigController {
     return ['TOSS', 'NICEPAY', 'NHN_KCP'].includes(value)
       ? (value as 'TOSS' | 'NICEPAY' | 'NHN_KCP')
       : 'MOCK';
+  }
+
+  private contractMode(): 'MOCK' | 'GATEWAY' | 'DISABLED' {
+    const value =
+      process.env.CONTRACT_PROVIDER_MODE?.trim().toUpperCase() ?? 'MOCK';
+    if (value === 'GATEWAY') {
+      return 'GATEWAY';
+    }
+    if (value === 'MOCK' && process.env.NODE_ENV !== 'production') {
+      return 'MOCK';
+    }
+    return 'DISABLED';
+  }
+
+  private contractProviders(): ContractProviderContract[] {
+    if (this.contractMode() === 'DISABLED') {
+      return [];
+    }
+    const supported = new Set(Object.values(ContractProviderContract));
+    return (
+      process.env.CONTRACT_ENABLED_PROVIDERS ??
+      'MODOOSIGN,EFORM_SIGN,GOVERNMENT'
+    )
+      .split(',')
+      .map((value) => value.trim().toUpperCase())
+      .filter((value): value is ContractProviderContract =>
+        supported.has(value as ContractProviderContract),
+      );
   }
 
   private paymentClientKey(

@@ -326,6 +326,10 @@ export type UserWhereInput = {
   memberChatRooms?: Prisma.PropertyChatRoomListRelationFilter
   registrantChatRooms?: Prisma.PropertyChatRoomListRelationFilter
   sentChatMessages?: Prisma.ChatMessageListRelationFilter
+  createdContracts?: Prisma.ElectronicContractListRelationFilter
+  memberContracts?: Prisma.ElectronicContractListRelationFilter
+  registrantContracts?: Prisma.ElectronicContractListRelationFilter
+  contractParties?: Prisma.ElectronicContractPartyListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -367,6 +371,10 @@ export type UserOrderByWithRelationInput = {
   memberChatRooms?: Prisma.PropertyChatRoomOrderByRelationAggregateInput
   registrantChatRooms?: Prisma.PropertyChatRoomOrderByRelationAggregateInput
   sentChatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
+  createdContracts?: Prisma.ElectronicContractOrderByRelationAggregateInput
+  memberContracts?: Prisma.ElectronicContractOrderByRelationAggregateInput
+  registrantContracts?: Prisma.ElectronicContractOrderByRelationAggregateInput
+  contractParties?: Prisma.ElectronicContractPartyOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -411,6 +419,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   memberChatRooms?: Prisma.PropertyChatRoomListRelationFilter
   registrantChatRooms?: Prisma.PropertyChatRoomListRelationFilter
   sentChatMessages?: Prisma.ChatMessageListRelationFilter
+  createdContracts?: Prisma.ElectronicContractListRelationFilter
+  memberContracts?: Prisma.ElectronicContractListRelationFilter
+  registrantContracts?: Prisma.ElectronicContractListRelationFilter
+  contractParties?: Prisma.ElectronicContractPartyListRelationFilter
 }, "id" | "memberNumber" | "email" | "phoneHash">
 
 export type UserOrderByWithAggregationInput = {
@@ -498,6 +510,10 @@ export type UserCreateInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -539,6 +555,10 @@ export type UserUncheckedCreateInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -580,6 +600,10 @@ export type UserUpdateInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -621,6 +645,10 @@ export type UserUncheckedUpdateInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1057,6 +1085,62 @@ export type UserUpdateOneRequiredWithoutSentChatMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentChatMessagesInput, Prisma.UserUpdateWithoutSentChatMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentChatMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutMemberContractsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMemberContractsInput, Prisma.UserUncheckedCreateWithoutMemberContractsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMemberContractsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRegistrantContractsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRegistrantContractsInput, Prisma.UserUncheckedCreateWithoutRegistrantContractsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRegistrantContractsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCreatedContractsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedContractsInput, Prisma.UserUncheckedCreateWithoutCreatedContractsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedContractsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMemberContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMemberContractsInput, Prisma.UserUncheckedCreateWithoutMemberContractsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMemberContractsInput
+  upsert?: Prisma.UserUpsertWithoutMemberContractsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMemberContractsInput, Prisma.UserUpdateWithoutMemberContractsInput>, Prisma.UserUncheckedUpdateWithoutMemberContractsInput>
+}
+
+export type UserUpdateOneRequiredWithoutRegistrantContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRegistrantContractsInput, Prisma.UserUncheckedCreateWithoutRegistrantContractsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRegistrantContractsInput
+  upsert?: Prisma.UserUpsertWithoutRegistrantContractsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRegistrantContractsInput, Prisma.UserUpdateWithoutRegistrantContractsInput>, Prisma.UserUncheckedUpdateWithoutRegistrantContractsInput>
+}
+
+export type UserUpdateOneRequiredWithoutCreatedContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedContractsInput, Prisma.UserUncheckedCreateWithoutCreatedContractsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedContractsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedContractsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedContractsInput, Prisma.UserUpdateWithoutCreatedContractsInput>, Prisma.UserUncheckedUpdateWithoutCreatedContractsInput>
+}
+
+export type UserCreateNestedOneWithoutContractPartiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutContractPartiesInput, Prisma.UserUncheckedCreateWithoutContractPartiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContractPartiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutContractPartiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutContractPartiesInput, Prisma.UserUncheckedCreateWithoutContractPartiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContractPartiesInput
+  upsert?: Prisma.UserUpsertWithoutContractPartiesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutContractPartiesInput, Prisma.UserUpdateWithoutContractPartiesInput>, Prisma.UserUncheckedUpdateWithoutContractPartiesInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationOutboxInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationOutboxInput, Prisma.UserUncheckedCreateWithoutNotificationOutboxInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationOutboxInput
@@ -1137,6 +1221,10 @@ export type UserCreateWithoutVerificationChallengesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVerificationChallengesInput = {
@@ -1177,6 +1265,10 @@ export type UserUncheckedCreateWithoutVerificationChallengesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVerificationChallengesInput = {
@@ -1233,6 +1325,10 @@ export type UserUpdateWithoutVerificationChallengesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerificationChallengesInput = {
@@ -1273,6 +1369,10 @@ export type UserUncheckedUpdateWithoutVerificationChallengesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1313,6 +1413,10 @@ export type UserCreateWithoutSessionsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1353,6 +1457,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1409,6 +1517,10 @@ export type UserUpdateWithoutSessionsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1449,6 +1561,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -1489,6 +1605,10 @@ export type UserCreateWithoutProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -1529,6 +1649,10 @@ export type UserUncheckedCreateWithoutProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -1585,6 +1709,10 @@ export type UserUpdateWithoutProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -1625,6 +1753,10 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -1665,6 +1797,10 @@ export type UserCreateWithoutRolesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -1705,6 +1841,10 @@ export type UserUncheckedCreateWithoutRolesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -1761,6 +1901,10 @@ export type UserUpdateWithoutRolesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -1801,6 +1945,10 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBrokerProfileInput = {
@@ -1841,6 +1989,10 @@ export type UserCreateWithoutBrokerProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBrokerProfileInput = {
@@ -1881,6 +2033,10 @@ export type UserUncheckedCreateWithoutBrokerProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBrokerProfileInput = {
@@ -1937,6 +2093,10 @@ export type UserUpdateWithoutBrokerProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBrokerProfileInput = {
@@ -1977,6 +2137,10 @@ export type UserUncheckedUpdateWithoutBrokerProfileInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPropertiesInput = {
@@ -2017,6 +2181,10 @@ export type UserCreateWithoutPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPropertiesInput = {
@@ -2057,6 +2225,10 @@ export type UserUncheckedCreateWithoutPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPropertiesInput = {
@@ -2102,6 +2274,10 @@ export type UserCreateWithoutReviewedPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewedPropertiesInput = {
@@ -2142,6 +2318,10 @@ export type UserUncheckedCreateWithoutReviewedPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewedPropertiesInput = {
@@ -2198,6 +2378,10 @@ export type UserUpdateWithoutPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPropertiesInput = {
@@ -2238,6 +2422,10 @@ export type UserUncheckedUpdateWithoutPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewedPropertiesInput = {
@@ -2289,6 +2477,10 @@ export type UserUpdateWithoutReviewedPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedPropertiesInput = {
@@ -2329,6 +2521,10 @@ export type UserUncheckedUpdateWithoutReviewedPropertiesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnershipClaimsInput = {
@@ -2369,6 +2565,10 @@ export type UserCreateWithoutOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnershipClaimsInput = {
@@ -2409,6 +2609,10 @@ export type UserUncheckedCreateWithoutOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnershipClaimsInput = {
@@ -2454,6 +2658,10 @@ export type UserCreateWithoutReviewedOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewedOwnershipClaimsInput = {
@@ -2494,6 +2702,10 @@ export type UserUncheckedCreateWithoutReviewedOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewedOwnershipClaimsInput = {
@@ -2550,6 +2762,10 @@ export type UserUpdateWithoutOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnershipClaimsInput = {
@@ -2590,6 +2806,10 @@ export type UserUncheckedUpdateWithoutOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewedOwnershipClaimsInput = {
@@ -2641,6 +2861,10 @@ export type UserUpdateWithoutReviewedOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedOwnershipClaimsInput = {
@@ -2681,6 +2905,10 @@ export type UserUncheckedUpdateWithoutReviewedOwnershipClaimsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMediaUploadsInput = {
@@ -2721,6 +2949,10 @@ export type UserCreateWithoutMediaUploadsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMediaUploadsInput = {
@@ -2761,6 +2993,10 @@ export type UserUncheckedCreateWithoutMediaUploadsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMediaUploadsInput = {
@@ -2817,6 +3053,10 @@ export type UserUpdateWithoutMediaUploadsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaUploadsInput = {
@@ -2857,6 +3097,10 @@ export type UserUncheckedUpdateWithoutMediaUploadsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPropertyReportsInput = {
@@ -2897,6 +3141,10 @@ export type UserCreateWithoutPropertyReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPropertyReportsInput = {
@@ -2937,6 +3185,10 @@ export type UserUncheckedCreateWithoutPropertyReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPropertyReportsInput = {
@@ -2982,6 +3234,10 @@ export type UserCreateWithoutAssignedReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssignedReportsInput = {
@@ -3022,6 +3278,10 @@ export type UserUncheckedCreateWithoutAssignedReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssignedReportsInput = {
@@ -3078,6 +3338,10 @@ export type UserUpdateWithoutPropertyReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPropertyReportsInput = {
@@ -3118,6 +3382,10 @@ export type UserUncheckedUpdateWithoutPropertyReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutAssignedReportsInput = {
@@ -3169,6 +3437,10 @@ export type UserUpdateWithoutAssignedReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedReportsInput = {
@@ -3209,6 +3481,10 @@ export type UserUncheckedUpdateWithoutAssignedReportsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportHistoriesInput = {
@@ -3249,6 +3525,10 @@ export type UserCreateWithoutReportHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportHistoriesInput = {
@@ -3289,6 +3569,10 @@ export type UserUncheckedCreateWithoutReportHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportHistoriesInput = {
@@ -3345,6 +3629,10 @@ export type UserUpdateWithoutReportHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportHistoriesInput = {
@@ -3385,6 +3673,10 @@ export type UserUncheckedUpdateWithoutReportHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRequestedVisitsInput = {
@@ -3425,6 +3717,10 @@ export type UserCreateWithoutRequestedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestedVisitsInput = {
@@ -3465,6 +3761,10 @@ export type UserUncheckedCreateWithoutRequestedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestedVisitsInput = {
@@ -3510,6 +3810,10 @@ export type UserCreateWithoutManagedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutManagedVisitsInput = {
@@ -3550,6 +3854,10 @@ export type UserUncheckedCreateWithoutManagedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutManagedVisitsInput = {
@@ -3606,6 +3914,10 @@ export type UserUpdateWithoutRequestedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestedVisitsInput = {
@@ -3646,6 +3958,10 @@ export type UserUncheckedUpdateWithoutRequestedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutManagedVisitsInput = {
@@ -3697,6 +4013,10 @@ export type UserUpdateWithoutManagedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedVisitsInput = {
@@ -3737,6 +4057,10 @@ export type UserUncheckedUpdateWithoutManagedVisitsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVisitHistoriesInput = {
@@ -3777,6 +4101,10 @@ export type UserCreateWithoutVisitHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVisitHistoriesInput = {
@@ -3817,6 +4145,10 @@ export type UserUncheckedCreateWithoutVisitHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVisitHistoriesInput = {
@@ -3873,6 +4205,10 @@ export type UserUpdateWithoutVisitHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVisitHistoriesInput = {
@@ -3913,6 +4249,10 @@ export type UserUncheckedUpdateWithoutVisitHistoriesInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMemberChatRoomsInput = {
@@ -3953,6 +4293,10 @@ export type UserCreateWithoutMemberChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMemberChatRoomsInput = {
@@ -3993,6 +4337,10 @@ export type UserUncheckedCreateWithoutMemberChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMemberChatRoomsInput = {
@@ -4038,6 +4386,10 @@ export type UserCreateWithoutRegistrantChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRegistrantChatRoomsInput = {
@@ -4078,6 +4430,10 @@ export type UserUncheckedCreateWithoutRegistrantChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRegistrantChatRoomsInput = {
@@ -4134,6 +4490,10 @@ export type UserUpdateWithoutMemberChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMemberChatRoomsInput = {
@@ -4174,6 +4534,10 @@ export type UserUncheckedUpdateWithoutMemberChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutRegistrantChatRoomsInput = {
@@ -4225,6 +4589,10 @@ export type UserUpdateWithoutRegistrantChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRegistrantChatRoomsInput = {
@@ -4265,6 +4633,10 @@ export type UserUncheckedUpdateWithoutRegistrantChatRoomsInput = {
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentChatMessagesInput = {
@@ -4305,6 +4677,10 @@ export type UserCreateWithoutSentChatMessagesInput = {
   reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentChatMessagesInput = {
@@ -4345,6 +4721,10 @@ export type UserUncheckedCreateWithoutSentChatMessagesInput = {
   reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentChatMessagesInput = {
@@ -4401,6 +4781,10 @@ export type UserUpdateWithoutSentChatMessagesInput = {
   reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentChatMessagesInput = {
@@ -4441,6 +4825,778 @@ export type UserUncheckedUpdateWithoutSentChatMessagesInput = {
   reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMemberContractsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMemberContractsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMemberContractsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMemberContractsInput, Prisma.UserUncheckedCreateWithoutMemberContractsInput>
+}
+
+export type UserCreateWithoutRegistrantContractsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRegistrantContractsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRegistrantContractsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRegistrantContractsInput, Prisma.UserUncheckedCreateWithoutRegistrantContractsInput>
+}
+
+export type UserCreateWithoutCreatedContractsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCreatedContractsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCreatedContractsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedContractsInput, Prisma.UserUncheckedCreateWithoutCreatedContractsInput>
+}
+
+export type UserUpsertWithoutMemberContractsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMemberContractsInput, Prisma.UserUncheckedUpdateWithoutMemberContractsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMemberContractsInput, Prisma.UserUncheckedCreateWithoutMemberContractsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMemberContractsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMemberContractsInput, Prisma.UserUncheckedUpdateWithoutMemberContractsInput>
+}
+
+export type UserUpdateWithoutMemberContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMemberContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutRegistrantContractsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRegistrantContractsInput, Prisma.UserUncheckedUpdateWithoutRegistrantContractsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRegistrantContractsInput, Prisma.UserUncheckedCreateWithoutRegistrantContractsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRegistrantContractsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRegistrantContractsInput, Prisma.UserUncheckedUpdateWithoutRegistrantContractsInput>
+}
+
+export type UserUpdateWithoutRegistrantContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRegistrantContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutCreatedContractsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedContractsInput, Prisma.UserUncheckedUpdateWithoutCreatedContractsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedContractsInput, Prisma.UserUncheckedCreateWithoutCreatedContractsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedContractsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedContractsInput, Prisma.UserUncheckedUpdateWithoutCreatedContractsInput>
+}
+
+export type UserUpdateWithoutCreatedContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutContractPartiesInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+}
+
+export type UserUncheckedCreateWithoutContractPartiesInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+}
+
+export type UserCreateOrConnectWithoutContractPartiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutContractPartiesInput, Prisma.UserUncheckedCreateWithoutContractPartiesInput>
+}
+
+export type UserUpsertWithoutContractPartiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutContractPartiesInput, Prisma.UserUncheckedUpdateWithoutContractPartiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutContractPartiesInput, Prisma.UserUncheckedCreateWithoutContractPartiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutContractPartiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutContractPartiesInput, Prisma.UserUncheckedUpdateWithoutContractPartiesInput>
+}
+
+export type UserUpdateWithoutContractPartiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+}
+
+export type UserUncheckedUpdateWithoutContractPartiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
 }
 
 export type UserCreateWithoutNotificationOutboxInput = {
@@ -4481,6 +5637,10 @@ export type UserCreateWithoutNotificationOutboxInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationOutboxInput = {
@@ -4521,6 +5681,10 @@ export type UserUncheckedCreateWithoutNotificationOutboxInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationOutboxInput = {
@@ -4577,6 +5741,10 @@ export type UserUpdateWithoutNotificationOutboxInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationOutboxInput = {
@@ -4617,6 +5785,10 @@ export type UserUncheckedUpdateWithoutNotificationOutboxInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationEndpointsInput = {
@@ -4657,6 +5829,10 @@ export type UserCreateWithoutNotificationEndpointsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationEndpointsInput = {
@@ -4697,6 +5873,10 @@ export type UserUncheckedCreateWithoutNotificationEndpointsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationEndpointsInput = {
@@ -4753,6 +5933,10 @@ export type UserUpdateWithoutNotificationEndpointsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationEndpointsInput = {
@@ -4793,6 +5977,10 @@ export type UserUncheckedUpdateWithoutNotificationEndpointsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReservationDepositsInput = {
@@ -4833,6 +6021,10 @@ export type UserCreateWithoutReservationDepositsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReservationDepositsInput = {
@@ -4873,6 +6065,10 @@ export type UserUncheckedCreateWithoutReservationDepositsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
   sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReservationDepositsInput = {
@@ -4929,6 +6125,10 @@ export type UserUpdateWithoutReservationDepositsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReservationDepositsInput = {
@@ -4969,6 +6169,10 @@ export type UserUncheckedUpdateWithoutReservationDepositsInput = {
   memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
   registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
   sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -4997,6 +6201,10 @@ export type UserCountOutputType = {
   memberChatRooms: number
   registrantChatRooms: number
   sentChatMessages: number
+  createdContracts: number
+  memberContracts: number
+  registrantContracts: number
+  contractParties: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5020,6 +6228,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   memberChatRooms?: boolean | UserCountOutputTypeCountMemberChatRoomsArgs
   registrantChatRooms?: boolean | UserCountOutputTypeCountRegistrantChatRoomsArgs
   sentChatMessages?: boolean | UserCountOutputTypeCountSentChatMessagesArgs
+  createdContracts?: boolean | UserCountOutputTypeCountCreatedContractsArgs
+  memberContracts?: boolean | UserCountOutputTypeCountMemberContractsArgs
+  registrantContracts?: boolean | UserCountOutputTypeCountRegistrantContractsArgs
+  contractParties?: boolean | UserCountOutputTypeCountContractPartiesArgs
 }
 
 /**
@@ -5172,6 +6384,34 @@ export type UserCountOutputTypeCountSentChatMessagesArgs<ExtArgs extends runtime
   where?: Prisma.ChatMessageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectronicContractWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMemberContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectronicContractWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRegistrantContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectronicContractWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountContractPartiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ElectronicContractPartyWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5212,6 +6452,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   memberChatRooms?: boolean | Prisma.User$memberChatRoomsArgs<ExtArgs>
   registrantChatRooms?: boolean | Prisma.User$registrantChatRoomsArgs<ExtArgs>
   sentChatMessages?: boolean | Prisma.User$sentChatMessagesArgs<ExtArgs>
+  createdContracts?: boolean | Prisma.User$createdContractsArgs<ExtArgs>
+  memberContracts?: boolean | Prisma.User$memberContractsArgs<ExtArgs>
+  registrantContracts?: boolean | Prisma.User$registrantContractsArgs<ExtArgs>
+  contractParties?: boolean | Prisma.User$contractPartiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -5296,6 +6540,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   memberChatRooms?: boolean | Prisma.User$memberChatRoomsArgs<ExtArgs>
   registrantChatRooms?: boolean | Prisma.User$registrantChatRoomsArgs<ExtArgs>
   sentChatMessages?: boolean | Prisma.User$sentChatMessagesArgs<ExtArgs>
+  createdContracts?: boolean | Prisma.User$createdContractsArgs<ExtArgs>
+  memberContracts?: boolean | Prisma.User$memberContractsArgs<ExtArgs>
+  registrantContracts?: boolean | Prisma.User$registrantContractsArgs<ExtArgs>
+  contractParties?: boolean | Prisma.User$contractPartiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -5326,6 +6574,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     memberChatRooms: Prisma.$PropertyChatRoomPayload<ExtArgs>[]
     registrantChatRooms: Prisma.$PropertyChatRoomPayload<ExtArgs>[]
     sentChatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    createdContracts: Prisma.$ElectronicContractPayload<ExtArgs>[]
+    memberContracts: Prisma.$ElectronicContractPayload<ExtArgs>[]
+    registrantContracts: Prisma.$ElectronicContractPayload<ExtArgs>[]
+    contractParties: Prisma.$ElectronicContractPartyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5760,6 +7012,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   memberChatRooms<T extends Prisma.User$memberChatRoomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$memberChatRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   registrantChatRooms<T extends Prisma.User$registrantChatRoomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$registrantChatRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentChatMessages<T extends Prisma.User$sentChatMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdContracts<T extends Prisma.User$createdContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  memberContracts<T extends Prisma.User$memberContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$memberContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  registrantContracts<T extends Prisma.User$registrantContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$registrantContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contractParties<T extends Prisma.User$contractPartiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contractPartiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPartyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6713,6 +7969,102 @@ export type User$sentChatMessagesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * User.createdContracts
+ */
+export type User$createdContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectronicContract
+   */
+  select?: Prisma.ElectronicContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectronicContract
+   */
+  omit?: Prisma.ElectronicContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectronicContractInclude<ExtArgs> | null
+  where?: Prisma.ElectronicContractWhereInput
+  orderBy?: Prisma.ElectronicContractOrderByWithRelationInput | Prisma.ElectronicContractOrderByWithRelationInput[]
+  cursor?: Prisma.ElectronicContractWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectronicContractScalarFieldEnum | Prisma.ElectronicContractScalarFieldEnum[]
+}
+
+/**
+ * User.memberContracts
+ */
+export type User$memberContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectronicContract
+   */
+  select?: Prisma.ElectronicContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectronicContract
+   */
+  omit?: Prisma.ElectronicContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectronicContractInclude<ExtArgs> | null
+  where?: Prisma.ElectronicContractWhereInput
+  orderBy?: Prisma.ElectronicContractOrderByWithRelationInput | Prisma.ElectronicContractOrderByWithRelationInput[]
+  cursor?: Prisma.ElectronicContractWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectronicContractScalarFieldEnum | Prisma.ElectronicContractScalarFieldEnum[]
+}
+
+/**
+ * User.registrantContracts
+ */
+export type User$registrantContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectronicContract
+   */
+  select?: Prisma.ElectronicContractSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectronicContract
+   */
+  omit?: Prisma.ElectronicContractOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectronicContractInclude<ExtArgs> | null
+  where?: Prisma.ElectronicContractWhereInput
+  orderBy?: Prisma.ElectronicContractOrderByWithRelationInput | Prisma.ElectronicContractOrderByWithRelationInput[]
+  cursor?: Prisma.ElectronicContractWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectronicContractScalarFieldEnum | Prisma.ElectronicContractScalarFieldEnum[]
+}
+
+/**
+ * User.contractParties
+ */
+export type User$contractPartiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ElectronicContractParty
+   */
+  select?: Prisma.ElectronicContractPartySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ElectronicContractParty
+   */
+  omit?: Prisma.ElectronicContractPartyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ElectronicContractPartyInclude<ExtArgs> | null
+  where?: Prisma.ElectronicContractPartyWhereInput
+  orderBy?: Prisma.ElectronicContractPartyOrderByWithRelationInput | Prisma.ElectronicContractPartyOrderByWithRelationInput[]
+  cursor?: Prisma.ElectronicContractPartyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ElectronicContractPartyScalarFieldEnum | Prisma.ElectronicContractPartyScalarFieldEnum[]
 }
 
 /**

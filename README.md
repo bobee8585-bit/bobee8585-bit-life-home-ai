@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.15.0
+# LIFE HOME AI 0.16.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -101,6 +101,11 @@ GET  /v1/chat-rooms
 GET  /v1/chat-rooms/:chatRoomId/messages
 POST /v1/chat-rooms/:chatRoomId/messages
 POST /v1/chat-rooms/:chatRoomId/read
+POST /v1/visit-reservations/:reservationId/contracts
+GET  /v1/contracts
+GET  /v1/contracts/:contractId
+POST /v1/contracts/:contractId/signing-session
+POST /v1/contract-webhooks/:provider
 ```
 
 회원가입 예시:
@@ -155,6 +160,24 @@ Access Token은 API 호출에 사용하고 Refresh Token은 매번 교체됩니�
 메시지 본문은 푸시·SMS 알림과 감사 로그에 복사하지 않습니다.
 채팅 알림은 푸시 전용이며 푸시 토큰이 없더라도 SMS로 대체하지 않아 대화마다
 문자 비용이 발생하지 않게 합니다.
+
+전자계약은 확정 또는 완료된 방문 예약의 회원과 매물 등록자만 만들고 조회할
+수 있습니다. 두 당사자 모두 휴대폰 본인인증을 완료해야 하며, 동일 예약에는
+계약 한 건만 생성됩니다. 계약 생성자는 모두사인·이폼사인·정부 전자계약
+연동 중 현재 활성화된 공급자를 선택하고 필수 동의를 제출합니다.
+
+실제 본인확인과 전자서명은 외부 공급자가 수행합니다. 플랫폼은 공급자 계약
+식별자, 당사자별 열람·서명 상태, 상태 이력, 동의 스냅샷과 서명 완료 문서의
+SHA-256 해시를 저장합니다. 문서 참조값은 AES-256-GCM으로 암호화하고 API나
+감사 로그에 원문을 노출하지 않습니다. 서명 완료 시점을 기준으로 계약의
+보존 기한을 10년으로 갱신합니다.
+
+개발 환경의 `CONTRACT_PROVIDER_MODE=mock`은 외부 호출 없이 흐름을 검증하며
+운영 환경에서는 자동으로 거부됩니다. 운영은 `GATEWAY` 모드와 HTTPS 게이트웨이,
+API 키, 공개 웹훅 주소와 웹훅 검증 키가 필요합니다. 공급자는 콜백에
+`x-contract-event-id`, `x-contract-signature: sha256=<HMAC>` 헤더를 보내야
+합니다. 서버는 원문 바이트 서명, 이벤트 멱등성, 본문 변경과 완료 상태 역행을
+검증한 뒤에만 계약 상태를 반영합니다.
 
 매물 상태는 `DRAFT → PENDING_REVIEW → ACTIVE` 또는 `REJECTED` 순서로
 전이됩니다. 반려 매물은 수정하면 다시 `DRAFT`가 되며 재검수를 요청할 수

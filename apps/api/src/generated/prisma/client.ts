@@ -175,6 +175,26 @@ export type PropertyChatRoom = Prisma.PropertyChatRoomModel
  */
 export type ChatMessage = Prisma.ChatMessageModel
 /**
+ * Model ElectronicContract
+ * 
+ */
+export type ElectronicContract = Prisma.ElectronicContractModel
+/**
+ * Model ElectronicContractParty
+ * 
+ */
+export type ElectronicContractParty = Prisma.ElectronicContractPartyModel
+/**
+ * Model ElectronicContractHistory
+ * 
+ */
+export type ElectronicContractHistory = Prisma.ElectronicContractHistoryModel
+/**
+ * Model ContractWebhookEvent
+ * 
+ */
+export type ContractWebhookEvent = Prisma.ContractWebhookEventModel
+/**
  * Model NotificationOutbox
  * 
  */

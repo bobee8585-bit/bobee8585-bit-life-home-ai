@@ -261,6 +261,57 @@ export const ChatMessageType = {
 export type ChatMessageType = (typeof ChatMessageType)[keyof typeof ChatMessageType]
 
 
+export const ElectronicContractProvider = {
+  MODOOSIGN: 'MODOOSIGN',
+  EFORM_SIGN: 'EFORM_SIGN',
+  GOVERNMENT: 'GOVERNMENT'
+} as const
+
+export type ElectronicContractProvider = (typeof ElectronicContractProvider)[keyof typeof ElectronicContractProvider]
+
+
+export const ElectronicContractStatus = {
+  DRAFT: 'DRAFT',
+  SIGNING_PENDING: 'SIGNING_PENDING',
+  PARTIALLY_SIGNED: 'PARTIALLY_SIGNED',
+  SIGNED: 'SIGNED',
+  DECLINED: 'DECLINED',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED',
+  FAILED: 'FAILED'
+} as const
+
+export type ElectronicContractStatus = (typeof ElectronicContractStatus)[keyof typeof ElectronicContractStatus]
+
+
+export const ElectronicContractPartyRole = {
+  MEMBER: 'MEMBER',
+  REGISTRANT: 'REGISTRANT'
+} as const
+
+export type ElectronicContractPartyRole = (typeof ElectronicContractPartyRole)[keyof typeof ElectronicContractPartyRole]
+
+
+export const ElectronicContractPartyStatus = {
+  PENDING: 'PENDING',
+  VIEWED: 'VIEWED',
+  SIGNED: 'SIGNED',
+  DECLINED: 'DECLINED'
+} as const
+
+export type ElectronicContractPartyStatus = (typeof ElectronicContractPartyStatus)[keyof typeof ElectronicContractPartyStatus]
+
+
+export const ContractWebhookEventStatus = {
+  RECEIVED: 'RECEIVED',
+  PROCESSED: 'PROCESSED',
+  IGNORED: 'IGNORED',
+  FAILED: 'FAILED'
+} as const
+
+export type ContractWebhookEventStatus = (typeof ContractWebhookEventStatus)[keyof typeof ContractWebhookEventStatus]
+
+
 export const ReservationDepositStatus = {
   READY: 'READY',
   PAID: 'PAID',
