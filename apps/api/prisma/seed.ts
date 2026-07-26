@@ -55,6 +55,7 @@ const permissions = [
   ['MENU.STATE_CHANGE', '메뉴 상태 변경'],
   ['ADMIN.ROLE_CHANGE', '관리자 역할 변경'],
   ['AUDIT_LOG.READ', '감사 로그 조회'],
+  ['ADMIN.DASHBOARD.READ', '관리자 운영 현황 조회'],
 ] as const;
 
 const modules = [
@@ -145,6 +146,7 @@ async function seedRolesAndPermissions(): Promise<void> {
       'CONTRACT.MANAGE',
     ],
     CONTENT_REVIEWER: [
+      'ADMIN.DASHBOARD.READ',
       'PROPERTY.READ',
       'PROPERTY.APPROVE',
       'PROPERTY.REJECT',
@@ -152,8 +154,14 @@ async function seedRolesAndPermissions(): Promise<void> {
       'PROPERTY.SAFETY_MANAGE',
       'BROKER.APPROVE',
     ],
-    FINANCE_MANAGER: ['PAYMENT.READ', 'PAYMENT.REFUND', 'AUDIT_LOG.READ'],
+    FINANCE_MANAGER: [
+      'ADMIN.DASHBOARD.READ',
+      'PAYMENT.READ',
+      'PAYMENT.REFUND',
+      'AUDIT_LOG.READ',
+    ],
     SYSTEM_ADMIN: [
+      'ADMIN.DASHBOARD.READ',
       'PROPERTY.READ',
       'PROPERTY.CREATE',
       'PROPERTY.UPDATE',
@@ -376,6 +384,16 @@ async function seedModulesAndMenus(): Promise<void> {
       apiScope: 'RESERVATION.MANAGE',
       defaultState: MenuState.ACTIVE,
       sortOrder: 110,
+    },
+    {
+      serviceModuleId: realEstate.id,
+      code: 'ADMIN_DASHBOARD',
+      name: '관리자 운영 대시보드',
+      platform: Platform.ADMIN_CMS,
+      route: '/admin',
+      apiScope: 'ADMIN.DASHBOARD.READ',
+      defaultState: MenuState.ACTIVE,
+      sortOrder: 115,
     },
     {
       serviceModuleId: realEstate.id,

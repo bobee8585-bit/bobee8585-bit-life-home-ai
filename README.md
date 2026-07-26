@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.18.0
+# LIFE HOME AI 0.20.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -106,6 +106,7 @@ GET  /v1/contracts
 GET  /v1/contracts/:contractId
 POST /v1/contracts/:contractId/signing-session
 POST /v1/contract-webhooks/:provider
+GET  /v1/admin/dashboard/summary
 ```
 
 회원가입 예시:
@@ -178,6 +179,13 @@ API 키, 공개 웹훅 주소와 웹훅 검증 키가 필요합니다. 공급자
 `x-contract-event-id`, `x-contract-signature: sha256=<HMAC>` 헤더를 보내야
 합니다. 서버는 원문 바이트 서명, 이벤트 멱등성, 본문 변경과 완료 상태 역행을
 검증한 뒤에만 계약 상태를 반영합니다.
+
+관리자 CMS의 `/admin` 대시보드는 중개사 신청, 매물 승인, 허위매물 신고,
+환불 대기·기한 초과·실패, 알림 전송 실패와 전자계약 웹훅 실패 건수를 한
+화면에서 집계합니다. `ADMIN.DASHBOARD.READ` 권한과 `ADMIN_DASHBOARD` 메뉴
+읽기 상태를 모두 통과해야 하며, 대시보드 응답에는 회원번호·결제번호·연락처
+같은 개별 식별정보를 포함하지 않습니다. Access Token은 브라우저 저장소에
+남기지 않고 현재 화면 메모리에서만 사용합니다.
 
 매물 상태는 `DRAFT → PENDING_REVIEW → ACTIVE` 또는 `REJECTED` 순서로
 전이됩니다. 반려 매물은 수정하면 다시 `DRAFT`가 되며 재검수를 요청할 수

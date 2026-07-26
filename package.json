@@ -1,6 +1,6 @@
 {
   "name": "life-home-ai",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "private": true,
   "description": "LIFE HOME AI real-estate platform monorepo",
   "packageManager": "npm@11.9.0",

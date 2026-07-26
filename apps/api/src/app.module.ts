@@ -17,6 +17,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ChatModule } from './chat/chat.module';
 import { ContractsModule } from './contracts/contracts.module';
+import { AdminDashboardModule } from './admin/admin-dashboard.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ContractsModule } from './contracts/contracts.module';
     NotificationsModule,
     ChatModule,
     ContractsModule,
+    AdminDashboardModule,
   ],
   controllers: [AppConfigController, HealthController],
   providers: [
