@@ -103,6 +103,11 @@ export type BrokerProfile = Prisma.BrokerProfileModel
  */
 export type Property = Prisma.PropertyModel
 /**
+ * Model LeaseSafetyAssessment
+ * 
+ */
+export type LeaseSafetyAssessment = Prisma.LeaseSafetyAssessmentModel
+/**
  * Model PropertyOwnershipVerification
  * 
  */

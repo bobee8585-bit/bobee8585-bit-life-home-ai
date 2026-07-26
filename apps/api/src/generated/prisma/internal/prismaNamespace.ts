@@ -414,6 +414,7 @@ export const ModelName = {
   BrokerageOffice: 'BrokerageOffice',
   BrokerProfile: 'BrokerProfile',
   Property: 'Property',
+  LeaseSafetyAssessment: 'LeaseSafetyAssessment',
   PropertyOwnershipVerification: 'PropertyOwnershipVerification',
   PropertyMedia: 'PropertyMedia',
   PropertyMediaUpload: 'PropertyMediaUpload',
@@ -448,7 +449,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
+    modelProps: "user" | "verificationChallenge" | "userSession" | "sessionRefreshToken" | "userProfile" | "role" | "permission" | "userRole" | "rolePermission" | "serviceModule" | "menu" | "menuPolicy" | "menuStateHistory" | "auditLog" | "brokerageOffice" | "brokerProfile" | "property" | "leaseSafetyAssessment" | "propertyOwnershipVerification" | "propertyMedia" | "propertyMediaUpload" | "propertyReport" | "propertyReportHistory" | "exchangeRate" | "visitReservation" | "visitReservationHistory" | "propertyChatRoom" | "chatMessage" | "electronicContract" | "electronicContractParty" | "electronicContractHistory" | "contractWebhookEvent" | "notificationOutbox" | "notificationEndpoint" | "reservationDeposit" | "paymentTransaction" | "paymentWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1707,6 +1708,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PropertyCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PropertyCountAggregateOutputType> | number
+        }
+      }
+    }
+    LeaseSafetyAssessment: {
+      payload: Prisma.$LeaseSafetyAssessmentPayload<ExtArgs>
+      fields: Prisma.LeaseSafetyAssessmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LeaseSafetyAssessmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LeaseSafetyAssessmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>
+        }
+        findFirst: {
+          args: Prisma.LeaseSafetyAssessmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LeaseSafetyAssessmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>
+        }
+        findMany: {
+          args: Prisma.LeaseSafetyAssessmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>[]
+        }
+        create: {
+          args: Prisma.LeaseSafetyAssessmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>
+        }
+        createMany: {
+          args: Prisma.LeaseSafetyAssessmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LeaseSafetyAssessmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>[]
+        }
+        delete: {
+          args: Prisma.LeaseSafetyAssessmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>
+        }
+        update: {
+          args: Prisma.LeaseSafetyAssessmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.LeaseSafetyAssessmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LeaseSafetyAssessmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LeaseSafetyAssessmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.LeaseSafetyAssessmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LeaseSafetyAssessmentPayload>
+        }
+        aggregate: {
+          args: Prisma.LeaseSafetyAssessmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLeaseSafetyAssessment>
+        }
+        groupBy: {
+          args: Prisma.LeaseSafetyAssessmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeaseSafetyAssessmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LeaseSafetyAssessmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LeaseSafetyAssessmentCountAggregateOutputType> | number
         }
       }
     }
@@ -3451,6 +3526,36 @@ export const PropertyScalarFieldEnum = {
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
 
 
+export const LeaseSafetyAssessmentScalarFieldEnum = {
+  id: 'id',
+  propertyId: 'propertyId',
+  analystUserId: 'analystUserId',
+  version: 'version',
+  status: 'status',
+  score: 'score',
+  grade: 'grade',
+  estimatedMarketValue: 'estimatedMarketValue',
+  seniorClaimAmount: 'seniorClaimAmount',
+  jeonseRatio: 'jeonseRatio',
+  totalExposureRatio: 'totalExposureRatio',
+  ownerMatched: 'ownerMatched',
+  guaranteeEligibility: 'guaranteeEligibility',
+  registryRiskCodes: 'registryRiskCodes',
+  registryIssuedAt: 'registryIssuedAt',
+  valuationAssessedAt: 'valuationAssessedAt',
+  registrySource: 'registrySource',
+  valuationSource: 'valuationSource',
+  evidenceReferenceHash: 'evidenceReferenceHash',
+  missingInputs: 'missingInputs',
+  deductionBreakdown: 'deductionBreakdown',
+  calculationVersion: 'calculationVersion',
+  assessedAt: 'assessedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type LeaseSafetyAssessmentScalarFieldEnum = (typeof LeaseSafetyAssessmentScalarFieldEnum)[keyof typeof LeaseSafetyAssessmentScalarFieldEnum]
+
+
 export const PropertyOwnershipVerificationScalarFieldEnum = {
   id: 'id',
   propertyId: 'propertyId',
@@ -4127,6 +4232,48 @@ export type ListEnumPropertyStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'LeaseSafetyAssessmentStatus'
+ */
+export type EnumLeaseSafetyAssessmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaseSafetyAssessmentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LeaseSafetyAssessmentStatus[]'
+ */
+export type ListEnumLeaseSafetyAssessmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaseSafetyAssessmentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LeaseSafetyGrade'
+ */
+export type EnumLeaseSafetyGradeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaseSafetyGrade'>
+    
+
+
+/**
+ * Reference to a field of type 'LeaseSafetyGrade[]'
+ */
+export type ListEnumLeaseSafetyGradeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaseSafetyGrade[]'>
+    
+
+
+/**
+ * Reference to a field of type 'GuaranteeEligibility'
+ */
+export type EnumGuaranteeEligibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuaranteeEligibility'>
+    
+
+
+/**
+ * Reference to a field of type 'GuaranteeEligibility[]'
+ */
+export type ListEnumGuaranteeEligibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuaranteeEligibility[]'>
+    
+
+
+/**
  * Reference to a field of type 'OwnershipClaimType'
  */
 export type EnumOwnershipClaimTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OwnershipClaimType'>
@@ -4629,6 +4776,7 @@ export type GlobalOmitConfig = {
   brokerageOffice?: Prisma.BrokerageOfficeOmit
   brokerProfile?: Prisma.BrokerProfileOmit
   property?: Prisma.PropertyOmit
+  leaseSafetyAssessment?: Prisma.LeaseSafetyAssessmentOmit
   propertyOwnershipVerification?: Prisma.PropertyOwnershipVerificationOmit
   propertyMedia?: Prisma.PropertyMediaOmit
   propertyMediaUpload?: Prisma.PropertyMediaUploadOmit

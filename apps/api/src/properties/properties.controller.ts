@@ -17,10 +17,14 @@ import { CreatePropertyDto } from './dto/create-property.dto';
 import { SearchPropertiesDto } from './dto/search-properties.dto';
 import { PropertyDisplayDto } from './dto/property-display.dto';
 import { PropertiesService } from './properties.service';
+import { LeaseSafetyService } from './lease-safety.service';
 
 @Controller('properties')
 export class PropertiesController {
-  constructor(private readonly properties: PropertiesService) {}
+  constructor(
+    private readonly properties: PropertiesService,
+    private readonly leaseSafety: LeaseSafetyService,
+  ) {}
 
   @Public()
   @MenuAccess('PROPERTY_SEARCH', 'read')
@@ -65,6 +69,13 @@ export class PropertiesController {
     @Req() request: AuthenticatedRequest,
   ) {
     return this.properties.submit(request.auth.sub, id);
+  }
+
+  @Public()
+  @MenuAccess('PROPERTY_SEARCH', 'read')
+  @Get(':id/lease-safety')
+  leaseSafetyDetail(@Param('id', ParseUUIDPipe) id: string) {
+    return this.leaseSafety.latest(id);
   }
 
   @Public()

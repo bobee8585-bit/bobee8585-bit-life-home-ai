@@ -75,7 +75,15 @@ export class AppConfigController {
         localEstimateFallback: true,
         maxProperties: 5,
       },
-      version: 13,
+      leaseSafety: {
+        enabled: true,
+        calculationVersion: 'LEASE_SAFETY_V1',
+        registryFreshDays: 7,
+        valuationFreshDays: 30,
+        contractRecheckRequired: true,
+        informationalOnly: true,
+      },
+      version: 14,
     };
   }
 

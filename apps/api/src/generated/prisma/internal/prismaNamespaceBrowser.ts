@@ -68,6 +68,7 @@ export const ModelName = {
   BrokerageOffice: 'BrokerageOffice',
   BrokerProfile: 'BrokerProfile',
   Property: 'Property',
+  LeaseSafetyAssessment: 'LeaseSafetyAssessment',
   PropertyOwnershipVerification: 'PropertyOwnershipVerification',
   PropertyMedia: 'PropertyMedia',
   PropertyMediaUpload: 'PropertyMediaUpload',
@@ -399,6 +400,36 @@ export const PropertyScalarFieldEnum = {
 } as const
 
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
+
+
+export const LeaseSafetyAssessmentScalarFieldEnum = {
+  id: 'id',
+  propertyId: 'propertyId',
+  analystUserId: 'analystUserId',
+  version: 'version',
+  status: 'status',
+  score: 'score',
+  grade: 'grade',
+  estimatedMarketValue: 'estimatedMarketValue',
+  seniorClaimAmount: 'seniorClaimAmount',
+  jeonseRatio: 'jeonseRatio',
+  totalExposureRatio: 'totalExposureRatio',
+  ownerMatched: 'ownerMatched',
+  guaranteeEligibility: 'guaranteeEligibility',
+  registryRiskCodes: 'registryRiskCodes',
+  registryIssuedAt: 'registryIssuedAt',
+  valuationAssessedAt: 'valuationAssessedAt',
+  registrySource: 'registrySource',
+  valuationSource: 'valuationSource',
+  evidenceReferenceHash: 'evidenceReferenceHash',
+  missingInputs: 'missingInputs',
+  deductionBreakdown: 'deductionBreakdown',
+  calculationVersion: 'calculationVersion',
+  assessedAt: 'assessedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type LeaseSafetyAssessmentScalarFieldEnum = (typeof LeaseSafetyAssessmentScalarFieldEnum)[keyof typeof LeaseSafetyAssessmentScalarFieldEnum]
 
 
 export const PropertyOwnershipVerificationScalarFieldEnum = {

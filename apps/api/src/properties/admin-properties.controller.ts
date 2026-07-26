@@ -14,10 +14,15 @@ import { MenuAccess } from '../feature-policy/menu-access.decorator';
 import { ListPropertyReviewsDto } from './dto/list-property-reviews.dto';
 import { ReviewPropertyDto } from './dto/review-property.dto';
 import { PropertiesService } from './properties.service';
+import { CreateLeaseSafetyAssessmentDto } from './dto/create-lease-safety-assessment.dto';
+import { LeaseSafetyService } from './lease-safety.service';
 
 @Controller('admin/properties')
 export class AdminPropertiesController {
-  constructor(private readonly properties: PropertiesService) {}
+  constructor(
+    private readonly properties: PropertiesService,
+    private readonly leaseSafety: LeaseSafetyService,
+  ) {}
 
   @Permissions('PROPERTY.APPROVE')
   @MenuAccess('PROPERTY_REVIEW', 'read')
@@ -46,5 +51,16 @@ export class AdminPropertiesController {
     @Req() request: AuthenticatedRequest,
   ) {
     return this.properties.reject(id, request.auth.sub, dto.reason);
+  }
+
+  @Permissions('PROPERTY.SAFETY_MANAGE')
+  @MenuAccess('PROPERTY_REVIEW', 'write')
+  @Post(':id/lease-safety-assessments')
+  assessLeaseSafety(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: CreateLeaseSafetyAssessmentDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.leaseSafety.assess(id, request.auth.sub, dto);
   }
 }

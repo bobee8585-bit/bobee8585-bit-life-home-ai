@@ -362,3 +362,32 @@ export const PaymentWebhookEventStatus = {
 } as const
 
 export type PaymentWebhookEventStatus = (typeof PaymentWebhookEventStatus)[keyof typeof PaymentWebhookEventStatus]
+
+
+export const LeaseSafetyAssessmentStatus = {
+  READY: 'READY',
+  INCOMPLETE: 'INCOMPLETE'
+} as const
+
+export type LeaseSafetyAssessmentStatus = (typeof LeaseSafetyAssessmentStatus)[keyof typeof LeaseSafetyAssessmentStatus]
+
+
+export const LeaseSafetyGrade = {
+  VERY_SAFE: 'VERY_SAFE',
+  SAFE: 'SAFE',
+  CAUTION: 'CAUTION',
+  HIGH_RISK: 'HIGH_RISK',
+  CRITICAL: 'CRITICAL',
+  UNAVAILABLE: 'UNAVAILABLE'
+} as const
+
+export type LeaseSafetyGrade = (typeof LeaseSafetyGrade)[keyof typeof LeaseSafetyGrade]
+
+
+export const GuaranteeEligibility = {
+  ELIGIBLE: 'ELIGIBLE',
+  INELIGIBLE: 'INELIGIBLE',
+  UNKNOWN: 'UNKNOWN'
+} as const
+
+export type GuaranteeEligibility = (typeof GuaranteeEligibility)[keyof typeof GuaranteeEligibility]

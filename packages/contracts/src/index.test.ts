@@ -13,6 +13,8 @@ import {
   ChatMessageType,
   ElectronicContractProvider,
   ElectronicContractStatus,
+  LeaseSafetyGrade,
+  GuaranteeEligibility,
 } from './index';
 
 const sampleRate: ExchangeRate = {
@@ -158,5 +160,19 @@ describe('ElectronicContractStatus', () => {
       'EXPIRED',
       'FAILED',
     ]);
+  });
+});
+
+describe('LeaseSafetyGrade', () => {
+  it('keeps unavailable evidence separate from risk grades', () => {
+    expect(Object.values(LeaseSafetyGrade)).toEqual([
+      'VERY_SAFE',
+      'SAFE',
+      'CAUTION',
+      'HIGH_RISK',
+      'CRITICAL',
+      'UNAVAILABLE',
+    ]);
+    expect(GuaranteeEligibility.UNKNOWN).toBe('UNKNOWN');
   });
 });

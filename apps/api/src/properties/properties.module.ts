@@ -12,6 +12,7 @@ import { PropertyReportsController } from './property-reports.controller';
 import { PropertyReportsService } from './property-reports.service';
 import { CurrencyModule } from '../currency/currency.module';
 import { AuthModule } from '../auth/auth.module';
+import { LeaseSafetyService } from './lease-safety.service';
 
 @Module({
   imports: [DatabaseModule, CurrencyModule, AuthModule],
@@ -28,6 +29,7 @@ import { AuthModule } from '../auth/auth.module';
     MediaProcessingQueueService,
     MediaProcessingService,
     PropertyReportsService,
+    LeaseSafetyService,
   ],
   exports: [MediaProcessingService],
 })

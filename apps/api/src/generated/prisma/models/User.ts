@@ -330,6 +330,7 @@ export type UserWhereInput = {
   memberContracts?: Prisma.ElectronicContractListRelationFilter
   registrantContracts?: Prisma.ElectronicContractListRelationFilter
   contractParties?: Prisma.ElectronicContractPartyListRelationFilter
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -375,6 +376,7 @@ export type UserOrderByWithRelationInput = {
   memberContracts?: Prisma.ElectronicContractOrderByRelationAggregateInput
   registrantContracts?: Prisma.ElectronicContractOrderByRelationAggregateInput
   contractParties?: Prisma.ElectronicContractPartyOrderByRelationAggregateInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -423,6 +425,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   memberContracts?: Prisma.ElectronicContractListRelationFilter
   registrantContracts?: Prisma.ElectronicContractListRelationFilter
   contractParties?: Prisma.ElectronicContractPartyListRelationFilter
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentListRelationFilter
 }, "id" | "memberNumber" | "email" | "phoneHash">
 
 export type UserOrderByWithAggregationInput = {
@@ -514,6 +517,7 @@ export type UserCreateInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -559,6 +563,7 @@ export type UserUncheckedCreateInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUpdateInput = {
@@ -604,6 +609,7 @@ export type UserUpdateInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -649,6 +655,7 @@ export type UserUncheckedUpdateInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -911,6 +918,20 @@ export type UserUpdateOneWithoutReviewedPropertiesNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedPropertiesInput, Prisma.UserUpdateWithoutReviewedPropertiesInput>, Prisma.UserUncheckedUpdateWithoutReviewedPropertiesInput>
+}
+
+export type UserCreateNestedOneWithoutLeaseSafetyAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeaseSafetyAssessmentsInput, Prisma.UserUncheckedCreateWithoutLeaseSafetyAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeaseSafetyAssessmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLeaseSafetyAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLeaseSafetyAssessmentsInput, Prisma.UserUncheckedCreateWithoutLeaseSafetyAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLeaseSafetyAssessmentsInput
+  upsert?: Prisma.UserUpsertWithoutLeaseSafetyAssessmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLeaseSafetyAssessmentsInput, Prisma.UserUpdateWithoutLeaseSafetyAssessmentsInput>, Prisma.UserUncheckedUpdateWithoutLeaseSafetyAssessmentsInput>
 }
 
 export type UserCreateNestedOneWithoutOwnershipClaimsInput = {
@@ -1225,6 +1246,7 @@ export type UserCreateWithoutVerificationChallengesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutVerificationChallengesInput = {
@@ -1269,6 +1291,7 @@ export type UserUncheckedCreateWithoutVerificationChallengesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutVerificationChallengesInput = {
@@ -1329,6 +1352,7 @@ export type UserUpdateWithoutVerificationChallengesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerificationChallengesInput = {
@@ -1373,6 +1397,7 @@ export type UserUncheckedUpdateWithoutVerificationChallengesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1417,6 +1442,7 @@ export type UserCreateWithoutSessionsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1461,6 +1487,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1521,6 +1548,7 @@ export type UserUpdateWithoutSessionsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1565,6 +1593,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutProfileInput = {
@@ -1609,6 +1638,7 @@ export type UserCreateWithoutProfileInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -1653,6 +1683,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -1713,6 +1744,7 @@ export type UserUpdateWithoutProfileInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -1757,6 +1789,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutRolesInput = {
@@ -1801,6 +1834,7 @@ export type UserCreateWithoutRolesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -1845,6 +1879,7 @@ export type UserUncheckedCreateWithoutRolesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -1905,6 +1940,7 @@ export type UserUpdateWithoutRolesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -1949,6 +1985,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutBrokerProfileInput = {
@@ -1993,6 +2030,7 @@ export type UserCreateWithoutBrokerProfileInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutBrokerProfileInput = {
@@ -2037,6 +2075,7 @@ export type UserUncheckedCreateWithoutBrokerProfileInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutBrokerProfileInput = {
@@ -2097,6 +2136,7 @@ export type UserUpdateWithoutBrokerProfileInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBrokerProfileInput = {
@@ -2141,6 +2181,7 @@ export type UserUncheckedUpdateWithoutBrokerProfileInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutPropertiesInput = {
@@ -2185,6 +2226,7 @@ export type UserCreateWithoutPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutPropertiesInput = {
@@ -2229,6 +2271,7 @@ export type UserUncheckedCreateWithoutPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutPropertiesInput = {
@@ -2278,6 +2321,7 @@ export type UserCreateWithoutReviewedPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutReviewedPropertiesInput = {
@@ -2322,6 +2366,7 @@ export type UserUncheckedCreateWithoutReviewedPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutReviewedPropertiesInput = {
@@ -2382,6 +2427,7 @@ export type UserUpdateWithoutPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPropertiesInput = {
@@ -2426,6 +2472,7 @@ export type UserUncheckedUpdateWithoutPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutReviewedPropertiesInput = {
@@ -2481,6 +2528,7 @@ export type UserUpdateWithoutReviewedPropertiesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedPropertiesInput = {
@@ -2506,6 +2554,203 @@ export type UserUncheckedUpdateWithoutReviewedPropertiesInput = {
   verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
   brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutRegistrantNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUncheckedUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUncheckedUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
+}
+
+export type UserCreateWithoutLeaseSafetyAssessmentsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLeaseSafetyAssessmentsInput = {
+  id: string
+  memberNumber: string
+  email?: string | null
+  phoneCountryCode?: string | null
+  phoneNumberEncrypted?: string | null
+  phoneHash?: string | null
+  passwordHash?: string | null
+  status?: $Enums.UserStatus
+  emailVerifiedAt?: Date | string | null
+  phoneVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedCreateNestedManyWithoutUserInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedCreateNestedOneWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutRegistrantInput
+  reviewedProperties?: Prisma.PropertyUncheckedCreateNestedManyWithoutReviewerInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutClaimantInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedCreateNestedManyWithoutReviewerInput
+  mediaUploads?: Prisma.PropertyMediaUploadUncheckedCreateNestedManyWithoutUserInput
+  propertyReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutReporterInput
+  assignedReports?: Prisma.PropertyReportUncheckedCreateNestedManyWithoutAssigneeInput
+  reportHistories?: Prisma.PropertyReportHistoryUncheckedCreateNestedManyWithoutActorInput
+  requestedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutRequesterInput
+  managedVisits?: Prisma.VisitReservationUncheckedCreateNestedManyWithoutBrokerInput
+  visitHistories?: Prisma.VisitReservationHistoryUncheckedCreateNestedManyWithoutActorInput
+  notificationOutbox?: Prisma.NotificationOutboxUncheckedCreateNestedManyWithoutRecipientInput
+  notificationEndpoints?: Prisma.NotificationEndpointUncheckedCreateNestedManyWithoutUserInput
+  reservationDeposits?: Prisma.ReservationDepositUncheckedCreateNestedManyWithoutPayerInput
+  memberChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutMemberInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUncheckedCreateNestedManyWithoutRegistrantInput
+  sentChatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
+  memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
+  registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLeaseSafetyAssessmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeaseSafetyAssessmentsInput, Prisma.UserUncheckedCreateWithoutLeaseSafetyAssessmentsInput>
+}
+
+export type UserUpsertWithoutLeaseSafetyAssessmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLeaseSafetyAssessmentsInput, Prisma.UserUncheckedUpdateWithoutLeaseSafetyAssessmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLeaseSafetyAssessmentsInput, Prisma.UserUncheckedCreateWithoutLeaseSafetyAssessmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLeaseSafetyAssessmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLeaseSafetyAssessmentsInput, Prisma.UserUncheckedUpdateWithoutLeaseSafetyAssessmentsInput>
+}
+
+export type UserUpdateWithoutLeaseSafetyAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUpdateManyWithoutReviewerNestedInput
+  ownershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutClaimantNestedInput
+  reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUpdateManyWithoutReviewerNestedInput
+  mediaUploads?: Prisma.PropertyMediaUploadUpdateManyWithoutUserNestedInput
+  propertyReports?: Prisma.PropertyReportUpdateManyWithoutReporterNestedInput
+  assignedReports?: Prisma.PropertyReportUpdateManyWithoutAssigneeNestedInput
+  reportHistories?: Prisma.PropertyReportHistoryUpdateManyWithoutActorNestedInput
+  requestedVisits?: Prisma.VisitReservationUpdateManyWithoutRequesterNestedInput
+  managedVisits?: Prisma.VisitReservationUpdateManyWithoutBrokerNestedInput
+  visitHistories?: Prisma.VisitReservationHistoryUpdateManyWithoutActorNestedInput
+  notificationOutbox?: Prisma.NotificationOutboxUpdateManyWithoutRecipientNestedInput
+  notificationEndpoints?: Prisma.NotificationEndpointUpdateManyWithoutUserNestedInput
+  reservationDeposits?: Prisma.ReservationDepositUpdateManyWithoutPayerNestedInput
+  memberChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutMemberNestedInput
+  registrantChatRooms?: Prisma.PropertyChatRoomUpdateManyWithoutRegistrantNestedInput
+  sentChatMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
+  memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
+  registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLeaseSafetyAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneCountryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumberEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phoneVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  verificationChallenges?: Prisma.VerificationChallengeUncheckedUpdateManyWithoutUserNestedInput
+  brokerProfile?: Prisma.BrokerProfileUncheckedUpdateOneWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutRegistrantNestedInput
+  reviewedProperties?: Prisma.PropertyUncheckedUpdateManyWithoutReviewerNestedInput
   ownershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutClaimantNestedInput
   reviewedOwnershipClaims?: Prisma.PropertyOwnershipVerificationUncheckedUpdateManyWithoutReviewerNestedInput
   mediaUploads?: Prisma.PropertyMediaUploadUncheckedUpdateManyWithoutUserNestedInput
@@ -2569,6 +2814,7 @@ export type UserCreateWithoutOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutOwnershipClaimsInput = {
@@ -2613,6 +2859,7 @@ export type UserUncheckedCreateWithoutOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutOwnershipClaimsInput = {
@@ -2662,6 +2909,7 @@ export type UserCreateWithoutReviewedOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutReviewedOwnershipClaimsInput = {
@@ -2706,6 +2954,7 @@ export type UserUncheckedCreateWithoutReviewedOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutReviewedOwnershipClaimsInput = {
@@ -2766,6 +3015,7 @@ export type UserUpdateWithoutOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnershipClaimsInput = {
@@ -2810,6 +3060,7 @@ export type UserUncheckedUpdateWithoutOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutReviewedOwnershipClaimsInput = {
@@ -2865,6 +3116,7 @@ export type UserUpdateWithoutReviewedOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedOwnershipClaimsInput = {
@@ -2909,6 +3161,7 @@ export type UserUncheckedUpdateWithoutReviewedOwnershipClaimsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutMediaUploadsInput = {
@@ -2953,6 +3206,7 @@ export type UserCreateWithoutMediaUploadsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutMediaUploadsInput = {
@@ -2997,6 +3251,7 @@ export type UserUncheckedCreateWithoutMediaUploadsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutMediaUploadsInput = {
@@ -3057,6 +3312,7 @@ export type UserUpdateWithoutMediaUploadsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaUploadsInput = {
@@ -3101,6 +3357,7 @@ export type UserUncheckedUpdateWithoutMediaUploadsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutPropertyReportsInput = {
@@ -3145,6 +3402,7 @@ export type UserCreateWithoutPropertyReportsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutPropertyReportsInput = {
@@ -3189,6 +3447,7 @@ export type UserUncheckedCreateWithoutPropertyReportsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutPropertyReportsInput = {
@@ -3238,6 +3497,7 @@ export type UserCreateWithoutAssignedReportsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutAssignedReportsInput = {
@@ -3282,6 +3542,7 @@ export type UserUncheckedCreateWithoutAssignedReportsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutAssignedReportsInput = {
@@ -3342,6 +3603,7 @@ export type UserUpdateWithoutPropertyReportsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPropertyReportsInput = {
@@ -3386,6 +3648,7 @@ export type UserUncheckedUpdateWithoutPropertyReportsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutAssignedReportsInput = {
@@ -3441,6 +3704,7 @@ export type UserUpdateWithoutAssignedReportsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedReportsInput = {
@@ -3485,6 +3749,7 @@ export type UserUncheckedUpdateWithoutAssignedReportsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutReportHistoriesInput = {
@@ -3529,6 +3794,7 @@ export type UserCreateWithoutReportHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutReportHistoriesInput = {
@@ -3573,6 +3839,7 @@ export type UserUncheckedCreateWithoutReportHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutReportHistoriesInput = {
@@ -3633,6 +3900,7 @@ export type UserUpdateWithoutReportHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportHistoriesInput = {
@@ -3677,6 +3945,7 @@ export type UserUncheckedUpdateWithoutReportHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutRequestedVisitsInput = {
@@ -3721,6 +3990,7 @@ export type UserCreateWithoutRequestedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutRequestedVisitsInput = {
@@ -3765,6 +4035,7 @@ export type UserUncheckedCreateWithoutRequestedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutRequestedVisitsInput = {
@@ -3814,6 +4085,7 @@ export type UserCreateWithoutManagedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutManagedVisitsInput = {
@@ -3858,6 +4130,7 @@ export type UserUncheckedCreateWithoutManagedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutManagedVisitsInput = {
@@ -3918,6 +4191,7 @@ export type UserUpdateWithoutRequestedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestedVisitsInput = {
@@ -3962,6 +4236,7 @@ export type UserUncheckedUpdateWithoutRequestedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutManagedVisitsInput = {
@@ -4017,6 +4292,7 @@ export type UserUpdateWithoutManagedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutManagedVisitsInput = {
@@ -4061,6 +4337,7 @@ export type UserUncheckedUpdateWithoutManagedVisitsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutVisitHistoriesInput = {
@@ -4105,6 +4382,7 @@ export type UserCreateWithoutVisitHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutVisitHistoriesInput = {
@@ -4149,6 +4427,7 @@ export type UserUncheckedCreateWithoutVisitHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutVisitHistoriesInput = {
@@ -4209,6 +4488,7 @@ export type UserUpdateWithoutVisitHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVisitHistoriesInput = {
@@ -4253,6 +4533,7 @@ export type UserUncheckedUpdateWithoutVisitHistoriesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutMemberChatRoomsInput = {
@@ -4297,6 +4578,7 @@ export type UserCreateWithoutMemberChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutMemberChatRoomsInput = {
@@ -4341,6 +4623,7 @@ export type UserUncheckedCreateWithoutMemberChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutMemberChatRoomsInput = {
@@ -4390,6 +4673,7 @@ export type UserCreateWithoutRegistrantChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutRegistrantChatRoomsInput = {
@@ -4434,6 +4718,7 @@ export type UserUncheckedCreateWithoutRegistrantChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutRegistrantChatRoomsInput = {
@@ -4494,6 +4779,7 @@ export type UserUpdateWithoutMemberChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMemberChatRoomsInput = {
@@ -4538,6 +4824,7 @@ export type UserUncheckedUpdateWithoutMemberChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutRegistrantChatRoomsInput = {
@@ -4593,6 +4880,7 @@ export type UserUpdateWithoutRegistrantChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRegistrantChatRoomsInput = {
@@ -4637,6 +4925,7 @@ export type UserUncheckedUpdateWithoutRegistrantChatRoomsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutSentChatMessagesInput = {
@@ -4681,6 +4970,7 @@ export type UserCreateWithoutSentChatMessagesInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutSentChatMessagesInput = {
@@ -4725,6 +5015,7 @@ export type UserUncheckedCreateWithoutSentChatMessagesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutSentChatMessagesInput = {
@@ -4785,6 +5076,7 @@ export type UserUpdateWithoutSentChatMessagesInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentChatMessagesInput = {
@@ -4829,6 +5121,7 @@ export type UserUncheckedUpdateWithoutSentChatMessagesInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutMemberContractsInput = {
@@ -4873,6 +5166,7 @@ export type UserCreateWithoutMemberContractsInput = {
   createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutMemberContractsInput = {
@@ -4917,6 +5211,7 @@ export type UserUncheckedCreateWithoutMemberContractsInput = {
   createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutMemberContractsInput = {
@@ -4966,6 +5261,7 @@ export type UserCreateWithoutRegistrantContractsInput = {
   createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutRegistrantContractsInput = {
@@ -5010,6 +5306,7 @@ export type UserUncheckedCreateWithoutRegistrantContractsInput = {
   createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutRegistrantContractsInput = {
@@ -5059,6 +5356,7 @@ export type UserCreateWithoutCreatedContractsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutCreatedContractsInput = {
@@ -5103,6 +5401,7 @@ export type UserUncheckedCreateWithoutCreatedContractsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutCreatedContractsInput = {
@@ -5163,6 +5462,7 @@ export type UserUpdateWithoutMemberContractsInput = {
   createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMemberContractsInput = {
@@ -5207,6 +5507,7 @@ export type UserUncheckedUpdateWithoutMemberContractsInput = {
   createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutRegistrantContractsInput = {
@@ -5262,6 +5563,7 @@ export type UserUpdateWithoutRegistrantContractsInput = {
   createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRegistrantContractsInput = {
@@ -5306,6 +5608,7 @@ export type UserUncheckedUpdateWithoutRegistrantContractsInput = {
   createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUpsertWithoutCreatedContractsInput = {
@@ -5361,6 +5664,7 @@ export type UserUpdateWithoutCreatedContractsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedContractsInput = {
@@ -5405,6 +5709,7 @@ export type UserUncheckedUpdateWithoutCreatedContractsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutContractPartiesInput = {
@@ -5449,6 +5754,7 @@ export type UserCreateWithoutContractPartiesInput = {
   createdContracts?: Prisma.ElectronicContractCreateNestedManyWithoutCreatorInput
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutContractPartiesInput = {
@@ -5493,6 +5799,7 @@ export type UserUncheckedCreateWithoutContractPartiesInput = {
   createdContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutCreatorInput
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutContractPartiesInput = {
@@ -5553,6 +5860,7 @@ export type UserUpdateWithoutContractPartiesInput = {
   createdContracts?: Prisma.ElectronicContractUpdateManyWithoutCreatorNestedInput
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutContractPartiesInput = {
@@ -5597,6 +5905,7 @@ export type UserUncheckedUpdateWithoutContractPartiesInput = {
   createdContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutCreatorNestedInput
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutNotificationOutboxInput = {
@@ -5641,6 +5950,7 @@ export type UserCreateWithoutNotificationOutboxInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutNotificationOutboxInput = {
@@ -5685,6 +5995,7 @@ export type UserUncheckedCreateWithoutNotificationOutboxInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutNotificationOutboxInput = {
@@ -5745,6 +6056,7 @@ export type UserUpdateWithoutNotificationOutboxInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationOutboxInput = {
@@ -5789,6 +6101,7 @@ export type UserUncheckedUpdateWithoutNotificationOutboxInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutNotificationEndpointsInput = {
@@ -5833,6 +6146,7 @@ export type UserCreateWithoutNotificationEndpointsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutNotificationEndpointsInput = {
@@ -5877,6 +6191,7 @@ export type UserUncheckedCreateWithoutNotificationEndpointsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutNotificationEndpointsInput = {
@@ -5937,6 +6252,7 @@ export type UserUpdateWithoutNotificationEndpointsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationEndpointsInput = {
@@ -5981,6 +6297,7 @@ export type UserUncheckedUpdateWithoutNotificationEndpointsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserCreateWithoutReservationDepositsInput = {
@@ -6025,6 +6342,7 @@ export type UserCreateWithoutReservationDepositsInput = {
   memberContracts?: Prisma.ElectronicContractCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentCreateNestedManyWithoutAnalystInput
 }
 
 export type UserUncheckedCreateWithoutReservationDepositsInput = {
@@ -6069,6 +6387,7 @@ export type UserUncheckedCreateWithoutReservationDepositsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutMemberInput
   registrantContracts?: Prisma.ElectronicContractUncheckedCreateNestedManyWithoutRegistrantInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedCreateNestedManyWithoutUserInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedCreateNestedManyWithoutAnalystInput
 }
 
 export type UserCreateOrConnectWithoutReservationDepositsInput = {
@@ -6129,6 +6448,7 @@ export type UserUpdateWithoutReservationDepositsInput = {
   memberContracts?: Prisma.ElectronicContractUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUpdateManyWithoutAnalystNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReservationDepositsInput = {
@@ -6173,6 +6493,7 @@ export type UserUncheckedUpdateWithoutReservationDepositsInput = {
   memberContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutMemberNestedInput
   registrantContracts?: Prisma.ElectronicContractUncheckedUpdateManyWithoutRegistrantNestedInput
   contractParties?: Prisma.ElectronicContractPartyUncheckedUpdateManyWithoutUserNestedInput
+  leaseSafetyAssessments?: Prisma.LeaseSafetyAssessmentUncheckedUpdateManyWithoutAnalystNestedInput
 }
 
 
@@ -6205,6 +6526,7 @@ export type UserCountOutputType = {
   memberContracts: number
   registrantContracts: number
   contractParties: number
+  leaseSafetyAssessments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6232,6 +6554,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   memberContracts?: boolean | UserCountOutputTypeCountMemberContractsArgs
   registrantContracts?: boolean | UserCountOutputTypeCountRegistrantContractsArgs
   contractParties?: boolean | UserCountOutputTypeCountContractPartiesArgs
+  leaseSafetyAssessments?: boolean | UserCountOutputTypeCountLeaseSafetyAssessmentsArgs
 }
 
 /**
@@ -6412,6 +6735,13 @@ export type UserCountOutputTypeCountContractPartiesArgs<ExtArgs extends runtime.
   where?: Prisma.ElectronicContractPartyWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLeaseSafetyAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LeaseSafetyAssessmentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -6456,6 +6786,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   memberContracts?: boolean | Prisma.User$memberContractsArgs<ExtArgs>
   registrantContracts?: boolean | Prisma.User$registrantContractsArgs<ExtArgs>
   contractParties?: boolean | Prisma.User$contractPartiesArgs<ExtArgs>
+  leaseSafetyAssessments?: boolean | Prisma.User$leaseSafetyAssessmentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -6544,6 +6875,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   memberContracts?: boolean | Prisma.User$memberContractsArgs<ExtArgs>
   registrantContracts?: boolean | Prisma.User$registrantContractsArgs<ExtArgs>
   contractParties?: boolean | Prisma.User$contractPartiesArgs<ExtArgs>
+  leaseSafetyAssessments?: boolean | Prisma.User$leaseSafetyAssessmentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -6578,6 +6910,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     memberContracts: Prisma.$ElectronicContractPayload<ExtArgs>[]
     registrantContracts: Prisma.$ElectronicContractPayload<ExtArgs>[]
     contractParties: Prisma.$ElectronicContractPartyPayload<ExtArgs>[]
+    leaseSafetyAssessments: Prisma.$LeaseSafetyAssessmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7016,6 +7349,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   memberContracts<T extends Prisma.User$memberContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$memberContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   registrantContracts<T extends Prisma.User$registrantContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$registrantContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contractParties<T extends Prisma.User$contractPartiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contractPartiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ElectronicContractPartyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leaseSafetyAssessments<T extends Prisma.User$leaseSafetyAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$leaseSafetyAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeaseSafetyAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8065,6 +8399,30 @@ export type User$contractPartiesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.ElectronicContractPartyScalarFieldEnum | Prisma.ElectronicContractPartyScalarFieldEnum[]
+}
+
+/**
+ * User.leaseSafetyAssessments
+ */
+export type User$leaseSafetyAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeaseSafetyAssessment
+   */
+  select?: Prisma.LeaseSafetyAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LeaseSafetyAssessment
+   */
+  omit?: Prisma.LeaseSafetyAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LeaseSafetyAssessmentInclude<ExtArgs> | null
+  where?: Prisma.LeaseSafetyAssessmentWhereInput
+  orderBy?: Prisma.LeaseSafetyAssessmentOrderByWithRelationInput | Prisma.LeaseSafetyAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.LeaseSafetyAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LeaseSafetyAssessmentScalarFieldEnum | Prisma.LeaseSafetyAssessmentScalarFieldEnum[]
 }
 
 /**

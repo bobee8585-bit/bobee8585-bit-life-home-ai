@@ -57,6 +57,72 @@ export enum OwnershipVerificationStatus {
   REJECTED = 'REJECTED',
 }
 
+export enum LeaseSafetyGrade {
+  VERY_SAFE = 'VERY_SAFE',
+  SAFE = 'SAFE',
+  CAUTION = 'CAUTION',
+  HIGH_RISK = 'HIGH_RISK',
+  CRITICAL = 'CRITICAL',
+  UNAVAILABLE = 'UNAVAILABLE',
+}
+
+export enum GuaranteeEligibility {
+  ELIGIBLE = 'ELIGIBLE',
+  INELIGIBLE = 'INELIGIBLE',
+  UNKNOWN = 'UNKNOWN',
+}
+
+export type LeaseSafetyAvailability =
+  | 'NOT_ASSESSED'
+  | 'INCOMPLETE'
+  | 'STALE'
+  | 'READY';
+
+export interface LeaseSafetyAssessment {
+  property: {
+    id: string;
+    listingNumber: string;
+    title: string;
+    transactionType: PropertyTransactionType;
+    deposit: string;
+    currency: string;
+  };
+  availability: LeaseSafetyAvailability;
+  assessmentId?: string;
+  version?: number;
+  score: number | null;
+  grade: LeaseSafetyGrade;
+  ratios?: {
+    jeonse: number | null;
+    totalExposure: number | null;
+  };
+  inputs?: {
+    estimatedMarketValue: string | null;
+    seniorClaimAmount: string | null;
+    ownerMatched: boolean | null;
+    guaranteeEligibility: GuaranteeEligibility;
+    registryRiskCodes: string[];
+  };
+  evidence?: {
+    registrySource: string | null;
+    registryIssuedAt: string | null;
+    registryFresh: boolean;
+    valuationSource: string | null;
+    valuationAssessedAt: string | null;
+    valuationFresh: boolean;
+  };
+  missingInputs?: string[];
+  deductions?: Array<{
+    code: string;
+    points: number;
+    message: string;
+  }>;
+  calculationVersion?: string;
+  assessedAt?: string;
+  needsContractRecheck?: boolean;
+  disclaimer: string;
+}
+
 export enum MediaUploadStatus {
   REQUESTED = 'REQUESTED',
   PROCESSING = 'PROCESSING',
@@ -472,6 +538,14 @@ export interface AppConfig {
     trafficAwareDrive: boolean;
     localEstimateFallback: true;
     maxProperties: 5;
+  };
+  leaseSafety?: {
+    enabled: true;
+    calculationVersion: 'LEASE_SAFETY_V1';
+    registryFreshDays: 7;
+    valuationFreshDays: 30;
+    contractRecheckRequired: true;
+    informationalOnly: true;
   };
   version: number;
 }

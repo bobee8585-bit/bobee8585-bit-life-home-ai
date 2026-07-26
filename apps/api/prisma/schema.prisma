@@ -260,6 +260,26 @@ enum PaymentWebhookEventStatus {
   FAILED
 }
 
+enum LeaseSafetyAssessmentStatus {
+  READY
+  INCOMPLETE
+}
+
+enum LeaseSafetyGrade {
+  VERY_SAFE
+  SAFE
+  CAUTION
+  HIGH_RISK
+  CRITICAL
+  UNAVAILABLE
+}
+
+enum GuaranteeEligibility {
+  ELIGIBLE
+  INELIGIBLE
+  UNKNOWN
+}
+
 model User {
   id                      String                          @id @db.Uuid
   memberNumber            String                          @unique @map("member_number")
@@ -303,6 +323,7 @@ model User {
   memberContracts         ElectronicContract[]            @relation("ElectronicContractMember")
   registrantContracts     ElectronicContract[]            @relation("ElectronicContractRegistrant")
   contractParties         ElectronicContractParty[]
+  leaseSafetyAssessments  LeaseSafetyAssessment[]       @relation("LeaseSafetyAnalyst")
 
   @@map("users")
 }
@@ -611,12 +632,47 @@ model Property {
   visitReservations     VisitReservation[]
   chatRooms             PropertyChatRoom[]
   contracts             ElectronicContract[]
+  leaseSafetyAssessments LeaseSafetyAssessment[]
 
   @@index([status, createdAt])
   @@index([city, propertyType, transactionType, status])
   @@index([brokerUserId, status, updatedAt])
   @@index([brokerageOfficeId, status])
   @@map("properties")
+}
+
+model LeaseSafetyAssessment {
+  id                        String                      @id @db.Uuid
+  propertyId                String                      @map("property_id") @db.Uuid
+  analystUserId             String                      @map("analyst_user_id") @db.Uuid
+  version                   Int
+  status                    LeaseSafetyAssessmentStatus
+  score                     Int?
+  grade                     LeaseSafetyGrade
+  estimatedMarketValue      Decimal?                    @map("estimated_market_value") @db.Decimal(18, 2)
+  seniorClaimAmount         Decimal?                    @map("senior_claim_amount") @db.Decimal(18, 2)
+  jeonseRatio               Decimal?                    @map("jeonse_ratio") @db.Decimal(7, 4)
+  totalExposureRatio        Decimal?                    @map("total_exposure_ratio") @db.Decimal(7, 4)
+  ownerMatched              Boolean?                    @map("owner_matched")
+  guaranteeEligibility      GuaranteeEligibility        @default(UNKNOWN) @map("guarantee_eligibility")
+  registryRiskCodes         String[]                    @default([]) @map("registry_risk_codes")
+  registryIssuedAt          DateTime?                   @map("registry_issued_at") @db.Timestamptz(6)
+  valuationAssessedAt       DateTime?                   @map("valuation_assessed_at") @db.Timestamptz(6)
+  registrySource            String?                     @map("registry_source") @db.VarChar(100)
+  valuationSource           String?                     @map("valuation_source") @db.VarChar(100)
+  evidenceReferenceHash     String?                     @map("evidence_reference_hash") @db.VarChar(64)
+  missingInputs             String[]                    @default([]) @map("missing_inputs")
+  deductionBreakdown        Json                        @map("deduction_breakdown")
+  calculationVersion        String                      @map("calculation_version") @db.VarChar(40)
+  assessedAt                DateTime                    @map("assessed_at") @db.Timestamptz(6)
+  createdAt                 DateTime                    @default(now()) @map("created_at") @db.Timestamptz(6)
+  property                  Property                    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  analyst                   User                        @relation("LeaseSafetyAnalyst", fields: [analystUserId], references: [id], onDelete: Restrict)
+
+  @@unique([propertyId, version])
+  @@index([propertyId, assessedAt])
+  @@index([status, assessedAt])
+  @@map("lease_safety_assessments")
 }
 
 model PropertyOwnershipVerification {
