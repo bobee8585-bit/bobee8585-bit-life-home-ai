@@ -241,6 +241,7 @@ enum PaymentTransactionType {
 
 enum PaymentTransactionStatus {
   PENDING
+  PROCESSING
   SUCCEEDED
   FAILED
 }

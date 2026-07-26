@@ -336,6 +336,7 @@ export type PaymentTransactionType = (typeof PaymentTransactionType)[keyof typeo
 
 export const PaymentTransactionStatus = {
   PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
   SUCCEEDED: 'SUCCEEDED',
   FAILED: 'FAILED'
 } as const
