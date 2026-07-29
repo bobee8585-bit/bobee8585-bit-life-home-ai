@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.22.0
+# LIFE HOME AI 0.23.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -113,6 +113,14 @@ GET  /v1/saved-property-searches
 POST /v1/saved-property-searches
 PATCH /v1/saved-property-searches/:id
 DELETE /v1/saved-property-searches/:id
+GET  /v1/property-watches
+GET  /v1/property-watches/:id/changes
+POST /v1/properties/:propertyId/watch
+PATCH /v1/property-watches/:id
+DELETE /v1/property-watches/:id
+PATCH /v1/properties/:id/price
+PATCH /v1/properties/:id/deal-status
+DELETE /v1/properties/:propertyId/media/:mediaId
 ```
 
 회원가입 예시:
@@ -120,7 +128,7 @@ DELETE /v1/saved-property-searches/:id
 ```json
 {
   "email": "user@example.com",
-  "password": "Safe-password-2026",
+  "password": "<사용자가 직접 입력>",
   "displayName": "라이프홈 사용자",
   "locale": "ko-KR",
   "timezone": "Asia/Seoul",
@@ -219,6 +227,16 @@ API 키가 필요합니다. 플랫폼은 재확인 ID를 멱등성 키로 보내
 저장 검색 ID, 매물 ID와 매물번호만 넣고 상세주소·연락처·전체 검색조건은
 복사하지 않습니다. 신규 매물 알림은 푸시 전용이므로 푸시 토큰이 없는
 회원에게 SMS 비용을 발생시키지 않고 `SKIPPED`로 종결합니다.
+
+인증 회원은 공개 매물을 회원당 최대 200개까지 관심 매물로 저장할 수 있습니다.
+본인 매물은 저장할 수 없고 가격·공개 사진·거래 상태 알림을 각각 켜거나 끌 수
+있습니다. 가격과 거래 상태 변경은 `updatedAt` 기반 낙관적 잠금으로 동시 수정을
+차단하며 변경 전·후 스냅샷을 별도 이력으로 남깁니다.
+
+관심 매물 알림에는 매물 ID·매물번호·변경 이벤트 ID·변경 유형만 포함하고 가격
+스냅샷이나 사진 URL은 넣지 않습니다. 상세 변경 내용은 관심 매물 소유자만
+최근 50건까지 조회할 수 있습니다. `COMPLETED` 또는 `WITHDRAWN`으로 바뀐 매물은
+즉시 비공개 상태가 되지만 관심 목록에는 공개 상태와 거래 상태가 함께 보존됩니다.
 
 매물 상태는 `DRAFT → PENDING_REVIEW → ACTIVE` 또는 `REJECTED` 순서로
 전이됩니다. 반려 매물은 수정하면 다시 `DRAFT`가 되며 재검수를 요청할 수

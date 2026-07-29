@@ -54,6 +54,28 @@ describe('NotificationTemplateService', () => {
     expect(JSON.stringify(result)).not.toContain('노출되면 안 되는');
   });
 
+  it('renders property change navigation data without snapshots or photo URLs', () => {
+    const message = service.render(
+      'PROPERTY_PRICE_CHANGED',
+      'Property',
+      '019d1f00-0000-7000-8000-000000000101',
+      {
+        propertyId: '019d1f00-0000-7000-8000-000000000101',
+        listingNumber: 'LH-2026-WATCH',
+        changeEventId: '019d1f00-0000-7000-8000-000000000102',
+        changeType: 'PRICE',
+        before: { price: '900000000' },
+        photoUrl: 'https://private.example/photo.jpg',
+      },
+    );
+    expect(message.data).toMatchObject({
+      listingNumber: 'LH-2026-WATCH',
+      changeType: 'PRICE',
+    });
+    expect(JSON.stringify(message)).not.toContain('900000000');
+    expect(JSON.stringify(message)).not.toContain('private.example');
+  });
+
   it('renders a new-listing alert without exposing criteria or address', () => {
     const result = service.render(
       'PROPERTY_NEW_LISTING_MATCH', 'Property',

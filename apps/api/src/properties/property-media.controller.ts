@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -73,6 +74,17 @@ export class PropertyMediaController {
       file,
       dto,
     );
+  }
+
+  @Permissions('PROPERTY.UPDATE')
+  @MenuAccess('PROPERTY_MANAGE', 'write')
+  @Delete('properties/:propertyId/media/:mediaId')
+  remove(
+    @Param('propertyId', ParseUUIDPipe) propertyId: string,
+    @Param('mediaId', ParseUUIDPipe) mediaId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.media.deleteMedia(request.auth.sub, propertyId, mediaId);
   }
 
   @Get('media-uploads/:uploadId')

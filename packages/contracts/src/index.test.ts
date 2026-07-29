@@ -10,6 +10,7 @@ import {
   NotificationDeliveryStatus,
   MediaUploadStatus,
   PropertyListingType,
+  PropertyDealStatus,
   VisitTravelMode,
   ChatMessageType,
   ElectronicContractProvider,
@@ -66,6 +67,18 @@ describe('PropertyListingType', () => {
     expect(Object.values(PropertyListingType)).toEqual([
       'BROKERAGE',
       'OWNER_DIRECT',
+    ]);
+  });
+});
+
+describe('PropertyDealStatus', () => {
+  it('keeps listing publication separate from transaction progress', () => {
+    expect(Object.values(PropertyDealStatus)).toEqual([
+      'AVAILABLE',
+      'RESERVED',
+      'CONTRACTING',
+      'COMPLETED',
+      'WITHDRAWN',
     ]);
   });
 });

@@ -91,6 +91,27 @@ export class NotificationTemplateService {
           body: this.compact(`${this.text(payload.listingNumber)} 매물을 확인해주세요.`),
           data: commonData,
         };
+      case 'PROPERTY_PRICE_CHANGED':
+      case 'PROPERTY_PHOTO_CHANGED':
+      case 'PROPERTY_DEAL_STATUS_CHANGED':
+        return {
+          title:
+            type === 'PROPERTY_PRICE_CHANGED'
+              ? '관심 매물 가격이 변경됐어요'
+              : type === 'PROPERTY_PHOTO_CHANGED'
+                ? '관심 매물 사진이 변경됐어요'
+                : '관심 매물 거래 상태가 변경됐어요',
+          body: this.compact(
+            `${this.text(payload.listingNumber)} 매물 변경사항을 확인해주세요.`,
+          ),
+          data: {
+            ...commonData,
+            propertyId: this.text(payload.propertyId),
+            listingNumber: this.text(payload.listingNumber),
+            changeEventId: this.text(payload.changeEventId),
+            changeType: this.text(payload.changeType),
+          },
+        };
       default:
         return {
           title: 'LIFE HOME AI 알림',

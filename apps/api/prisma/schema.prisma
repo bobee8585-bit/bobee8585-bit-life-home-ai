@@ -103,6 +103,20 @@ enum PropertyListingType {
   OWNER_DIRECT
 }
 
+enum PropertyDealStatus {
+  AVAILABLE
+  RESERVED
+  CONTRACTING
+  COMPLETED
+  WITHDRAWN
+}
+
+enum PropertyChangeType {
+  PRICE
+  PHOTO
+  DEAL_STATUS
+}
+
 enum OwnershipClaimType {
   REGISTERED_OWNER
   AUTHORIZED_REPRESENTATIVE
@@ -332,6 +346,8 @@ model User {
   contractParties                 ElectronicContractParty[]
   leaseSafetyAssessments          LeaseSafetyAssessment[]         @relation("LeaseSafetyAnalyst")
   savedPropertySearches           SavedPropertySearch[]
+  propertyWatches                 PropertyWatch[]
+  propertyChangeEvents            PropertyChangeEvent[]           @relation("PropertyChangeActor")
   requestedContractSafetyRechecks ContractSafetyRecheck[]         @relation("ContractSafetyRecheckRequester")
 
   @@map("users")
@@ -624,6 +640,7 @@ model Property {
   latitude               Decimal?                       @db.Decimal(10, 7)
   longitude              Decimal?                       @db.Decimal(10, 7)
   status                 PropertyStatus                 @default(DRAFT)
+  dealStatus             PropertyDealStatus             @default(AVAILABLE) @map("deal_status")
   rejectionReason        String?                        @map("rejection_reason")
   submittedAt            DateTime?                      @map("submitted_at") @db.Timestamptz(6)
   reviewedBy             String?                        @map("reviewed_by") @db.Uuid
@@ -643,6 +660,8 @@ model Property {
   contracts              ElectronicContract[]
   leaseSafetyAssessments LeaseSafetyAssessment[]
   savedSearchAlerts      SavedPropertyAlert[]
+  watches                PropertyWatch[]
+  changeEvents           PropertyChangeEvent[]
 
   @@index([status, createdAt])
   @@index([city, propertyType, transactionType, status])
@@ -719,6 +738,55 @@ model SavedPropertyAlert {
   @@unique([savedSearchId, propertyId])
   @@index([propertyId, createdAt])
   @@map("saved_property_alerts")
+}
+
+model PropertyWatch {
+  id                       String               @id @db.Uuid
+  userId                   String               @map("user_id") @db.Uuid
+  propertyId               String               @map("property_id") @db.Uuid
+  alertOnPriceChange       Boolean              @default(true) @map("alert_on_price_change")
+  alertOnPhotoChange       Boolean              @default(true) @map("alert_on_photo_change")
+  alertOnDealStatusChange  Boolean              @default(true) @map("alert_on_deal_status_change")
+  createdAt                DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                DateTime             @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user                     User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property                 Property             @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  alerts                   PropertyWatchAlert[]
+
+  @@unique([userId, propertyId])
+  @@index([userId, updatedAt])
+  @@index([propertyId, createdAt])
+  @@map("property_watches")
+}
+
+model PropertyChangeEvent {
+  id            String               @id @db.Uuid
+  propertyId    String               @map("property_id") @db.Uuid
+  actorUserId   String               @map("actor_user_id") @db.Uuid
+  type          PropertyChangeType
+  beforeData    Json?                @map("before_data")
+  afterData     Json?                @map("after_data")
+  createdAt     DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  property      Property             @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  actor         User                 @relation("PropertyChangeActor", fields: [actorUserId], references: [id], onDelete: Restrict)
+  watchAlerts   PropertyWatchAlert[]
+
+  @@index([propertyId, createdAt])
+  @@index([actorUserId, createdAt])
+  @@map("property_change_events")
+}
+
+model PropertyWatchAlert {
+  id              String              @id @db.Uuid
+  propertyWatchId String              @map("property_watch_id") @db.Uuid
+  changeEventId   String              @map("change_event_id") @db.Uuid
+  createdAt       DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+  propertyWatch   PropertyWatch       @relation(fields: [propertyWatchId], references: [id], onDelete: Cascade)
+  changeEvent     PropertyChangeEvent @relation(fields: [changeEventId], references: [id], onDelete: Cascade)
+
+  @@unique([propertyWatchId, changeEventId])
+  @@index([changeEventId, createdAt])
+  @@map("property_watch_alerts")
 }
 
 model PropertyOwnershipVerification {

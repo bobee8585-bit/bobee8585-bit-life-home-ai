@@ -17,6 +17,8 @@ import {
   MediaUploadStatus,
   OwnershipVerificationStatus,
   Prisma,
+  PropertyChangeType,
+  PropertyDealStatus,
   PropertyListingType,
   PropertyMediaType,
   PropertyStatus,
@@ -31,6 +33,7 @@ import {
   MediaWorkspaceService,
   type MediaWorkspace,
 } from './media-workspace.service';
+import { PropertyWatchesService } from './property-watches.service';
 
 const run = promisify(execFile);
 const MAX_IMAGE_BYTES = 20 * 1024 * 1024;
@@ -60,6 +63,7 @@ export class MediaProcessingService {
     private readonly storage: MediaObjectStorageService,
     private readonly workspace: MediaWorkspaceService,
     private readonly queue: MediaProcessingQueueService,
+    private readonly watches: PropertyWatchesService,
   ) {}
 
   async requestUpload(
@@ -73,13 +77,29 @@ export class MediaProcessingService {
         where: {
           id: propertyId,
           brokerUserId: userId,
-          status: { in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED] },
+          OR: [
+            {
+              status: {
+                in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED],
+              },
+            },
+            {
+              status: PropertyStatus.ACTIVE,
+              dealStatus: {
+                in: [
+                  PropertyDealStatus.AVAILABLE,
+                  PropertyDealStatus.RESERVED,
+                  PropertyDealStatus.CONTRACTING,
+                ],
+              },
+            },
+          ],
         },
         select: { id: true },
       });
       if (!property) {
         throw new ForbiddenException(
-          '초안 또는 반려 상태의 본인 매물에만 미디어를 추가할 수 있습니다.',
+          '수정 가능한 본인 매물에만 미디어를 추가할 수 있습니다.',
         );
       }
 
@@ -105,9 +125,23 @@ export class MediaProcessingService {
             where: {
               id: propertyId,
               brokerUserId: userId,
-              status: {
-                in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED],
-              },
+              OR: [
+                {
+                  status: {
+                    in: [PropertyStatus.DRAFT, PropertyStatus.REJECTED],
+                  },
+                },
+                {
+                  status: PropertyStatus.ACTIVE,
+                  dealStatus: {
+                    in: [
+                      PropertyDealStatus.AVAILABLE,
+                      PropertyDealStatus.RESERVED,
+                      PropertyDealStatus.CONTRACTING,
+                    ],
+                  },
+                },
+              ],
             },
             select: { id: true },
           });
@@ -330,6 +364,32 @@ export class MediaProcessingService {
             },
           },
         });
+        if (
+          upload.mediaType === PropertyMediaType.IMAGE &&
+          upload.requestedIsPublic
+        ) {
+          const property = await transaction.property.findUniqueOrThrow({
+            where: { id: upload.propertyId },
+            select: {
+              listingNumber: true,
+              status: true,
+            },
+          });
+          if (property.status === PropertyStatus.ACTIVE) {
+            await this.watches.recordChange(transaction, {
+              propertyId: upload.propertyId,
+              listingNumber: property.listingNumber,
+              actorUserId: upload.userId,
+              type: PropertyChangeType.PHOTO,
+              before: { action: 'ADD', mediaId: null },
+              after: {
+                action: 'ADD',
+                mediaId: propertyMediaId,
+                mediaType: upload.mediaType,
+              },
+            });
+          }
+        }
       });
       await this.storage
         .remove(upload.originalStorageKey)
@@ -459,6 +519,143 @@ export class MediaProcessingService {
           ? 'image/jpeg'
           : (upload.outputMimeType ?? 'application/octet-stream'),
     };
+  }
+
+  async deleteMedia(
+    userId: string,
+    propertyId: string,
+    mediaId: string,
+  ) {
+    const existing = await this.prisma.propertyMedia.findFirst({
+      where: {
+        id: mediaId,
+        propertyId,
+        property: { brokerUserId: userId },
+      },
+      select: {
+        id: true,
+        type: true,
+        isPublic: true,
+        upload: {
+          select: {
+            id: true,
+            originalStorageKey: true,
+            storageKey: true,
+            thumbnailStorageKey: true,
+          },
+        },
+        property: {
+          select: {
+            listingNumber: true,
+            status: true,
+            dealStatus: true,
+          },
+        },
+      },
+    });
+    if (!existing) {
+      throw new NotFoundException('매물 미디어를 찾을 수 없습니다.');
+    }
+    this.assertMediaEditable(existing.property.status, existing.property.dealStatus);
+    const keys = [
+      existing.upload?.originalStorageKey,
+      existing.upload?.storageKey,
+      existing.upload?.thumbnailStorageKey,
+    ];
+    await this.prisma.$transaction(async (transaction) => {
+      await transaction.$queryRaw(
+        Prisma.sql`SELECT "id" FROM "properties"
+          WHERE "id" = ${propertyId}::uuid FOR UPDATE`,
+      );
+      const current = await transaction.propertyMedia.findFirst({
+        where: {
+          id: mediaId,
+          propertyId,
+          property: { brokerUserId: userId },
+        },
+        select: {
+          id: true,
+          type: true,
+          isPublic: true,
+          upload: { select: { id: true } },
+          property: {
+            select: {
+              listingNumber: true,
+              status: true,
+              dealStatus: true,
+            },
+          },
+        },
+      });
+      if (!current) {
+        throw new ConflictException('미디어가 이미 삭제되었습니다.');
+      }
+      this.assertMediaEditable(current.property.status, current.property.dealStatus);
+      if (
+        current.property.status === PropertyStatus.ACTIVE &&
+        current.type === PropertyMediaType.IMAGE &&
+        current.isPublic
+      ) {
+        const publicImages = await transaction.propertyMedia.count({
+          where: {
+            propertyId,
+            type: PropertyMediaType.IMAGE,
+            isPublic: true,
+          },
+        });
+        if (publicImages <= 1) {
+          throw new ConflictException(
+            '활성 매물의 마지막 공개 이미지는 삭제할 수 없습니다.',
+          );
+        }
+      }
+      await transaction.propertyMedia.delete({ where: { id: mediaId } });
+      if (current.upload) {
+        await transaction.propertyMediaUpload.update({
+          where: { id: current.upload.id },
+          data: {
+            propertyMediaId: null,
+            originalStorageKey: null,
+            storageKey: null,
+            thumbnailStorageKey: null,
+          },
+        });
+      }
+      if (
+        current.property.status === PropertyStatus.ACTIVE &&
+        current.type === PropertyMediaType.IMAGE &&
+        current.isPublic
+      ) {
+        await this.watches.recordChange(transaction, {
+          propertyId,
+          listingNumber: current.property.listingNumber,
+          actorUserId: userId,
+          type: PropertyChangeType.PHOTO,
+          before: {
+            action: 'DELETE',
+            mediaId,
+            mediaType: current.type,
+          },
+          after: { action: 'DELETE', mediaId: null },
+        });
+      }
+      await transaction.auditLog.create({
+        data: {
+          id: createId(),
+          actorId: userId,
+          action: 'PROPERTY_MEDIA.DELETE',
+          targetType: 'PropertyMedia',
+          targetId: mediaId,
+          beforeData: {
+            propertyId,
+            type: current.type,
+            isPublic: current.isPublic,
+          },
+        },
+      });
+    });
+    await this.storage.removeMany(keys);
+    return { id: mediaId, propertyId, deleted: true };
   }
 
   async processImage(work: MediaWorkspace): Promise<ProcessedMedia> {
@@ -607,6 +804,25 @@ export class MediaProcessingService {
           ? '공개 이미지는 처리 대기 항목을 포함해 최대 10개입니다.'
           : '공개 동영상은 처리 대기 항목을 포함해 최대 1개입니다.',
       );
+    }
+  }
+
+  private assertMediaEditable(
+    status: PropertyStatus,
+    dealStatus: PropertyDealStatus,
+  ): void {
+    const draftEditable =
+      status === PropertyStatus.DRAFT || status === PropertyStatus.REJECTED;
+    const editableDealStatuses: PropertyDealStatus[] = [
+      PropertyDealStatus.AVAILABLE,
+      PropertyDealStatus.RESERVED,
+      PropertyDealStatus.CONTRACTING,
+    ];
+    const activeEditable =
+      status === PropertyStatus.ACTIVE &&
+      editableDealStatuses.includes(dealStatus);
+    if (!draftEditable && !activeEditable) {
+      throw new ConflictException('현재 매물 상태에서는 미디어를 변경할 수 없습니다.');
     }
   }
 

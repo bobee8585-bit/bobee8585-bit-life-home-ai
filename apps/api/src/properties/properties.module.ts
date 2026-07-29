@@ -15,6 +15,8 @@ import { AuthModule } from '../auth/auth.module';
 import { LeaseSafetyService } from './lease-safety.service';
 import { SavedPropertySearchesController } from './saved-property-searches.controller';
 import { SavedPropertySearchesService } from './saved-property-searches.service';
+import { PropertyWatchesController } from './property-watches.controller';
+import { PropertyWatchesService } from './property-watches.service';
 
 @Module({
   imports: [DatabaseModule, CurrencyModule, AuthModule],
@@ -24,6 +26,7 @@ import { SavedPropertySearchesService } from './saved-property-searches.service'
     PropertyMediaController,
     PropertyReportsController,
     SavedPropertySearchesController,
+    PropertyWatchesController,
   ],
   providers: [
     PropertiesService,
@@ -34,6 +37,7 @@ import { SavedPropertySearchesService } from './saved-property-searches.service'
     PropertyReportsService,
     LeaseSafetyService,
     SavedPropertySearchesService,
+    PropertyWatchesService,
   ],
   exports: [MediaProcessingService],
 })

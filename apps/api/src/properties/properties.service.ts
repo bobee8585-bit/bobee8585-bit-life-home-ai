@@ -12,6 +12,8 @@ import {
   BrokerageStatus,
   BrokerStatus,
   OwnershipVerificationStatus,
+  PropertyChangeType,
+  PropertyDealStatus,
   PropertyListingType,
   PropertyMediaType,
   Prisma,
@@ -23,6 +25,9 @@ import type { CreatePropertyDto } from './dto/create-property.dto';
 import type { ListPropertyReviewsDto } from './dto/list-property-reviews.dto';
 import type { SearchPropertiesDto } from './dto/search-properties.dto';
 import { CurrencyService } from '../currency/currency.service';
+import type { UpdatePropertyDealStatusDto } from './dto/update-property-deal-status.dto';
+import type { UpdatePropertyPriceDto } from './dto/update-property-price.dto';
+import { PropertyWatchesService } from './property-watches.service';
 
 const propertyInclude = {
   brokerageOffice: { select: { id: true, name: true } },
@@ -44,6 +49,7 @@ export class PropertiesService {
     private readonly prisma: PrismaService,
     private readonly currency: CurrencyService,
     private readonly sensitiveData: SensitiveDataService,
+    private readonly watches: PropertyWatchesService,
   ) {}
 
   async create(userId: string, dto: CreatePropertyDto) {
@@ -319,6 +325,178 @@ export class PropertiesService {
       id: propertyId,
       status: PropertyStatus.PENDING_REVIEW,
       submittedAt: submittedAt.toISOString(),
+    };
+  }
+
+  async updatePrice(
+    userId: string,
+    propertyId: string,
+    dto: UpdatePropertyPriceDto,
+  ) {
+    const price = Number(dto.price);
+    if (!Number.isFinite(price) || price <= 0) {
+      throw new BadRequestException('매물 가격은 0보다 커야 합니다.');
+    }
+    const expectedUpdatedAt = new Date(dto.expectedUpdatedAt);
+    const existing = await this.prisma.property.findFirst({
+      where: {
+        id: propertyId,
+        brokerUserId: userId,
+        status: PropertyStatus.ACTIVE,
+      },
+      select: {
+        id: true,
+        listingNumber: true,
+        price: true,
+        currency: true,
+        updatedAt: true,
+      },
+    });
+    if (!existing) {
+      throw new NotFoundException('활성 상태의 본인 매물을 찾을 수 없습니다.');
+    }
+    const updatedAt = new Date();
+    await this.prisma.$transaction(async (transaction) => {
+      const changed = await transaction.property.updateMany({
+        where: {
+          id: propertyId,
+          brokerUserId: userId,
+          status: PropertyStatus.ACTIVE,
+          updatedAt: expectedUpdatedAt,
+        },
+        data: { price: dto.price, updatedAt },
+      });
+      if (changed.count !== 1) {
+        throw new ConflictException(
+          '매물이 다른 요청에서 변경되었습니다. 최신 정보를 확인해 주세요.',
+        );
+      }
+      await this.watches.recordChange(transaction, {
+        propertyId,
+        listingNumber: existing.listingNumber,
+        actorUserId: userId,
+        type: PropertyChangeType.PRICE,
+        before: {
+          price: existing.price.toString(),
+          currency: existing.currency,
+        },
+        after: { price: dto.price, currency: existing.currency },
+      });
+      await transaction.auditLog.create({
+        data: {
+          id: createId(),
+          actorId: userId,
+          action: 'PROPERTY.PRICE_UPDATE',
+          targetType: 'Property',
+          targetId: propertyId,
+          beforeData: {
+            price: existing.price.toString(),
+            updatedAt: existing.updatedAt.toISOString(),
+          },
+          afterData: { price: dto.price, updatedAt: updatedAt.toISOString() },
+        },
+      });
+    });
+    return {
+      id: propertyId,
+      price: dto.price,
+      currency: existing.currency,
+      updatedAt: updatedAt.toISOString(),
+    };
+  }
+
+  async updateDealStatus(
+    userId: string,
+    propertyId: string,
+    dto: UpdatePropertyDealStatusDto,
+  ) {
+    const expectedUpdatedAt = new Date(dto.expectedUpdatedAt);
+    const existing = await this.prisma.property.findFirst({
+      where: { id: propertyId, brokerUserId: userId },
+      select: {
+        id: true,
+        listingNumber: true,
+        status: true,
+        dealStatus: true,
+        updatedAt: true,
+      },
+    });
+    if (!existing) {
+      throw new NotFoundException('본인 매물을 찾을 수 없습니다.');
+    }
+    if (existing.status !== PropertyStatus.ACTIVE) {
+      throw new ConflictException('활성 상태의 매물만 거래 상태를 변경할 수 있습니다.');
+    }
+    if (!this.allowedDealTransition(existing.dealStatus, dto.dealStatus)) {
+      throw new ConflictException(
+        `${existing.dealStatus} 상태에서 ${dto.dealStatus} 상태로 변경할 수 없습니다.`,
+      );
+    }
+    const publicationStatus =
+      dto.dealStatus === PropertyDealStatus.COMPLETED ||
+      dto.dealStatus === PropertyDealStatus.WITHDRAWN
+        ? PropertyStatus.INACTIVE
+        : PropertyStatus.ACTIVE;
+    const updatedAt = new Date();
+    await this.prisma.$transaction(async (transaction) => {
+      const changed = await transaction.property.updateMany({
+        where: {
+          id: propertyId,
+          brokerUserId: userId,
+          status: existing.status,
+          dealStatus: existing.dealStatus,
+          updatedAt: expectedUpdatedAt,
+        },
+        data: {
+          dealStatus: dto.dealStatus,
+          status: publicationStatus,
+          updatedAt,
+        },
+      });
+      if (changed.count !== 1) {
+        throw new ConflictException(
+          '매물이 다른 요청에서 변경되었습니다. 최신 정보를 확인해 주세요.',
+        );
+      }
+      await this.watches.recordChange(transaction, {
+        propertyId,
+        listingNumber: existing.listingNumber,
+        actorUserId: userId,
+        type: PropertyChangeType.DEAL_STATUS,
+        before: {
+          dealStatus: existing.dealStatus,
+          publicationStatus: existing.status,
+        },
+        after: {
+          dealStatus: dto.dealStatus,
+          publicationStatus,
+        },
+      });
+      await transaction.auditLog.create({
+        data: {
+          id: createId(),
+          actorId: userId,
+          action: 'PROPERTY.DEAL_STATUS_UPDATE',
+          targetType: 'Property',
+          targetId: propertyId,
+          beforeData: {
+            dealStatus: existing.dealStatus,
+            status: existing.status,
+            updatedAt: existing.updatedAt.toISOString(),
+          },
+          afterData: {
+            dealStatus: dto.dealStatus,
+            status: publicationStatus,
+            updatedAt: updatedAt.toISOString(),
+          },
+        },
+      });
+    });
+    return {
+      id: propertyId,
+      dealStatus: dto.dealStatus,
+      publicationStatus,
+      updatedAt: updatedAt.toISOString(),
     };
   }
 
@@ -721,6 +899,35 @@ export class PropertiesService {
     }
   }
 
+  private allowedDealTransition(
+    current: PropertyDealStatus,
+    next: PropertyDealStatus,
+  ): boolean {
+    const transitions: Record<PropertyDealStatus, PropertyDealStatus[]> = {
+      [PropertyDealStatus.AVAILABLE]: [
+        PropertyDealStatus.RESERVED,
+        PropertyDealStatus.CONTRACTING,
+        PropertyDealStatus.COMPLETED,
+        PropertyDealStatus.WITHDRAWN,
+      ],
+      [PropertyDealStatus.RESERVED]: [
+        PropertyDealStatus.AVAILABLE,
+        PropertyDealStatus.CONTRACTING,
+        PropertyDealStatus.COMPLETED,
+        PropertyDealStatus.WITHDRAWN,
+      ],
+      [PropertyDealStatus.CONTRACTING]: [
+        PropertyDealStatus.AVAILABLE,
+        PropertyDealStatus.RESERVED,
+        PropertyDealStatus.COMPLETED,
+        PropertyDealStatus.WITHDRAWN,
+      ],
+      [PropertyDealStatus.COMPLETED]: [],
+      [PropertyDealStatus.WITHDRAWN]: [],
+    };
+    return transitions[current].includes(next);
+  }
+
   private listingNumber(id: string): string {
     return `LH-${new Date().getUTCFullYear()}-${id.replace(/-/g, '').slice(0, 12).toUpperCase()}`;
   }
@@ -754,6 +961,7 @@ export class PropertiesService {
       latitude: { toString(): string } | null;
       longitude: { toString(): string } | null;
       status: PropertyStatus;
+      dealStatus: PropertyDealStatus;
       rejectionReason: string | null;
       submittedAt: Date | null;
       activatedAt: Date | null;
@@ -837,6 +1045,7 @@ export class PropertiesService {
           }
         : {}),
       status: property.status,
+      dealStatus: property.dealStatus,
       ...(includePrivate
         ? {
             rejectionReason: property.rejectionReason,

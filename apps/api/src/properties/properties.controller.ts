@@ -16,6 +16,8 @@ import { MenuAccess } from '../feature-policy/menu-access.decorator';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { SearchPropertiesDto } from './dto/search-properties.dto';
 import { PropertyDisplayDto } from './dto/property-display.dto';
+import { UpdatePropertyDealStatusDto } from './dto/update-property-deal-status.dto';
+import { UpdatePropertyPriceDto } from './dto/update-property-price.dto';
 import { PropertiesService } from './properties.service';
 import { LeaseSafetyService } from './lease-safety.service';
 
@@ -69,6 +71,28 @@ export class PropertiesController {
     @Req() request: AuthenticatedRequest,
   ) {
     return this.properties.submit(request.auth.sub, id);
+  }
+
+  @Permissions('PROPERTY.UPDATE')
+  @MenuAccess('PROPERTY_MANAGE', 'write')
+  @Patch(':id/price')
+  updatePrice(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdatePropertyPriceDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.properties.updatePrice(request.auth.sub, id, dto);
+  }
+
+  @Permissions('PROPERTY.UPDATE')
+  @MenuAccess('PROPERTY_MANAGE', 'write')
+  @Patch(':id/deal-status')
+  updateDealStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdatePropertyDealStatusDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.properties.updateDealStatus(request.auth.sub, id, dto);
   }
 
   @Public()

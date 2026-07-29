@@ -46,6 +46,20 @@ export enum PropertyListingType {
   OWNER_DIRECT = 'OWNER_DIRECT',
 }
 
+export enum PropertyDealStatus {
+  AVAILABLE = 'AVAILABLE',
+  RESERVED = 'RESERVED',
+  CONTRACTING = 'CONTRACTING',
+  COMPLETED = 'COMPLETED',
+  WITHDRAWN = 'WITHDRAWN',
+}
+
+export enum PropertyChangeType {
+  PRICE = 'PRICE',
+  PHOTO = 'PHOTO',
+  DEAL_STATUS = 'DEAL_STATUS',
+}
+
 export interface SavedPropertySearch {
   id: string;
   name: string;
@@ -61,6 +75,35 @@ export interface SavedPropertySearch {
   alertsEnabled: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface PropertyWatch {
+  id: string;
+  alerts: {
+    alertOnPriceChange: boolean;
+    alertOnPhotoChange: boolean;
+    alertOnDealStatusChange: boolean;
+  };
+  property: {
+    id: string;
+    listingNumber: string;
+    title: string;
+    price: string;
+    currency: string;
+    publicationStatus: PropertyStatus;
+    dealStatus: PropertyDealStatus;
+    thumbnailUrl: string | null;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PropertyChangeEvent {
+  id: string;
+  type: PropertyChangeType;
+  before: Record<string, unknown> | null;
+  after: Record<string, unknown> | null;
+  createdAt: string;
 }
 
 export enum OwnershipClaimType {
@@ -485,6 +528,7 @@ export interface PropertySummary {
   rooms: number;
   bathrooms: number;
   city: string;
+  dealStatus: PropertyDealStatus;
   listing: {
     type: PropertyListingType;
     badge: 'DIRECT_OWNER' | 'LICENSED_BROKER';
@@ -591,6 +635,13 @@ export interface AppConfig {
     maxPerUser: 20;
     newListingAlerts: true;
     pushOnly: true;
+  };
+  propertyWatches?: {
+    enabled: true;
+    maxPerUser: 200;
+    changeAlerts: Array<'PRICE' | 'PHOTO' | 'DEAL_STATUS'>;
+    pushOnly: true;
+    smsFallback: false;
   };
   version: number;
 }

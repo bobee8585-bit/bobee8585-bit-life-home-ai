@@ -95,7 +95,14 @@ export class AppConfigController {
         newListingAlerts: true,
         pushOnly: true,
       },
-      version: 16,
+      propertyWatches: {
+        enabled: true,
+        maxPerUser: 200,
+        changeAlerts: ['PRICE', 'PHOTO', 'DEAL_STATUS'],
+        pushOnly: true,
+        smsFallback: false,
+      },
+      version: 17,
     };
   }
 

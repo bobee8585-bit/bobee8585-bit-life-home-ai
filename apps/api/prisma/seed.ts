@@ -31,6 +31,7 @@ const roles = [
 
 const permissions = [
   ['PROPERTY.READ', '매물 조회'],
+  ['PROPERTY.WATCH', '관심 매물·변경 알림 관리'],
   ['PROPERTY.SEARCH_SAVE', '매물 검색조건 저장·알림 관리'],
   ['PROPERTY.CREATE', '매물 등록'],
   ['PROPERTY.UPDATE', '매물 수정'],
@@ -100,6 +101,7 @@ async function seedRolesAndPermissions(): Promise<void> {
   const roleAssignments: Record<string, string[]> = {
     GENERAL_USER: [
       'PROPERTY.READ',
+      'PROPERTY.WATCH',
       'PROPERTY.SEARCH_SAVE',
       'PROPERTY.CREATE',
       'PROPERTY.UPDATE',
@@ -116,6 +118,7 @@ async function seedRolesAndPermissions(): Promise<void> {
     ],
     PROPERTY_OWNER: [
       'PROPERTY.READ',
+      'PROPERTY.WATCH',
       'PROPERTY.SEARCH_SAVE',
       'PROPERTY.CREATE',
       'PROPERTY.UPDATE',
@@ -130,6 +133,7 @@ async function seedRolesAndPermissions(): Promise<void> {
     ],
     BROKER: [
       'PROPERTY.READ',
+      'PROPERTY.WATCH',
       'PROPERTY.SEARCH_SAVE',
       'PROPERTY.CREATE',
       'PROPERTY.UPDATE',
@@ -141,6 +145,7 @@ async function seedRolesAndPermissions(): Promise<void> {
     ],
     BROKER_MANAGER: [
       'PROPERTY.READ',
+      'PROPERTY.WATCH',
       'PROPERTY.SEARCH_SAVE',
       'PROPERTY.CREATE',
       'PROPERTY.UPDATE',
@@ -168,6 +173,7 @@ async function seedRolesAndPermissions(): Promise<void> {
     SYSTEM_ADMIN: [
       'ADMIN.DASHBOARD.READ',
       'PROPERTY.READ',
+      'PROPERTY.WATCH',
       'PROPERTY.SEARCH_SAVE',
       'PROPERTY.CREATE',
       'PROPERTY.UPDATE',
@@ -277,7 +283,7 @@ async function seedModulesAndMenus(): Promise<void> {
       name: '관심 매물',
       platform: Platform.USER_WEB,
       route: '/favorites',
-      apiScope: 'PROPERTY.READ',
+      apiScope: 'PROPERTY.WATCH',
       defaultState: MenuState.ACTIVE,
       sortOrder: 20,
     },
