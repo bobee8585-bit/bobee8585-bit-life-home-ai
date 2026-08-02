@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  type AppConfig,
   ContractSafetyRecheckStatus,
   type ExchangeRate,
   MenuState,
@@ -18,6 +19,14 @@ import {
   LeaseSafetyGrade,
   GuaranteeEligibility,
 } from './index';
+
+describe('Discovery configuration', () => {
+  it('keeps comparison and calendar privacy limits explicit', () => {
+    const config = { propertyComparison: { enabled: true, maxItems: 5, commonCurrency: true, detailedLocation: false }, visitCalendar: { enabled: true, maxRangeDays: 92, maxEvents: 500, travelEstimate: 'LOCAL_HAVERSINE', exactLocationAfterConfirmation: true, autoConfirmation: false } } satisfies Partial<AppConfig>;
+    expect(config.propertyComparison.detailedLocation).toBe(false);
+    expect(config.visitCalendar.autoConfirmation).toBe(false);
+  });
+});
 
 const sampleRate: ExchangeRate = {
   baseCurrency: 'KRW',

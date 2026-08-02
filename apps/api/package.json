@@ -1,14 +1,17 @@
 {
   "name": "@lifehome/api",
-  "version": "0.23.0",
+  "version": "0.26.0",
   "private": true,
   "scripts": {
+    "prebuild": "npm run prisma:generate",
     "build": "nest build",
     "dev": "nest start --watch",
     "dev:media-worker": "tsx watch src/media-worker.ts",
     "start": "node dist/main.js",
     "start:media-worker": "node dist/media-worker.js",
+    "pretest": "npm run prisma:generate",
     "test": "vitest run src",
+    "pretypecheck": "npm run prisma:generate",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "prisma:validate": "prisma validate",
     "prisma:generate": "prisma generate",

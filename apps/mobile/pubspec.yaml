@@ -1,7 +1,7 @@
 name: life_home_mobile
 description: LIFE HOME AI Flutter mobile application
 publish_to: "none"
-version: 0.23.0+24
+version: 0.26.0+27
 
 environment:
   sdk: ">=3.6.0 <4.0.0"

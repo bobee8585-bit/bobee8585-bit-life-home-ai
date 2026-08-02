@@ -1,4 +1,4 @@
-# LIFE HOME AI 0.23.0
+# LIFE HOME AI 0.26.0
 
 LIFE HOME AI 부동산 플랫폼의 첫 실행 가능한 모노레포입니다.
 
@@ -118,6 +118,17 @@ GET  /v1/property-watches/:id/changes
 POST /v1/properties/:propertyId/watch
 PATCH /v1/property-watches/:id
 DELETE /v1/property-watches/:id
+POST /v1/properties/:propertyId/recent-view
+GET  /v1/property-browsing/recent-views
+DELETE /v1/property-browsing/recent-views
+GET  /v1/property-browsing/recent-searches
+POST /v1/property-browsing/recent-searches
+DELETE /v1/property-browsing/recent-searches
+GET  /v1/property-browsing/continue
+GET  /v1/property-comparisons
+POST /v1/property-comparisons
+DELETE /v1/property-comparisons/:propertyId
+GET  /v1/visit-calendar
 PATCH /v1/properties/:id/price
 PATCH /v1/properties/:id/deal-status
 DELETE /v1/properties/:propertyId/media/:mediaId

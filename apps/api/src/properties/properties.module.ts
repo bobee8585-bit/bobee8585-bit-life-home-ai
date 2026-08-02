@@ -17,6 +17,10 @@ import { SavedPropertySearchesController } from './saved-property-searches.contr
 import { SavedPropertySearchesService } from './saved-property-searches.service';
 import { PropertyWatchesController } from './property-watches.controller';
 import { PropertyWatchesService } from './property-watches.service';
+import { PropertyBrowsingController } from './property-browsing.controller';
+import { PropertyBrowsingService } from './property-browsing.service';
+import { PropertyComparisonsController } from './property-comparisons.controller';
+import { PropertyComparisonsService } from './property-comparisons.service';
 
 @Module({
   imports: [DatabaseModule, CurrencyModule, AuthModule],
@@ -27,6 +31,8 @@ import { PropertyWatchesService } from './property-watches.service';
     PropertyReportsController,
     SavedPropertySearchesController,
     PropertyWatchesController,
+    PropertyBrowsingController,
+    PropertyComparisonsController,
   ],
   providers: [
     PropertiesService,
@@ -38,6 +44,8 @@ import { PropertyWatchesService } from './property-watches.service';
     LeaseSafetyService,
     SavedPropertySearchesService,
     PropertyWatchesService,
+    PropertyBrowsingService,
+    PropertyComparisonsService,
   ],
   exports: [MediaProcessingService],
 })

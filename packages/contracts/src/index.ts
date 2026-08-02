@@ -643,6 +643,26 @@ export interface AppConfig {
     pushOnly: true;
     smsFallback: false;
   };
+  propertyBrowsing?: {
+    enabled: true;
+    maxRecentViews: 100;
+    maxRecentSearches: 50;
+    retentionDays: 90;
+  };
+  propertyComparison?: {
+    enabled: true;
+    maxItems: 5;
+    commonCurrency: true;
+    detailedLocation: false;
+  };
+  visitCalendar?: {
+    enabled: true;
+    maxRangeDays: 92;
+    maxEvents: 500;
+    travelEstimate: 'LOCAL_HAVERSINE';
+    exactLocationAfterConfirmation: true;
+    autoConfirmation: false;
+  };
   version: number;
 }
 
